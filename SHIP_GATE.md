@@ -60,10 +60,10 @@ registry, so the `[npm]` publishing lines are skipped with that reason.
 
 ## E. Identity (soft gate — does not block ship)
 
-- [ ] `[all]` Logo in README header
-- [ ] `[all]` Translations (8 languages)
-- [ ] `[org]` Landing page (@mcptoolshop/site-theme)
-- [ ] `[all]` GitHub repo metadata: description, homepage, topics
+- [x] `[all]` Logo in README header — served from the org's asset repository, verified live (2026-09-30)
+- [x] `[all]` Translations (8 languages) — English plus ja, zh, es, fr, hi, it, pt-BR (2026-09-30)
+- [x] `[org]` Landing page (@mcptoolshop/site-theme) — https://mcp-tool-shop-org.github.io/housekeeping/ with the handbook at /handbook/, verified live (2026-09-30)
+- [x] `[all]` GitHub repo metadata: description, homepage, topics (2026-09-30)
 
 ---
 

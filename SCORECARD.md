@@ -48,8 +48,8 @@ A–D line checked or skipped with a reason; the executed gates `security-docs`,
 | B. Error Handling | 3/10 | 9/10 |
 | C. Operator Docs | 6/10 | 9/10 |
 | D. Shipping Hygiene | 5/10 | 9/10 |
-| E. Identity (soft) | 0/10 | 9/10 |
-| **Overall** | 22/50 | **46/50** |
+| E. Identity (soft) | 0/10 | 10/10 |
+| **Overall** | 22/50 | **47/50** |
 
 The points not taken, and why:
 
@@ -58,7 +58,6 @@ The points not taken, and why:
 - **C, one point.** macOS is documented as untested, because it is.
 - **D, one point.** The version-to-tag check is executed at release time; the
   tag is cut from the commit this file describes.
-- **E, one point.** The landing page and handbook are deployed by the public
-  repository's own workflow, and the logo is served from the org's asset
-  repository; both are verified after the publication that carries this file,
-  not before it.
+- **E.** The landing page, the handbook and the logo were verified live after
+  the publication of 2026-09-30, and `npx @mcptoolshop/shipcheck audit` on
+  this tree reports every line checked or skipped.
