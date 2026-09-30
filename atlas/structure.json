@@ -1,0 +1,3765 @@
+{
+  "boundaries": [
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "0415b59f78caafe5d3ded1c4cef3b8899205c693cb5a4ac392cd2d4373c25e58",
+          "path": ".github/workflows/ci.yml"
+        },
+        {
+          "hash": "3b0b6f321adacfcf28811e4e5cfb582088110018cf95f67d81bdc14ca00a3226",
+          "path": ".github/workflows/pages.yml"
+        }
+      ],
+      "globs": [
+        ".github/**"
+      ],
+      "importConfidence": "full",
+      "name": ".github",
+      "origin": "authored",
+      "role": "config",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "e87621b787352c2ea0b2cac3fe5edf39f182a8ff7b6e78273ec6919467a653d7",
+          "path": ".gitignore"
+        },
+        {
+          "hash": "ddd85765951a8b663d11a2df3c7f8031dfe4a89105390ec2d08281ef0ba80ff3",
+          "path": "CHANGELOG.md"
+        },
+        {
+          "hash": "367e5141e4f5884e5791c4021f33a9faa958840a5decf44e1b273a87aad1c459",
+          "path": "LICENSE"
+        },
+        {
+          "hash": "ba580e943b665613fb6bfd1a00da29144268798e3e0b5b8c74279ecf78128175",
+          "path": "README.es.md"
+        },
+        {
+          "hash": "55deac862d3b9a8db9c147269e9e74f8f320ab5ab7a538bcc0bfcb0a910cf0a9",
+          "path": "README.fr.md"
+        },
+        {
+          "hash": "5d1fb6b47919c99ce97c4f2dbf92038e2effabd86722f42e4c25e57378fa3d8f",
+          "path": "README.hi.md"
+        },
+        {
+          "hash": "bc2c88f587b78ba28b67487fb4355d1bbc525f186192f40c03f969489c13be3d",
+          "path": "README.it.md"
+        },
+        {
+          "hash": "960c167048cb8395b1ce752602d4b18112cc4802f045b64eea35e3c3f66a570f",
+          "path": "README.ja.md"
+        },
+        {
+          "hash": "bedcb13567e43a09225a1595c847de07874321a933b465e33993b55cf7fd511f",
+          "path": "README.md"
+        },
+        {
+          "hash": "59d4b9247b58ddb5b5dc2b6cf3f1b2cb91ac329971981272bbe2d15fab87f7ab",
+          "path": "README.pt-BR.md"
+        },
+        {
+          "hash": "8c1dd9308fa10a2b5db4ec0909dd3eb9cc8fdedfc27d656cc414e9ae9825876e",
+          "path": "README.zh.md"
+        },
+        {
+          "hash": "a2f3293788dde3e98b0d200f32bf9087859b60f47428a5d28862cf60377c5ef4",
+          "path": "SCORECARD.md"
+        },
+        {
+          "hash": "c28f4a9b3e49e9734cf96462f8e8d0750a5cc0596756e6da26ae74b235c4e402",
+          "path": "SECURITY.md"
+        },
+        {
+          "hash": "6111523d56280e3b2fdf8e71015de444718eacdf8b729a33113e4b1b25528012",
+          "path": "SHIP_GATE.md"
+        },
+        {
+          "hash": "3e74554fe48406e2eca13b46a708533b15bd9c6930f8cf989f8fc43e362a821d",
+          "path": "housekeeping.config.example.json"
+        },
+        {
+          "hash": "5556287f6696e1eeacf8e5717a27823f9d34ff69d7af0395a472cad04f7ca113",
+          "path": "package-lock.json"
+        },
+        {
+          "hash": "0c27b9d7a8d68844c69e8ae0833b20b1e198f19dcd1a9edc282150f967bcf3b3",
+          "path": "package.json"
+        }
+      ],
+      "globs": [
+        "*"
+      ],
+      "importConfidence": "full",
+      "name": "root",
+      "origin": "authored",
+      "role": "config",
+      "testedBy": 1,
+      "testedByScript": true,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "0ad5bb24abfa6369aa722ae0d1e320c38b1e3b350cfc043c295195599d56b4b2",
+          "path": "rules/atlas-map.md"
+        },
+        {
+          "hash": "0423bfa9d1440fdb945c92fb84a7bc625a81167a09ccd41447fe285a4f284c95",
+          "path": "rules/github-actions.md"
+        },
+        {
+          "hash": "a425afc4a5ea820d593a41250a10c85736d9bc1bb5f482f825e9a3ff5491aa1a",
+          "path": "rules/repo-first.md"
+        },
+        {
+          "hash": "8ab817ef448b37b57857b50cfde4d20c10dbe14a9f4981d942458f22e5090d0c",
+          "path": "rules/shipcheck-product-standards.md"
+        }
+      ],
+      "globs": [
+        "rules/**"
+      ],
+      "importConfidence": "full",
+      "name": "rules",
+      "origin": "authored",
+      "role": "docs",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "f14e96c78422cd3de39964f9d68bcee362c14e426e1dd18bf679e0e002822d3d",
+          "path": "site/astro.config.mjs"
+        },
+        {
+          "hash": "c0321e40cfd3602db512c0111fc3dcbad9bee1502187df51967cd7911b859dce",
+          "path": "site/package-lock.json"
+        },
+        {
+          "hash": "9c39e620ebae2c5718ecd8c6188bd3451409a614ec8f5308dc15d5fd886e5b91",
+          "path": "site/package.json"
+        },
+        {
+          "hash": "db3c76ae1d22efa9f6c9a1cf3d8b1f45a5e94210d34e4b518006018e7d3d097d",
+          "path": "site/public/favicon.svg"
+        },
+        {
+          "hash": "37b14249a3acc5e23f86e219515399dccd1d3bc2d3415be1d783b4b3a38fb2f8",
+          "path": "site/src/assets/logo.png"
+        },
+        {
+          "hash": "50f2e71646407ea84c14bee3035e06823264cfecedd215cd173ec6b8346fc9d0",
+          "path": "site/src/assets/logo.svg"
+        },
+        {
+          "constantOnly": true,
+          "hash": "ee756dfba4122d2acc94a39b2555d9f200fff56a87a8c0b10f9cd01df26a8b62",
+          "path": "site/src/content.config.ts"
+        },
+        {
+          "hash": "2b0a5f782dabe80a4cfa5908fb7c1340abaa64d8310d2caa5ec3947f2f4cf449",
+          "path": "site/src/content/docs/handbook/architecture.md"
+        },
+        {
+          "hash": "d8e7a4a643150669f3a042f6c7d97760d1f84053a7c874341de6b89f7d01a43c",
+          "path": "site/src/content/docs/handbook/configuration.md"
+        },
+        {
+          "hash": "2163f50a521ea8a146aa3e28e5ae3d171b6425a701178c8fcd0864b6868a2512",
+          "path": "site/src/content/docs/handbook/findings.md"
+        },
+        {
+          "hash": "7ba2401cba9abe6b3bf1c6b906f925442961197e15e25b769a55425e44f74593",
+          "path": "site/src/content/docs/handbook/getting-started.md"
+        },
+        {
+          "hash": "71e71f56f020db16aaf59944e7c091aa38af6c00f94d713f199d56ca18ef00d0",
+          "path": "site/src/content/docs/handbook/index.md"
+        },
+        {
+          "hash": "8c9e293027bbcc3261788717a562cf80d6fca724ecceb606e2dfefc8d7af3711",
+          "path": "site/src/content/docs/handbook/reference.md"
+        },
+        {
+          "hash": "d98e4bf9dfc283c9f166f96aad5dd3f16bf2643e64177c3aae4efe01bcb98954",
+          "path": "site/src/content/docs/handbook/security.md"
+        },
+        {
+          "hash": "8163cfcf72395d52a16ba37a8fc4c9fd9fc6897100d9029aa70b487c9693f48c",
+          "path": "site/src/content/docs/handbook/usage.md"
+        },
+        {
+          "hash": "4fb84a646c4d833c33f4058e1ed1775849e855c65e5adb7e45d2a633674bd603",
+          "importOrder": [
+            "site/src/styles/global.css",
+            "site/src/site-config.ts"
+          ],
+          "importsFiles": [
+            "site/src/site-config.ts",
+            "site/src/styles/global.css"
+          ],
+          "path": "site/src/pages/index.astro"
+        },
+        {
+          "hash": "21c815237bf6b2546e30a6fb23a4e5d70ac8aba396c6c5679d9c62efd24cd54a",
+          "path": "site/src/site-config.ts"
+        },
+        {
+          "hash": "29ee8df91833e694bdba973126b34a6177de4cf01dab6d9ef7d3126e8e2b67fb",
+          "path": "site/src/styles/global.css"
+        },
+        {
+          "hash": "caf3bea3424477e9528b80490e442ff4fad4ccc7562df9457497382c5bd62339",
+          "path": "site/src/styles/starlight-custom.css"
+        },
+        {
+          "hash": "b5b0a5b04a14cddd7713c5e1c82e86c79c17c2f86b170e26e9b170b3d5e01cd9",
+          "path": "site/tsconfig.json"
+        }
+      ],
+      "globs": [
+        "site/**"
+      ],
+      "importConfidence": "full",
+      "name": "site",
+      "origin": "authored",
+      "role": "site",
+      "testedBy": 0,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 3,
+      "dynamicSpawns": 5,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [
+        "src/cli.mjs"
+      ],
+      "externals": 0,
+      "files": [
+        {
+          "entry": "analyze",
+          "entryRule": 1,
+          "exports": [
+            "analyze",
+            "atlasMapFindings",
+            "classifyRequiredChecks",
+            "deploymentPatternMatches",
+            "environmentAdmitsBranch",
+            "failedStepNote",
+            "healthScores",
+            "jobBaseName",
+            "matrixWidths",
+            "uninvokedCheckers"
+          ],
+          "failurePaths": [
+            {
+              "in": "analyze",
+              "kind": "catch",
+              "line": 461
+            }
+          ],
+          "hash": "b60d10d909df017a1743e742fd3aba7dc5a5d99d69ee09cd6b1e93554d15969c",
+          "importsFiles": [
+            "src/config.mjs",
+            "src/load.mjs"
+          ],
+          "path": "src/analyze.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 223,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 224,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "isOlder"
+            },
+            {
+              "calls": [
+                {
+                  "line": 271,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 224,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "isOlder"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "atlasMapFindings"
+            },
+            {
+              "calls": [
+                {
+                  "line": 369,
+                  "name": "prepare",
+                  "target": null
+                },
+                {
+                  "line": 271,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "atlasMapFindings"
+                },
+                {
+                  "line": 224,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "isOlder"
+                },
+                {
+                  "line": 1097,
+                  "name": "rangeAdmits039",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 1225,
+                  "name": "prepare",
+                  "target": null
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "analyze"
+            },
+            {
+              "calls": [
+                {
+                  "line": 1230,
+                  "name": "prepare",
+                  "target": null
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "healthScores"
+            }
+          ]
+        },
+        {
+          "entry": "main",
+          "entryRule": 1,
+          "failurePaths": [
+            {
+              "in": "latestSid",
+              "kind": "throw",
+              "line": 22
+            },
+            {
+              "in": "repo",
+              "kind": "throw",
+              "line": 145
+            },
+            {
+              "in": "refresh",
+              "kind": "throw",
+              "line": 188
+            },
+            {
+              "in": "refresh",
+              "kind": "throw",
+              "line": 192
+            },
+            {
+              "in": "load",
+              "kind": "catch",
+              "line": 221
+            },
+            {
+              "in": "load",
+              "kind": "throw",
+              "line": 222
+            },
+            {
+              "in": "report",
+              "kind": "throw",
+              "line": 233
+            },
+            {
+              "in": "sql",
+              "kind": "catch",
+              "line": 245
+            },
+            {
+              "in": "sql",
+              "kind": "throw",
+              "line": 245
+            },
+            {
+              "in": "main",
+              "kind": "throw",
+              "line": 304
+            },
+            {
+              "kind": "catch",
+              "line": 310
+            },
+            {
+              "kind": "catch",
+              "line": 313
+            }
+          ],
+          "hash": "691bc4fea222c1b8c669387dfda9060884b13bcf0651520bbd9c674394b5db2c",
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/collect.mjs",
+            "src/config.mjs",
+            "src/errors.mjs",
+            "src/gh.mjs",
+            "src/load.mjs",
+            "src/log.mjs",
+            "src/report.mjs"
+          ],
+          "path": "src/cli.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "branch": "!row?.id",
+                  "line": 22,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "latestSid"
+            },
+            {
+              "calls": [
+                {
+                  "line": 163,
+                  "name": "resolveOrg",
+                  "target": {
+                    "file": "src/config.mjs"
+                  }
+                },
+                {
+                  "line": 164,
+                  "name": "openDb",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 180,
+                  "name": "DRILL_BUDGET",
+                  "passed": true,
+                  "target": {
+                    "file": "src/collect.mjs"
+                  }
+                },
+                {
+                  "line": 179,
+                  "name": "preflight",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 196,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "line": 198,
+                  "name": "collect",
+                  "target": {
+                    "file": "src/collect.mjs"
+                  }
+                },
+                {
+                  "line": 199,
+                  "name": "loadSnapshot",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 200,
+                  "name": "analyze",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  }
+                },
+                {
+                  "line": 201,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "line": 202,
+                  "name": "writeReport",
+                  "target": {
+                    "file": "src/report.mjs"
+                  }
+                },
+                {
+                  "line": 202,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "line": 205,
+                  "name": "sweepGaps",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "refresh"
+            },
+            {
+              "calls": [
+                {
+                  "line": 217,
+                  "name": "openDb",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 218,
+                  "name": "latestSnapshotFile",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 222,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                },
+                {
+                  "line": 225,
+                  "name": "loadSnapshot",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 226,
+                  "name": "analyze",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  }
+                },
+                {
+                  "line": 227,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "load"
+            },
+            {
+              "calls": [
+                {
+                  "line": 231,
+                  "name": "openDb",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "branch": "!row?.id",
+                  "line": 22,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "latestSid"
+                },
+                {
+                  "branch": "!Number.isInteger(sid)",
+                  "line": 233,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                },
+                {
+                  "line": 234,
+                  "name": "writeReport",
+                  "target": {
+                    "file": "src/report.mjs"
+                  }
+                },
+                {
+                  "line": 234,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "report"
+            },
+            {
+              "calls": [
+                {
+                  "line": 238,
+                  "name": "readOnlyQuery",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                },
+                {
+                  "line": 241,
+                  "name": "openDb",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 242,
+                  "name": "DB_PATH",
+                  "passed": true,
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 245,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "sql"
+            },
+            {
+              "calls": [
+                {
+                  "line": 302,
+                  "name": "levelFromFlags",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "inner": [
+                    {
+                      "branch": "!LEVELS.includes(level)",
+                      "line": 20,
+                      "name": "userError",
+                      "target": {
+                        "file": "src/errors.mjs"
+                      }
+                    }
+                  ],
+                  "line": 302,
+                  "name": "parseLevel",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "inner": [
+                    {
+                      "branch": "!LEVELS.includes(level)",
+                      "line": 20,
+                      "name": "userError",
+                      "target": {
+                        "file": "src/errors.mjs"
+                      },
+                      "via": "parseLevel"
+                    }
+                  ],
+                  "line": 302,
+                  "name": "setLevel",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                },
+                {
+                  "branch": "!entry",
+                  "line": 304,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "main"
+            }
+          ]
+        },
+        {
+          "entry": "collect",
+          "entryRule": 1,
+          "exports": [
+            "canonicalJson",
+            "collect",
+            "collectAtlasMaps",
+            "collectDeploySettings",
+            "collectFailedSteps",
+            "deployNeeds",
+            "failedJobs",
+            "failedStepTargets",
+            "failureReason",
+            "recordingFailure",
+            "safeJson",
+            "snapshotFingerprint",
+            "trimAtlasDoor",
+            "trimAtlasMap"
+          ],
+          "failurePaths": [
+            {
+              "in": "safeJson",
+              "kind": "catch",
+              "line": 123
+            },
+            {
+              "in": "latestSnapshotOnDisk",
+              "kind": "catch",
+              "line": 176
+            },
+            {
+              "in": "recordSweep",
+              "kind": "catch",
+              "line": 186
+            },
+            {
+              "in": "recordingFailure",
+              "kind": "catch",
+              "line": 208
+            },
+            {
+              "in": "recordingFailure",
+              "kind": "throw",
+              "line": 214
+            },
+            {
+              "in": "collectRepos",
+              "kind": "catch",
+              "line": 231
+            },
+            {
+              "in": "collectRepos",
+              "kind": "throw",
+              "line": 232
+            },
+            {
+              "in": "collectRepos",
+              "kind": "throw",
+              "line": 238
+            },
+            {
+              "in": "backfillDefaultBranchRuns",
+              "kind": "catch",
+              "line": 323
+            },
+            {
+              "in": "deployNeeds",
+              "kind": "catch",
+              "line": 425
+            },
+            {
+              "in": "readAtlasCache",
+              "kind": "catch",
+              "line": 614
+            },
+            {
+              "in": "atlasFleetVersion",
+              "kind": "catch",
+              "line": 631
+            },
+            {
+              "in": "collectAtlasMaps",
+              "kind": "catch",
+              "line": 673
+            },
+            {
+              "in": "collectAtlasMaps",
+              "kind": "catch",
+              "line": 680
+            },
+            {
+              "in": "refreshMergeable",
+              "kind": "catch",
+              "line": 747
+            },
+            {
+              "in": "collectSecurity",
+              "kind": "catch",
+              "line": 792
+            },
+            {
+              "in": "collectSecurity",
+              "kind": "catch",
+              "line": 809
+            },
+            {
+              "in": "readPackageMapCache",
+              "kind": "catch",
+              "line": 834
+            },
+            {
+              "in": "auditPackageMap",
+              "kind": "throw",
+              "line": 843
+            },
+            {
+              "in": "collectLockfiles",
+              "kind": "catch",
+              "line": 857
+            },
+            {
+              "in": "collectLockfiles",
+              "kind": "catch",
+              "line": 886
+            },
+            {
+              "in": "collectLockfiles",
+              "kind": "catch",
+              "line": 896
+            },
+            {
+              "in": "collectBilling",
+              "kind": "catch",
+              "line": 930
+            },
+            {
+              "in": "readRunCostCache",
+              "kind": "catch",
+              "line": 950
+            },
+            {
+              "in": "collectRunCosts",
+              "kind": "catch",
+              "line": 1059
+            },
+            {
+              "in": "sweep",
+              "kind": "catch",
+              "line": 1153
+            }
+          ],
+          "hash": "4a52578fbc029fa9ff677b0c3cfd3abd67a5f0f0b2145927949916191ce505a9",
+          "importsFiles": [
+            "src/config.mjs",
+            "src/cost.mjs",
+            "src/errors.mjs",
+            "src/gh.mjs",
+            "src/lockfile.mjs",
+            "src/log.mjs",
+            "src/workflow-risks.mjs"
+          ],
+          "path": "src/collect.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "log"
+            },
+            {
+              "calls": [
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "recordSweep"
+            },
+            {
+              "calls": [
+                {
+                  "line": 230,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 232,
+                  "name": "looksTransient",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectRepos"
+            },
+            {
+              "calls": [
+                {
+                  "line": 270,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectWorkflowFiles"
+            },
+            {
+              "calls": [
+                {
+                  "line": 318,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "backfillDefaultBranchRuns"
+            },
+            {
+              "calls": [
+                {
+                  "line": 331,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 332,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectRuns"
+            },
+            {
+              "calls": [
+                {
+                  "line": 400,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectFailedSteps"
+            },
+            {
+              "calls": [
+                {
+                  "line": 429,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 431,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "deployNeeds"
+            },
+            {
+              "calls": [
+                {
+                  "line": 429,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 431,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 474,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectDeploySettings"
+            },
+            {
+              "calls": [
+                {
+                  "line": 656,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectAtlasMaps"
+            },
+            {
+              "calls": [
+                {
+                  "line": 694,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectNpm"
+            },
+            {
+              "calls": [
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                },
+                {
+                  "line": 746,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "refreshMergeable"
+            },
+            {
+              "calls": [
+                {
+                  "line": 776,
+                  "name": "restPaged",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                },
+                {
+                  "line": 799,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 804,
+                  "name": "restStatus",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 807,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectSecurity"
+            },
+            {
+              "calls": [
+                {
+                  "line": 853,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 856,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 861,
+                  "name": "lockfilePathsFromTree",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  }
+                },
+                {
+                  "line": 868,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 871,
+                  "name": "packageMapFromLockfile",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  }
+                },
+                {
+                  "line": 871,
+                  "name": "devOnlyPackages",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  }
+                },
+                {
+                  "line": 878,
+                  "name": "advisoriesFromBulk",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  }
+                },
+                {
+                  "line": 883,
+                  "name": "countBySeverity",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectLockfiles"
+            },
+            {
+              "calls": [
+                {
+                  "line": 915,
+                  "name": "getUTCFullYear",
+                  "target": null
+                },
+                {
+                  "line": 915,
+                  "name": "getUTCMonth",
+                  "target": null
+                },
+                {
+                  "line": 917,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectBilling"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!billing.ok",
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                },
+                {
+                  "line": 977,
+                  "name": "ratesFromUsage",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  }
+                },
+                {
+                  "line": 978,
+                  "name": "withFallback",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  }
+                },
+                {
+                  "line": 999,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 1002,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 1034,
+                  "name": "priceRun",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  }
+                },
+                {
+                  "line": 1047,
+                  "name": "runnerClass",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectRunCosts"
+            },
+            {
+              "calls": [
+                {
+                  "line": 1086,
+                  "name": "whoami",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "sweep"
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                },
+                {
+                  "line": 230,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRepos"
+                },
+                {
+                  "line": 232,
+                  "name": "looksTransient",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRepos"
+                },
+                {
+                  "line": 746,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "refreshMergeable"
+                },
+                {
+                  "line": 331,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRuns"
+                },
+                {
+                  "line": 332,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRuns"
+                },
+                {
+                  "line": 400,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectFailedSteps"
+                },
+                {
+                  "line": 429,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 431,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 474,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectDeploySettings"
+                },
+                {
+                  "line": 776,
+                  "name": "restPaged",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 799,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 804,
+                  "name": "restStatus",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 807,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 853,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 856,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 861,
+                  "name": "lockfilePathsFromTree",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 868,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 871,
+                  "name": "packageMapFromLockfile",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 871,
+                  "name": "devOnlyPackages",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 878,
+                  "name": "advisoriesFromBulk",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 883,
+                  "name": "countBySeverity",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 656,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectAtlasMaps"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "collect",
+              "truncated": true
+            },
+            {
+              "calls": [
+                {
+                  "line": 1086,
+                  "name": "whoami",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                },
+                {
+                  "line": 230,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRepos"
+                },
+                {
+                  "line": 232,
+                  "name": "looksTransient",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRepos"
+                },
+                {
+                  "line": 746,
+                  "name": "graphql",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "refreshMergeable"
+                },
+                {
+                  "line": 331,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRuns"
+                },
+                {
+                  "line": 332,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectRuns"
+                },
+                {
+                  "line": 400,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectFailedSteps"
+                },
+                {
+                  "line": 429,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 431,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "deployNeeds"
+                },
+                {
+                  "line": 474,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectDeploySettings"
+                },
+                {
+                  "line": 776,
+                  "name": "restPaged",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 799,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 804,
+                  "name": "restStatus",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 807,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectSecurity"
+                },
+                {
+                  "line": 853,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 856,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 861,
+                  "name": "lockfilePathsFromTree",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 868,
+                  "name": "rest",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 871,
+                  "name": "packageMapFromLockfile",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 871,
+                  "name": "devOnlyPackages",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 878,
+                  "name": "advisoriesFromBulk",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 883,
+                  "name": "countBySeverity",
+                  "target": {
+                    "file": "src/lockfile.mjs"
+                  },
+                  "via": "collectLockfiles"
+                },
+                {
+                  "line": 656,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  },
+                  "via": "collectAtlasMaps"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "sweep",
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "entry": "parseConfig",
+          "entryRule": 4,
+          "exports": [
+            "loadConfig",
+            "parseConfig",
+            "resolveOrg"
+          ],
+          "failurePaths": [
+            {
+              "in": "parseConfig",
+              "kind": "catch",
+              "line": 35
+            },
+            {
+              "in": "parseConfig",
+              "kind": "throw",
+              "line": 35
+            },
+            {
+              "in": "parseConfig",
+              "kind": "throw",
+              "line": 37
+            },
+            {
+              "in": "parseConfig",
+              "kind": "throw",
+              "line": 41
+            },
+            {
+              "in": "parseConfig",
+              "kind": "throw",
+              "line": 45
+            },
+            {
+              "in": "parseConfig",
+              "kind": "throw",
+              "line": 49
+            },
+            {
+              "in": "loadConfig",
+              "kind": "catch",
+              "line": 58
+            },
+            {
+              "in": "loadConfig",
+              "kind": "throw",
+              "line": 60
+            },
+            {
+              "in": "resolveOrg",
+              "kind": "throw",
+              "line": 72
+            }
+          ],
+          "hash": "e5713d8b16bf3aa0d9d0316f3bfb30814c2249133f9ce8cd6b7949d62cef89ca",
+          "importsFiles": [
+            "src/errors.mjs"
+          ],
+          "path": "src/config.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 22,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "invalid"
+            },
+            {
+              "calls": [
+                {
+                  "line": 22,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "invalid"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "parseConfig"
+            },
+            {
+              "calls": [
+                {
+                  "line": 22,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "invalid"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "loadConfig"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!org",
+                  "line": 72,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "resolveOrg"
+            }
+          ]
+        },
+        {
+          "exports": [
+            "billableMinutes",
+            "priceRun",
+            "ratesFromUsage",
+            "reconcile",
+            "reconcileRepos",
+            "runnerClass",
+            "withFallback"
+          ],
+          "hash": "b3c6c4e85674e6778cc2584b6b81ca96db402626cd87add26e34b8f66e232437",
+          "path": "src/cost.mjs"
+        },
+        {
+          "exports": [
+            "exitCodeFor",
+            "formatError",
+            "readOnlyQuery",
+            "structured",
+            "sweepGaps",
+            "userError"
+          ],
+          "failurePaths": [
+            {
+              "in": "readOnlyQuery",
+              "kind": "throw",
+              "line": 83
+            },
+            {
+              "in": "readOnlyQuery",
+              "kind": "throw",
+              "line": 85
+            },
+            {
+              "in": "readOnlyQuery",
+              "kind": "throw",
+              "line": 88
+            }
+          ],
+          "hash": "21b9773ab0f7149088606dcdc1266e6111cd2352be659c728789e63b74a5a095",
+          "path": "src/errors.mjs"
+        },
+        {
+          "entry": "graphql",
+          "entryRule": 4,
+          "exports": [
+            "backoffMs",
+            "budget",
+            "graphql",
+            "looksRateLimited",
+            "looksTransient",
+            "pMap",
+            "parseIncluded",
+            "preflight",
+            "resolveGh",
+            "rest",
+            "restPaged",
+            "restStatus",
+            "restWithStatus",
+            "whoami"
+          ],
+          "failurePaths": [
+            {
+              "in": "resolveGh",
+              "kind": "catch",
+              "line": 23
+            },
+            {
+              "in": "preflight",
+              "kind": "catch",
+              "line": 131
+            },
+            {
+              "in": "ghExec",
+              "kind": "catch",
+              "line": 153
+            },
+            {
+              "in": "ghExec",
+              "kind": "throw",
+              "line": 159
+            },
+            {
+              "in": "ghExec",
+              "kind": "throw",
+              "line": 164
+            },
+            {
+              "in": "ghExec",
+              "kind": "throw",
+              "line": 167
+            },
+            {
+              "in": "graphql",
+              "kind": "throw",
+              "line": 186
+            },
+            {
+              "in": "restStatus",
+              "kind": "catch",
+              "line": 212
+            },
+            {
+              "in": "restStatus",
+              "kind": "throw",
+              "line": 216
+            },
+            {
+              "in": "parseIncluded",
+              "kind": "catch",
+              "line": 241
+            },
+            {
+              "in": "restWithStatus",
+              "kind": "catch",
+              "line": 260
+            },
+            {
+              "in": "restWithStatus",
+              "kind": "throw",
+              "line": 261
+            },
+            {
+              "in": "whoami",
+              "kind": "catch",
+              "line": 269
+            },
+            {
+              "in": "pMap",
+              "kind": "catch",
+              "line": 281
+            }
+          ],
+          "hash": "422e4834ab3bc268ccda2ef01d80bcf41c405ac3db422fe3a7c84dffa28f1785",
+          "importsFiles": [
+            "src/log.mjs"
+          ],
+          "path": "src/gh.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "ghExec"
+            },
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "ghExec"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "graphql"
+            },
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "ghExec"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "rest"
+            },
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "ghExec"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "restPaged"
+            },
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "ghExec"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "restStatus"
+            },
+            {
+              "calls": [
+                {
+                  "line": 149,
+                  "name": "verbose",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "ghExec"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "restWithStatus"
+            }
+          ]
+        },
+        {
+          "entry": "loadSnapshot",
+          "entryRule": 1,
+          "exports": [
+            "compareSemver",
+            "deploySettingsRows",
+            "environmentPolicy",
+            "failedStepRows",
+            "hasAtlasMap",
+            "inspectWorkflow",
+            "isWorkspaceRoot",
+            "latestSnapshotFile",
+            "loadSnapshot",
+            "openDb",
+            "pagesEnabled",
+            "parseSemver",
+            "rangeAdmits039",
+            "rollupNames",
+            "sidebarShape",
+            "starlightRange"
+          ],
+          "failurePaths": [
+            {
+              "in": "openDb",
+              "kind": "catch",
+              "line": 77
+            },
+            {
+              "in": "openDb",
+              "kind": "throw",
+              "line": 94
+            },
+            {
+              "in": "inspectWorkflow",
+              "kind": "catch",
+              "line": 116
+            },
+            {
+              "in": "failedStepRows",
+              "kind": "catch",
+              "line": 433
+            },
+            {
+              "in": "loadSnapshot",
+              "kind": "catch",
+              "line": 472
+            },
+            {
+              "in": "loadSnapshot",
+              "kind": "throw",
+              "line": 474
+            },
+            {
+              "in": "latestSnapshotFile",
+              "kind": "catch",
+              "line": 877
+            },
+            {
+              "in": "latestSnapshotFile",
+              "kind": "throw",
+              "line": 877
+            },
+            {
+              "in": "latestSnapshotFile",
+              "kind": "throw",
+              "line": 878
+            }
+          ],
+          "hash": "4c8f773ccd41fc2b16c0107a1345382f41ee25a3b925463716087c8c1ecdc497",
+          "importsFiles": [
+            "src/collect.mjs",
+            "src/cost.mjs",
+            "src/errors.mjs",
+            "src/workflow-risks.mjs"
+          ],
+          "path": "src/load.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 185,
+                  "name": "editsWorkflowFiles",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 186,
+                  "name": "prCreateWithDefaultToken",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 188,
+                  "name": "auditSteps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 192,
+                  "name": "atlasCheckPins",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 195,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 197,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 201,
+                  "name": "jobRunsOnDefaultBranch",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "inspectWorkflow"
+            },
+            {
+              "calls": [
+                {
+                  "line": 322,
+                  "name": "safeJson",
+                  "target": {
+                    "file": "src/collect.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "starlightRange"
+            },
+            {
+              "calls": [
+                {
+                  "line": 446,
+                  "name": "resolveFailedStep",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "failedStepRows"
+            },
+            {
+              "calls": [
+                {
+                  "line": 467,
+                  "name": "exec",
+                  "target": null
+                },
+                {
+                  "line": 479,
+                  "name": "prepare",
+                  "target": null,
+                  "via": "ins"
+                },
+                {
+                  "line": 540,
+                  "name": "safeJson",
+                  "target": {
+                    "file": "src/collect.mjs"
+                  },
+                  "via": "loadSnapshotInner"
+                },
+                {
+                  "line": 185,
+                  "name": "editsWorkflowFiles",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 186,
+                  "name": "prCreateWithDefaultToken",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 188,
+                  "name": "auditSteps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 192,
+                  "name": "atlasCheckPins",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 195,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 197,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 201,
+                  "name": "jobRunsOnDefaultBranch",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 446,
+                  "name": "resolveFailedStep",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "failedStepRows"
+                },
+                {
+                  "line": 851,
+                  "name": "reconcileRepos",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  },
+                  "via": "loadSnapshotInner"
+                },
+                {
+                  "line": 470,
+                  "name": "exec",
+                  "target": null
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "loadSnapshot"
+            },
+            {
+              "calls": [
+                {
+                  "line": 479,
+                  "name": "prepare",
+                  "target": null,
+                  "via": "ins"
+                },
+                {
+                  "line": 540,
+                  "name": "safeJson",
+                  "target": {
+                    "file": "src/collect.mjs"
+                  }
+                },
+                {
+                  "line": 185,
+                  "name": "editsWorkflowFiles",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 186,
+                  "name": "prCreateWithDefaultToken",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 188,
+                  "name": "auditSteps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 192,
+                  "name": "atlasCheckPins",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 195,
+                  "name": "pagesDeployJobs",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 197,
+                  "name": "jobEnvironment",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 201,
+                  "name": "jobRunsOnDefaultBranch",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 446,
+                  "name": "resolveFailedStep",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "failedStepRows"
+                },
+                {
+                  "line": 851,
+                  "name": "reconcileRepos",
+                  "target": {
+                    "file": "src/cost.mjs"
+                  }
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "loadSnapshotInner"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!files.length",
+                  "line": 878,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "latestSnapshotFile"
+            }
+          ]
+        },
+        {
+          "exports": [
+            "advisoriesFromBulk",
+            "countBySeverity",
+            "devOnlyPackages",
+            "lockfilePathsFromTree",
+            "normaliseSeverity",
+            "packageMapFromLockfile"
+          ],
+          "hash": "dd2b11abada27fadc9d167fef9dc6b3234d295d2d8580d9c4ec488ee09ab6419",
+          "path": "src/lockfile.mjs"
+        },
+        {
+          "entry": "parseLevel",
+          "entryRule": 4,
+          "exports": [
+            "info",
+            "isDebug",
+            "levelFromFlags",
+            "parseLevel",
+            "setLevel",
+            "verbose"
+          ],
+          "failurePaths": [
+            {
+              "in": "parseLevel",
+              "kind": "throw",
+              "line": 20
+            }
+          ],
+          "hash": "3b06b3e87df5ad6fb2f983a7a2465458ba2ab2dac37906e7ed5a605414d1a8ca",
+          "importsFiles": [
+            "src/errors.mjs"
+          ],
+          "path": "src/log.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "parseLevel"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "parseLevel"
+                }
+              ],
+              "exported": false,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "current"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "parseLevel"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "setLevel"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "parseLevel"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "isDebug"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "parseLevel"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "info"
+            },
+            {
+              "calls": [
+                {
+                  "branch": "!LEVELS.includes(level)",
+                  "line": 20,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  },
+                  "via": "parseLevel"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "verbose"
+            }
+          ]
+        },
+        {
+          "failurePaths": [
+            {
+              "kind": "catch",
+              "line": 292
+            }
+          ],
+          "hash": "b58b425827f95d91dc0556c9c8c41f4bf458536bb2d20a2eff2fa2a1a507d6bc",
+          "importsFiles": [
+            "src/errors.mjs"
+          ],
+          "path": "src/mcp.mjs"
+        },
+        {
+          "entry": "writeReport",
+          "entryRule": 1,
+          "exports": [
+            "buildReport",
+            "writeReport"
+          ],
+          "failurePaths": [
+            {
+              "in": "writeReport",
+              "kind": "throw",
+              "line": 517
+            },
+            {
+              "kind": "throw",
+              "line": 532
+            },
+            {
+              "kind": "catch",
+              "line": 534
+            }
+          ],
+          "hash": "ac2d4e00841fc39d350d114621aa73121ffd7a6ec0c96136dd7a8e174f1f5308",
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/errors.mjs",
+            "src/load.mjs"
+          ],
+          "path": "src/report.mjs",
+          "sequences": [
+            {
+              "calls": [
+                {
+                  "line": 30,
+                  "name": "prepare",
+                  "target": null
+                },
+                {
+                  "line": 492,
+                  "name": "healthScores",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "buildReport"
+            },
+            {
+              "calls": [
+                {
+                  "line": 516,
+                  "name": "prepare",
+                  "target": null
+                },
+                {
+                  "branch": "!snap",
+                  "line": 517,
+                  "name": "userError",
+                  "target": {
+                    "file": "src/errors.mjs"
+                  }
+                },
+                {
+                  "line": 30,
+                  "name": "prepare",
+                  "target": null,
+                  "via": "buildReport"
+                },
+                {
+                  "line": 492,
+                  "name": "healthScores",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  },
+                  "via": "buildReport"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "writeReport"
+            }
+          ]
+        },
+        {
+          "hash": "037dbc8b84caf20b51c3becbe4097f56ca568c10cb0897c7d570692fdc983c7a",
+          "path": "src/schema.sql"
+        },
+        {
+          "exports": [
+            "atlasCheckPins",
+            "auditSteps",
+            "editsWorkflowFiles",
+            "filterMatches",
+            "jobEnvironment",
+            "jobRunsOnDefaultBranch",
+            "pagesDeployJobs",
+            "prCreateWithDefaultToken",
+            "pushAdmitsBranch",
+            "resolveFailedStep",
+            "stepDisplayName"
+          ],
+          "hash": "e4f138cb96d538e28650da7c1afc65173a238c6016debf22260a5ae97d254826",
+          "path": "src/workflow-risks.mjs"
+        }
+      ],
+      "frameworks": [
+        "mcp"
+      ],
+      "globs": [
+        "src/**"
+      ],
+      "importConfidence": "full",
+      "name": "src",
+      "origin": "authored",
+      "outsidePlaces": [
+        {
+          "reads": 19,
+          "where": [
+            "caller"
+          ],
+          "writes": 1
+        },
+        {
+          "reads": 1,
+          "where": [
+            "cwd:package-lock.json"
+          ],
+          "writes": 0
+        },
+        {
+          "reads": 1,
+          "where": [
+            "cwd:rules/"
+          ],
+          "writes": 0
+        },
+        {
+          "reads": 0,
+          "where": [
+            "temp"
+          ],
+          "writes": 1
+        }
+      ],
+      "outsideReads": 21,
+      "outsideWrites": 2,
+      "role": "code",
+      "testRunners": [
+        "node --test"
+      ],
+      "testedBy": 20,
+      "unresolvedSites": 0
+    },
+    {
+      "dynamicReads": 0,
+      "dynamicSpawns": 0,
+      "dynamicSpawnsInTests": 0,
+      "dynamicWrites": 0,
+      "entryPoints": [],
+      "externals": 0,
+      "files": [
+        {
+          "hash": "e2579da7ef6d4b6e0ebe65f42fa2c795e011d0ac796eec386813c7e520a72a36",
+          "importOrder": [
+            "src/cost.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/cost.mjs"
+          ],
+          "path": "test/actions-cost.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "18bf3511e2af64850732711cc84e8d9fabc7c69c8083dc8c0a7e608dfdc9f656",
+          "importsFiles": [
+            "src/collect.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/atlas-map.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "28bbde105e3b07563483b3ee58ca1f5400a616310f8ac4017fc3777f98f9deff",
+          "importOrder": [
+            "src/load.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/atlas-rules.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "3fdc1cd74fc7d6ccb6d4f6d99566f8cf4635c35d97dce247d74583b7d9a118fc",
+          "importsFiles": [
+            "src/workflow-risks.mjs"
+          ],
+          "path": "test/audit-gate.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "aa0f4c436e160f81b01cba19982553d86fbc2288990e8fa4632db8b67772467e",
+          "importsFiles": [
+            "src/analyze.mjs"
+          ],
+          "path": "test/checker-invoked.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "8b402d2378caaa95f40b0825078e9e8a7ea820f9e76e64f31cb6c266ca478bc2",
+          "path": "test/cli.test.mjs",
+          "spawns": [
+            "src/cli.mjs"
+          ],
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "cc5c27b99417dfc1819d8aa70098c24a7d65ac8dcc8c765d06a5712da64a5a69",
+          "importOrder": [
+            "src/config.mjs",
+            "src/load.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/config.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/config.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "1b29a1d399f12277cd129e3ad9e16aed8ce0ca3c9717f99e85085fb845670445",
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/cost.mjs"
+          ],
+          "path": "test/cost-rules.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "53785e9a750b893442e7d2e269944efde61eee7ba3d3aaaa3b91da639ccc5f7b",
+          "importOrder": [
+            "src/load.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/deploy-rules.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "2a4aac076be97711eb11c78b1dff9b1620184a1424b7387fe0469f691de46b8e",
+          "importOrder": [
+            "src/gh.mjs",
+            "src/collect.mjs",
+            "src/workflow-risks.mjs",
+            "src/load.mjs"
+          ],
+          "importsFiles": [
+            "src/collect.mjs",
+            "src/gh.mjs",
+            "src/load.mjs",
+            "src/workflow-risks.mjs"
+          ],
+          "path": "test/deploy-settings.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "fb9771ac26e925e52e9da6c69d26cf8fb060b5f2a40af93a569ffac22fac9913",
+          "importOrder": [
+            "src/errors.mjs",
+            "src/log.mjs",
+            "src/gh.mjs"
+          ],
+          "importsFiles": [
+            "src/errors.mjs",
+            "src/gh.mjs",
+            "src/log.mjs"
+          ],
+          "path": "test/errors.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "8f20c4f0a5cb6cd60ab3493a9669fca2c1341f1900b1878c739adc4555e8fe31",
+          "importOrder": [
+            "src/workflow-risks.mjs",
+            "src/collect.mjs",
+            "src/load.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/collect.mjs",
+            "src/load.mjs",
+            "src/workflow-risks.mjs"
+          ],
+          "path": "test/failed-step.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "a0c47bd1384cb79d58de76cde4838730f5b8c7e637c3420344990653cc76e84a",
+          "importsFiles": [
+            "src/load.mjs"
+          ],
+          "names": [
+            "site/astro.config.mjs"
+          ],
+          "path": "test/handbook-sidebar.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "2b128669c28491b5b96f622df49781af182ade2c8257ee7afcb719e3b28c3e73",
+          "importsFiles": [
+            "src/load.mjs"
+          ],
+          "path": "test/inspect-workflow.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "623fbe9ee93a5273e819e82a4244b61a672f49f7aef4dfc33daf308a421f7e61",
+          "importsFiles": [
+            "src/lockfile.mjs"
+          ],
+          "path": "test/lockfile-audit.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "ab61f9d2b2303e99eaac93996bc5d87d1f3bf7a3f531c4ad5a9558858f6e19e4",
+          "importsFiles": [
+            "src/gh.mjs"
+          ],
+          "path": "test/rate-limit.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "93571f5c23a388f62a372c7d48778ab212ef2cb2b2e8eac7356e20b58cce74d4",
+          "importsFiles": [
+            "src/analyze.mjs"
+          ],
+          "path": "test/required-checks.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "657470c1f250d53c1adec2392f6f0b29dfdfcea4d0e5f8cf7b72ae1912c2d1c5",
+          "importsFiles": [
+            "src/collect.mjs"
+          ],
+          "path": "test/snapshot-dedupe.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "b231184dfb4eba25bd912dfcc6bd75cd7df56158f0ad07e15aaf1bf180c7651c",
+          "importsFiles": [
+            "src/collect.mjs"
+          ],
+          "path": "test/sweep-failure.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "2ad3f0cb10bec02cc4c5595004e6774d9ad6c3268fe3cc32f4b50bc0f757e32f",
+          "path": "test/verify-findings.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "1182dec300a49553e46edf322ab32e51fb36f2fb7e8430c8cbbb01d9445e34b4",
+          "importsFiles": [
+            "src/load.mjs"
+          ],
+          "path": "test/workspace-root.test.mjs",
+          "testFramework": "node --test"
+        }
+      ],
+      "globs": [
+        "test/**"
+      ],
+      "importConfidence": "full",
+      "name": "test",
+      "origin": "authored",
+      "role": "test",
+      "testRunners": [
+        "node --test"
+      ],
+      "testedBy": 0,
+      "unresolvedSites": 0
+    }
+  ],
+  "doors": [
+    {
+      "checksCount": 0,
+      "commands": [
+        {
+          "dir": "",
+          "job": "test",
+          "programs": [
+            "npm"
+          ],
+          "step": "2"
+        },
+        {
+          "dir": "",
+          "job": "test",
+          "programs": [
+            "npm"
+          ],
+          "step": "3"
+        },
+        {
+          "dir": "",
+          "job": "test",
+          "programs": [
+            "npm"
+          ],
+          "step": "Dependency audit"
+        },
+        {
+          "dir": "",
+          "job": "test",
+          "programs": [
+            "npx"
+          ],
+          "step": "Atlas check"
+        }
+      ],
+      "elsewhere": [],
+      "file": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "basis": "declared",
+          "name": "test",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ],
+          "setup": [
+            {
+              "ranges": [
+                {
+                  "from": "22",
+                  "range": ">=22.0.0 <23.0.0-0"
+                }
+              ],
+              "step": "1",
+              "uses": "actions/setup-node",
+              "version": "22"
+            }
+          ]
+        }
+      ],
+      "landings": [],
+      "mentions": [],
+      "name": "CI",
+      "permissions": [
+        "contents:read"
+      ],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "test",
+          "depth": 0,
+          "files": 21
+        },
+        {
+          "boundary": "src",
+          "depth": 1,
+          "enters": {
+            "file": "src/cost.mjs",
+            "from": "test/actions-cost.test.mjs"
+          },
+          "files": 10
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "directory": true,
+          "job": "test",
+          "matched": true,
+          "path": "test/",
+          "runKind": "executes"
+        }
+      ],
+      "runsCount": 1,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "tests": [
+        {
+          "files": 21,
+          "job": "test",
+          "runner": "node --test",
+          "step": "3",
+          "through": [
+            "npm test"
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "branches": [
+            "main"
+          ],
+          "event": "pull_request",
+          "paths": [
+            ".github/workflows/**",
+            "atlas/**",
+            "package-lock.json",
+            "package.json",
+            "src/**",
+            "test/**"
+          ]
+        },
+        {
+          "branches": [
+            "main"
+          ],
+          "event": "push",
+          "paths": [
+            ".github/workflows/**",
+            "atlas/**",
+            "package-lock.json",
+            "package.json",
+            "src/**",
+            "test/**"
+          ]
+        },
+        {
+          "event": "workflow_dispatch"
+        }
+      ],
+      "untrackedLandings": [
+        "data/snapshots/"
+      ],
+      "uses": [
+        "actions/checkout",
+        "actions/setup-node"
+      ],
+      "usesWorkflowToken": false
+    },
+    {
+      "checksCount": 0,
+      "commands": [
+        {
+          "dir": "site",
+          "job": "build",
+          "programs": [
+            "npm"
+          ],
+          "step": "Install site dependencies"
+        },
+        {
+          "dir": "site",
+          "job": "build",
+          "programs": [
+            "npm"
+          ],
+          "step": "Build site"
+        }
+      ],
+      "elsewhere": [],
+      "file": ".github/workflows/pages.yml",
+      "jobs": [
+        {
+          "basis": "declared",
+          "name": "build",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ],
+          "setup": [
+            {
+              "ranges": [
+                {
+                  "from": "22",
+                  "range": ">=22.0.0 <23.0.0-0"
+                }
+              ],
+              "step": "1",
+              "uses": "actions/setup-node",
+              "version": "22"
+            }
+          ]
+        },
+        {
+          "basis": "declared",
+          "environment": {
+            "name": "github-pages"
+          },
+          "name": "deploy",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ]
+        }
+      ],
+      "landings": [],
+      "mentions": [],
+      "name": "Deploy site to GitHub Pages",
+      "permissions": [
+        "contents:read",
+        "id-token:write",
+        "pages:write"
+      ],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "site",
+          "depth": 0,
+          "files": 5
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "job": "build",
+          "matched": true,
+          "path": "site/astro.config.mjs",
+          "runKind": "executes",
+          "via": "astro build"
+        },
+        {
+          "directory": true,
+          "job": "build",
+          "matched": true,
+          "path": "site/src/",
+          "runKind": "executes",
+          "via": "astro build"
+        }
+      ],
+      "runsCount": 2,
+      "secrets": [],
+      "sends": {
+        "deploysPages": true,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [
+        {
+          "branches": [
+            "main"
+          ],
+          "event": "push",
+          "paths": [
+            ".github/workflows/pages.yml",
+            "site/**"
+          ]
+        },
+        {
+          "event": "workflow_dispatch"
+        }
+      ],
+      "uses": [
+        "actions/checkout",
+        "actions/deploy-pages",
+        "actions/setup-node",
+        "actions/upload-pages-artifact"
+      ],
+      "usesWorkflowToken": false
+    },
+    {
+      "checksCount": 0,
+      "commands": [],
+      "elsewhere": [],
+      "file": "package.json",
+      "kind": "command",
+      "landings": [],
+      "mentions": [],
+      "name": "hk",
+      "permissions": [],
+      "privatePackage": true,
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "src",
+          "depth": 0,
+          "files": 12
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "path": "src/cli.mjs",
+          "runKind": "executes"
+        }
+      ],
+      "runsCount": 1,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [],
+      "unshipped": true,
+      "untrackedLandings": [
+        "data/snapshots/",
+        "reports/"
+      ],
+      "uses": [],
+      "usesWorkflowToken": false
+    }
+  ],
+  "edges": [
+    {
+      "from": "test",
+      "fromTests": true,
+      "kind": "file",
+      "to": "src"
+    }
+  ],
+  "engine": "1.24.0",
+  "generatedFrom": {
+    "commit": "4c003f5f0b4351bf4df0c28c26a1ea36f249561b",
+    "tracked": 78
+  },
+  "landings": [
+    {
+      "readers": [
+        {
+          "by": "test/failed-step.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/inspect-workflow.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": ".github/workflows/ci.yml",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "test/failed-step.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/inspect-workflow.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": ".github/workflows/pages.yml",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "test/workspace-root.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "README.md",
+      "writers": []
+    },
+    {
+      "readers": [],
+      "target": "data/snapshots",
+      "tracked": false,
+      "writers": [
+        {
+          "by": "src/collect.mjs",
+          "confidence": "ast",
+          "untrackedInputs": true
+        }
+      ]
+    },
+    {
+      "readers": [
+        {
+          "by": "README.es.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.fr.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.hi.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.it.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.ja.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.pt-BR.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "README.zh.md",
+          "call": "cp",
+          "confidence": "text"
+        },
+        {
+          "by": "site/src/content/docs/handbook/getting-started.md",
+          "call": "cp",
+          "confidence": "text"
+        }
+      ],
+      "target": "housekeeping.config.example.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "test/lockfile-audit.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "package-lock.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "src/mcp.mjs",
+          "call": "readFileSync",
+          "confidence": "ast"
+        },
+        {
+          "by": "test/lockfile-audit.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/workspace-root.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "package.json",
+      "writers": []
+    },
+    {
+      "readers": [],
+      "target": "reports",
+      "tracked": false,
+      "writers": [
+        {
+          "by": "src/report.mjs",
+          "confidence": "ast"
+        }
+      ]
+    },
+    {
+      "readers": [
+        {
+          "by": "test/failed-step.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/lockfile-audit.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "site/package-lock.json",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "site/astro.config.mjs",
+          "call": "content-collection",
+          "confidence": "ast"
+        }
+      ],
+      "target": "site/src/content/docs",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "site/astro.config.mjs",
+          "call": "autogenerate",
+          "confidence": "ast"
+        }
+      ],
+      "target": "site/src/content/docs/handbook",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "package-lock.json",
+          "call": "literal",
+          "confidence": "text"
+        },
+        {
+          "by": "test/cli.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "src/cli.mjs",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "src/load.mjs",
+          "call": "readFileSync",
+          "confidence": "ast"
+        },
+        {
+          "by": "test/atlas-map.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/atlas-rules.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/config.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/cost-rules.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/deploy-rules.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/failed-step.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        }
+      ],
+      "target": "src/schema.sql",
+      "writers": []
+    }
+  ],
+  "overlaps": [],
+  "submodules": [],
+  "symlinks": [],
+  "testFiles": 21,
+  "unassigned": []
+}

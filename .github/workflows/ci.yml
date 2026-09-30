@@ -8,6 +8,7 @@ on:
       - 'test/**'
       - 'package.json'
       - 'package-lock.json'
+      - 'atlas/**'
       - '.github/workflows/**'
   pull_request:
     branches: [main]
@@ -16,6 +17,7 @@ on:
       - 'test/**'
       - 'package.json'
       - 'package-lock.json'
+      - 'atlas/**'
       - '.github/workflows/**'
   workflow_dispatch:
 
@@ -43,3 +45,7 @@ jobs:
       # green check as a clean one.
       - name: Dependency audit
         run: npm audit --audit-level=high
+      # rules/atlas-map.md: the committed map, checked at the fleet pin. The pin
+      # moves with ATLAS_PIN in the export and the regenerated map, in one change.
+      - name: Atlas check
+        run: npx --yes @dogfood-lab/atlas@1.24.0 check

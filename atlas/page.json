@@ -1,0 +1,178 @@
+{
+  "authored": [
+    ".github/",
+    "root",
+    "rules/",
+    "site/"
+  ],
+  "breaks": [
+    {
+      "doors": 2,
+      "importedBy": [],
+      "importedByTests": [
+        "test"
+      ],
+      "kind": "part",
+      "name": "src",
+      "partLabel": "src"
+    }
+  ],
+  "changes": {
+    "first": true
+  },
+  "changesTogether": [],
+  "changesTogetherNote": [
+    "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
+  ],
+  "changesTogetherWithTests": 0,
+  "commit": "4c003f5f0b4351bf4df0c28c26a1ea36f249561b",
+  "defaultBranch": "main",
+  "derived": "6 parts, mostly JavaScript (35 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).",
+  "doors": [
+    {
+      "checks": [],
+      "checksCount": 0,
+      "checksMore": 0,
+      "file": ".github/workflows/ci.yml",
+      "id": ".github/workflows/ci.yml",
+      "landings": [],
+      "name": "CI",
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "test",
+          "depth": 0,
+          "files": 21
+        },
+        {
+          "boundary": "src",
+          "depth": 1,
+          "files": 10
+        }
+      ],
+      "runs": [
+        "test/"
+      ],
+      "runsCount": 1,
+      "runsMore": 0,
+      "sends": [],
+      "stages": [],
+      "triggers": [
+        "on a pull request to main touching 6 paths",
+        "on a push to main touching 6 paths",
+        "or by hand"
+      ],
+      "untracked": "data/snapshots/, which is not tracked"
+    },
+    {
+      "checks": [],
+      "checksCount": 0,
+      "checksMore": 0,
+      "file": ".github/workflows/pages.yml",
+      "id": ".github/workflows/pages.yml",
+      "landings": [],
+      "name": "Deploy site to GitHub Pages",
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "site",
+          "depth": 0,
+          "files": 5
+        }
+      ],
+      "runs": [
+        "site/astro.config.mjs",
+        "site/src/"
+      ],
+      "runsCount": 2,
+      "runsMore": 0,
+      "sends": [
+        "deploys the site"
+      ],
+      "stages": [],
+      "triggers": [
+        "on a push to main touching 2 paths",
+        "or by hand"
+      ]
+    },
+    {
+      "builtFrom": "the repository root",
+      "checks": [],
+      "checksCount": 0,
+      "checksMore": 0,
+      "file": "package.json",
+      "id": "package.json#hk",
+      "kind": "command",
+      "landings": [],
+      "name": "hk",
+      "privatePackage": true,
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "src",
+          "depth": 0,
+          "files": 12
+        }
+      ],
+      "runs": [
+        "src/cli.mjs"
+      ],
+      "runsCount": 1,
+      "runsMore": 0,
+      "sends": [],
+      "stages": [],
+      "triggers": [],
+      "unshipped": true,
+      "untracked": "data/snapshots/ and reports/, which are not tracked"
+    }
+  ],
+  "duplicates": [],
+  "duplicatesLead": null,
+  "duplicatesNote": [],
+  "edges": [],
+  "engine": "1.24.0",
+  "generated": [],
+  "generatedAt": "2026-09-30T19:04:56.660Z",
+  "limits": [
+    "3 reads use paths built at run time and are not named here.",
+    "2 writes go to places this repository does not track, so they are not listed as generated.",
+    "1 write and 19 reads go to a path their caller passes, not to this repository.",
+    "2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.",
+    "1 write goes to a temporary directory, not to this repository.",
+    "5 commands are built at run time and not followed.",
+    "Statistics confidence is low: fewer than 30 qualifying commits in the window, and fewer than 20 source files reach 10 revisions."
+  ],
+  "mainDoor": ".github/workflows/ci.yml",
+  "partLabels": {
+    ".github": ".github",
+    "root": "the repository root",
+    "rules": "rules",
+    "site": "the site",
+    "src": "src",
+    "test": "test"
+  },
+  "parts": 6,
+  "readers": [],
+  "repo": "mcp-tool-shop-org/housekeeping",
+  "sequences": [],
+  "startDoor": "package.json#hk",
+  "startHere": [
+    "src/cli.mjs",
+    "src/log.mjs",
+    "src/errors.mjs"
+  ],
+  "startReason": "This path follows hk (a command of a private package, which nothing ships) from its entry, since CI runs only tests.",
+  "summary": "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules.",
+  "summaryFrom": "person",
+  "testFiles": 21,
+  "testedBy": {
+    "src": 20
+  },
+  "unnamedWrites": 0,
+  "unread": [],
+  "unreadFiles": 0,
+  "unreadNote": [],
+  "untested": [],
+  "untestedNote": [],
+  "written": 0
+}

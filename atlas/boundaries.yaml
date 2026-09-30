@@ -1,0 +1,26 @@
+summary: "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules."
+boundaries:
+  - name: .github
+    globs:
+      - .github/**
+    role: config
+  - name: root
+    globs:
+      - "*"
+    role: config
+  - name: rules
+    globs:
+      - rules/**
+    role: docs
+  - name: site
+    globs:
+      - site/**
+    role: site
+  - name: src
+    globs:
+      - src/**
+    role: code
+  - name: test
+    globs:
+      - test/**
+    role: test

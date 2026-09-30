@@ -12,6 +12,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - With an Atlas map, the failed step is joined to the map's entry for it, and
   a map finding recorded against that same step is cited as a prediction.
 - `run_failed_step` table.
+- This repository keeps its own Atlas map in `atlas/`, made by
+  `@dogfood-lab/atlas` 1.24.0 and checked in CI at the same version, as the
+  rule in `rules/atlas-map.md` asks of every repository that runs workflows.
 
 ### Fixed
 
