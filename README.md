@@ -64,12 +64,23 @@ Snapshots are immutable and additive, so drift between two dates is a `JOIN`.
 ## Use
 
 ```bash
+npm install -g @mcptoolshop/housekeeping   # puts `hk` and `hk-mcp` on your path
+mkdir warehouse && cd warehouse            # housekeeping keeps its data here
+hk refresh your-org                        # collect, load, analyze, write reports/AUDIT-<date>.md
+```
+
+To keep settings between sweeps, put a `housekeeping.config.json` in that
+directory (see Configuration); then `hk refresh` needs no argument.
+
+Or run it from a clone, which keeps its data in the clone:
+
+```bash
 git clone https://github.com/mcp-tool-shop-org/housekeeping.git
 cd housekeeping
 npm install
 npm link                 # puts `hk` on your path
 cp housekeeping.config.example.json housekeeping.config.json   # then set "org"
-hk refresh               # collect, load, analyze, write reports/AUDIT-<date>.md
+hk refresh
 ```
 
 Then query it:
@@ -88,7 +99,7 @@ hk sql "SELECT ..."      # one read-only statement
 hk help                  # every command and flag
 ```
 
-Without `npm link`, each `hk <command>` is `node src/cli.mjs <command>`.
+In a clone without `npm link`, each `hk <command>` is `node src/cli.mjs <command>`.
 
 `npm run rebuild` re-derives the database and the report from snapshots already
 on disk, with no network access.
@@ -101,7 +112,7 @@ error, 3 partial (the sweep finished, with gaps).
 
 ## Configuration
 
-`housekeeping.config.json`, beside `package.json`:
+`housekeeping.config.json`, in the directory housekeeping works in (see below):
 
 ```json
 {
@@ -120,7 +131,12 @@ error, 3 partial (the sweep finished, with gaps).
 A malformed file is an error, never a silent default: an unknown key, a wrong
 type or broken JSON stops the run.
 
-Environment: `HK_CONFIG` (config path), `HK_DB` (database path), `HK_LOG`
+Run from a clone, housekeeping keeps `data/`, `reports/` and the config file
+in the clone. Run as an installed package, it keeps them in the directory you
+run it from, or in `HK_HOME` when that is set.
+
+Environment: `HK_HOME` (where data, reports and the config live),
+`HK_CONFIG` (config path), `HK_DB` (database path), `HK_LOG`
 (`silent`, `normal`, `verbose` or `debug`), `HK_COST_REPOS` and
 `HK_COST_BUDGET` (bounds on the per-job cost pass), `GH_PATH` (path to `gh`).
 
@@ -140,8 +156,8 @@ run the tool from a **private** repository of your own and commit them there.
 
 ## MCP server
 
-`npm run mcp` serves the warehouse over stdio, so an assistant can ask
-questions without reading a multi-megabyte snapshot:
+`hk-mcp` (or `npm run mcp` in a clone) serves the warehouse over stdio, so an
+assistant can ask questions without reading a multi-megabyte snapshot:
 
 `hk_summary` · `hk_findings` · `hk_ci` · `hk_repo` · `hk_backlog` ·
 `hk_health` · `hk_cost` · `hk_sql` · `hk_schema`
@@ -149,10 +165,13 @@ questions without reading a multi-megabyte snapshot:
 ```json
 {
   "mcpServers": {
-    "housekeeping": { "command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"] }
+    "housekeeping": { "command": "hk-mcp", "env": { "HK_HOME": "/path/to/warehouse" } }
   }
 }
 ```
+
+`HK_HOME` is the directory you sweep from. From a clone, use
+`"command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"]` instead.
 
 `hk_sql` accepts a single `SELECT` or `WITH` statement and opens the database
 read-only. A failing call returns a structured error, never a stack trace.

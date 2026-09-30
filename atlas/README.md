@@ -1,42 +1,51 @@
 # housekeeping: how it works
 
-Mapped at 2026-09-30 from commit d2eb61a by Atlas 1.24.0.
+Mapped at 2026-09-30 from commit b003f43 by Atlas 1.24.0.
 
 ## What this is
 
 An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules. (written by a person)
 
-6 parts, mostly JavaScript (37 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).
+6 parts, mostly JavaScript (39 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
 
-## What changed since 2026-09-30 (1fcf65c)
+## What changed since 2026-09-30 (d2eb61a)
 
-Nothing structural changed since 2026-09-30; 1 file added, 1 removed and 3 changed content.
+- Release (.github/workflows/release.yml) is a new door. It starts when a release is published; or by hand. It runs test/.
+- hk-mcp (package.json) is a new command. It runs src/mcp.mjs.
+- package.json is now also read by .github/workflows/release.yml and test/paths.test.mjs.
+- 3 files added, 1 moved and 21 changed content, across 5 parts.
 
 ## What comes in
 
 1. **CI.** On a pull request to main touching 6 paths; on a push to main touching 6 paths; or by hand. Runs test/.
-2. **Deploy site to GitHub Pages.** On a push to main touching 2 paths; or by hand. Runs site/astro.config.mjs and site/src/.
-3. **hk** (a command of a private package, which nothing ships). Runs src/cli.mjs.
+2. **Release.** When a release is published; or by hand. Runs test/.
+3. **Deploy site to GitHub Pages.** On a push to main touching 2 paths; or by hand. Runs site/astro.config.mjs and site/src/.
+4. **hk** (a command people run). Runs src/cli.mjs.
+5. **hk-mcp** (a command people run). Runs src/mcp.mjs.
 
 ## What happens through CI
 
 1. The workflow runs test/ in test.
-2. That reaches src (11 files).
-3. It writes to data/snapshots/ and reports/, which are not tracked.
+2. That reaches src (12 files).
 
 ## Who reads the results
 
-CI writes only to data/snapshots/ and reports/, which are not tracked.
+CI writes nothing this map can see.
 
 ## The other doors
 
+**Release** runs test/, reaches src, and publishes to npm on a release event.
+
 **Deploy site to GitHub Pages** runs site/astro.config.mjs and site/src/, and deploys the site.
 
-**hk** (a command of a private package, which nothing ships) runs src/cli.mjs and writes to data/snapshots/ and reports/, which are not tracked.
+**hk** (a command people run) runs src/cli.mjs.
+
+**hk-mcp** (a command people run) runs src/mcp.mjs.
 
 ## What breaks what
 
-- **src** is imported only from tests, by 1 part (test), and sits on the path of 2 doors.
+- **src** is imported only from tests, by 1 part (test), and sits on the path of 4 doors.
+- **test** is imported by no other part and sits on the path of 2 doors.
 
 ## What tends to change together
 
@@ -62,22 +71,21 @@ Nothing in this repository writes to a tracked place this map can see.
 
 ## Hand-authored
 
-People write .github/, the repository root, rules/ and site/. Nothing in this repository writes to them.
+People write .github/, the repository root, rules/ and site/; 3 writes with paths built at run time may land here.
 
 ## Where to start
 
 src/cli.mjs → src/log.mjs → src/errors.mjs
 
-Read those in order to follow one run of hk end to end. This path follows hk (a command of a private package, which nothing ships) from its entry, since CI runs only tests.
+Read those in order to follow one run of hk end to end. This path follows hk (a command people run) from its entry, since CI runs only tests.
 
 ## What this map cannot see
 
-- 3 reads use paths built at run time and are not named here.
-- 2 writes go to places this repository does not track, so they are not listed as generated.
-- 1 write and 20 reads go to a path their caller passes, not to this repository.
+- 3 writes and 2 reads use paths built at run time and are not named here.
+- 1 write and 21 reads go to a path their caller passes, not to this repository.
 - 2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.
 - 1 write goes to a temporary directory, not to this repository.
-- 5 commands are built at run time and not followed.
+- 6 commands are built at run time and not followed, 1 of them in tests.
 - Statistics confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions.
 
 Regenerate with `npx --yes @dogfood-lab/atlas map`.

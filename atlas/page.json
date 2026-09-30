@@ -7,7 +7,7 @@
   ],
   "breaks": [
     {
-      "doors": 2,
+      "doors": 4,
       "importedBy": [],
       "importedByTests": [
         "test"
@@ -15,37 +15,70 @@
       "kind": "part",
       "name": "src",
       "partLabel": "src"
+    },
+    {
+      "doors": 2,
+      "importedBy": [],
+      "importedByTests": [],
+      "kind": "part",
+      "name": "test",
+      "partLabel": "test"
     }
   ],
   "changes": {
     "fileCounts": {
-      "added": 1,
-      "changed": 3,
-      "moved": 0,
-      "parts": 2,
-      "removed": 1
+      "added": 3,
+      "changed": 21,
+      "moved": 1,
+      "parts": 5,
+      "removed": 0
     },
     "items": [
       {
+        "kind": "door",
+        "sentence": "Release (.github/workflows/release.yml) is a new door. It starts when a release is published; or by hand. It runs test/.",
+        "subjects": [
+          ".github/workflows/release.yml",
+          "test/"
+        ]
+      },
+      {
+        "kind": "door",
+        "sentence": "hk-mcp (package.json) is a new command. It runs src/mcp.mjs.",
+        "subjects": [
+          "package.json",
+          "src/mcp.mjs"
+        ]
+      },
+      {
+        "kind": "landing",
+        "sentence": "package.json is now also read by .github/workflows/release.yml and test/paths.test.mjs.",
+        "subjects": [
+          "package.json",
+          ".github/workflows/release.yml",
+          "test/paths.test.mjs"
+        ]
+      },
+      {
         "kind": "counts",
-        "sentence": "Nothing structural changed since 2026-09-30; 1 file added, 1 removed and 3 changed content.",
+        "sentence": "3 files added, 1 moved and 21 changed content, across 5 parts.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3",
-      "generatedAt": "2026-09-30T21:57:41.113Z"
+      "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
+      "generatedAt": "2026-09-30T22:54:37.834Z"
     },
-    "unchanged": true
+    "unchanged": false
   },
   "changesTogether": [],
   "changesTogetherNote": [
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
+  "commit": "b003f4348aec1179d5620283ceca41c22544b25c",
   "defaultBranch": "main",
-  "derived": "6 parts, mostly JavaScript (37 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).",
+  "derived": "6 parts, mostly JavaScript (39 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
     {
       "checks": [],
@@ -60,12 +93,12 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 23
+          "files": 24
         },
         {
           "boundary": "src",
           "depth": 1,
-          "files": 11
+          "files": 12
         }
       ],
       "runs": [
@@ -79,8 +112,42 @@
         "on a pull request to main touching 6 paths",
         "on a push to main touching 6 paths",
         "or by hand"
+      ]
+    },
+    {
+      "checks": [],
+      "checksCount": 0,
+      "checksMore": 0,
+      "file": ".github/workflows/release.yml",
+      "id": ".github/workflows/release.yml",
+      "landings": [],
+      "name": "Release",
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "test",
+          "depth": 0,
+          "files": 24
+        },
+        {
+          "boundary": "src",
+          "depth": 1,
+          "files": 12
+        }
       ],
-      "untracked": "data/snapshots/ and reports/, which are not tracked"
+      "runs": [
+        "test/"
+      ],
+      "runsCount": 1,
+      "runsMore": 0,
+      "sends": [
+        "publishes to npm on a release event"
+      ],
+      "stages": [],
+      "triggers": [
+        "when a release is published",
+        "or by hand"
+      ]
     },
     {
       "checks": [],
@@ -114,7 +181,6 @@
       ]
     },
     {
-      "builtFrom": "the repository root",
       "checks": [],
       "checksCount": 0,
       "checksMore": 0,
@@ -123,13 +189,12 @@
       "kind": "command",
       "landings": [],
       "name": "hk",
-      "privatePackage": true,
       "pushes": false,
       "reach": [
         {
           "boundary": "src",
           "depth": 0,
-          "files": 12
+          "files": 13
         }
       ],
       "runs": [
@@ -139,25 +204,54 @@
       "runsMore": 0,
       "sends": [],
       "stages": [],
-      "triggers": [],
-      "unshipped": true,
-      "untracked": "data/snapshots/ and reports/, which are not tracked"
+      "triggers": []
+    },
+    {
+      "checks": [],
+      "checksCount": 0,
+      "checksMore": 0,
+      "file": "package.json",
+      "id": "package.json#hk-mcp",
+      "kind": "command",
+      "landings": [],
+      "name": "hk-mcp",
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "src",
+          "depth": 0,
+          "files": 3
+        }
+      ],
+      "runs": [
+        "src/mcp.mjs"
+      ],
+      "runsCount": 1,
+      "runsMore": 0,
+      "sends": [],
+      "stages": [],
+      "triggers": []
     }
   ],
   "duplicates": [],
   "duplicatesLead": null,
   "duplicatesNote": [],
-  "edges": [],
+  "edges": [
+    {
+      "from": "test",
+      "fromTests": true,
+      "to": "src"
+    }
+  ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-09-30T22:54:37.834Z",
+  "generatedAt": "2026-09-30T23:30:25.219Z",
   "limits": [
-    "3 reads use paths built at run time and are not named here.",
-    "2 writes go to places this repository does not track, so they are not listed as generated.",
-    "1 write and 20 reads go to a path their caller passes, not to this repository.",
+    "3 writes and 2 reads use paths built at run time and are not named here.",
+    "1 write and 21 reads go to a path their caller passes, not to this repository.",
     "2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.",
     "1 write goes to a temporary directory, not to this repository.",
-    "5 commands are built at run time and not followed.",
+    "6 commands are built at run time and not followed, 1 of them in tests.",
     "Statistics confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions."
   ],
   "mainDoor": ".github/workflows/ci.yml",
@@ -179,14 +273,14 @@
     "src/log.mjs",
     "src/errors.mjs"
   ],
-  "startReason": "This path follows hk (a command of a private package, which nothing ships) from its entry, since CI runs only tests.",
+  "startReason": "This path follows hk (a command people run) from its entry, since CI runs only tests.",
   "summary": "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules.",
   "summaryFrom": "person",
-  "testFiles": 23,
+  "testFiles": 24,
   "testedBy": {
-    "src": 22
+    "src": 23
   },
-  "unnamedWrites": 0,
+  "unnamedWrites": 3,
   "unread": [],
   "unreadFiles": 0,
   "unreadNote": [],

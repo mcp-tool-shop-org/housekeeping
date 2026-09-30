@@ -3,10 +3,18 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.3.0] - 2026-09-30
+
+The first release on npm, as `@mcptoolshop/housekeeping`.
 
 ### Added
 
+- Publishable to npm as `@mcptoolshop/housekeeping`, with the `hk` and
+  `hk-mcp` commands. A release workflow publishes it with provenance when a
+  GitHub release is published, through npm Trusted Publishing.
+- `HK_HOME`: where data, reports and the config live. Unset, a clone keeps
+  them in itself as before, and an installed package keeps them in the
+  directory it runs from, never inside `node_modules`.
 - The default-branch CI findings say where a red run broke: the failed job and
   step, matched to the workflow file by name. One REST call per red run.
 - With an Atlas map, the failed step is joined to the map's entry for it, and
@@ -34,7 +42,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   findings. The rule's Transition section says the same.
 - A new logo: a broom and a magnifier over a database. The README header,
   the handbook's header mark and the favicon all use it, and the lockup
-  also ships at the repository root as `readme.png`.
+  also ships at the repository root as `logo.png`, where the org's logo sync
+  finds it (not `readme.png`, which npm would pack as a README).
 
 ### Fixed
 

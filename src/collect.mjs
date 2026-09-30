@@ -2,9 +2,8 @@
 // Collect a full operational snapshot of a GitHub org into data/snapshots/<ts>.json
 // Raw JSON is the source of truth (diffable, replayable); the SQLite DB is derived.
 import { writeFileSync, mkdirSync, readFileSync, existsSync, readdirSync, appendFileSync } from 'node:fs';
-import { join, dirname, basename } from 'node:path';
+import { join, basename } from 'node:path';
 import { createHash } from 'node:crypto';
-import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { graphql, rest, restPaged, restStatus, restWithStatus, pMap, whoami, looksTransient } from './gh.mjs';
 import { resolveOrg } from './config.mjs';
@@ -13,8 +12,8 @@ import { info, isDebug } from './log.mjs';
 import { readLockfile, advisoriesFromBulk, countBySeverity, lockfilePathsFromTree } from './lockfile.mjs';
 import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs';
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
+import { DATA_DIR } from './paths.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const COLLECTOR_VERSION = '1.4.0';
 
 const REPO_FIELDS = `
@@ -179,7 +178,7 @@ function latestSnapshotOnDisk(dir) {
 // Every sweep appends one line here whether or not it produced a snapshot. This
 // is what keeps the append-only rule honest while skipping a duplicate write:
 // the 9 MB payload is dropped, the fact that we looked is not.
-const SWEEP_LOG = join(ROOT, 'data', 'sweeps.jsonl');
+const SWEEP_LOG = join(DATA_DIR, 'sweeps.jsonl');
 
 function recordSweep(entry) {
   try { appendFileSync(SWEEP_LOG, JSON.stringify(entry) + '\n'); }
@@ -564,7 +563,7 @@ export async function collectDeploySettings(org, repos, workflowFiles, { get = r
 // 2 (2026-09-30): commands keep `dir`, the key Atlas writes (1 read
 // `directory`, which no map has); doors keep `unresolvedChecks`.
 export const ATLAS_TRIM_VERSION = 2;
-const ATLAS_CACHE = join(ROOT, 'data', 'atlas-map-cache.json');
+const ATLAS_CACHE = join(DATA_DIR, 'atlas-map-cache.json');
 const ATLAS_PACKAGE = '@dogfood-lab/atlas';
 
 const pick = (obj, keys) => {
@@ -828,7 +827,7 @@ async function collectSecurity(org, repos, concurrency = 10) {
 // newly published advisory hide behind an unchanged file -- the exact trap
 // that made a green PR go red with no commit on 2026-09-17.
 const NPM_BULK = 'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk';
-const CACHE_FILE = join(ROOT, 'data', 'lockfile-cache.json');
+const CACHE_FILE = join(DATA_DIR, 'lockfile-cache.json');
 
 function readPackageMapCache() {
   try { return existsSync(CACHE_FILE) ? JSON.parse(readFileSync(CACHE_FILE, 'utf8')) : {}; } catch { return {}; }
@@ -935,7 +934,7 @@ async function collectBilling(org, when = new Date()) {
   }
 }
 
-const RUN_COST_CACHE = join(ROOT, 'data', 'run-cost-cache.json');
+const RUN_COST_CACHE = join(DATA_DIR, 'run-cost-cache.json');
 
 // How many repos get the per-job drill-down, and the ceiling on job fetches per
 // sweep. Both exist because this pass is the only expensive thing the collector
@@ -1129,7 +1128,7 @@ async function sweep(org, ctx) {
       failedSteps.runs.filter(x => x.error).map(x => ({ repo: x.repo, stage: 'failed_steps', message: x.error }))),
   };
 
-  const dir = join(ROOT, 'data', 'snapshots');
+  const dir = join(DATA_DIR, 'snapshots');
   mkdirSync(dir, { recursive: true });
   const fingerprint = snapshotFingerprint(snapshot);
 

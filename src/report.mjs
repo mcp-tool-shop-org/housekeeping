@@ -2,13 +2,12 @@
 // Generate reports/AUDIT-<date>.md from a snapshot. The report is derived, never
 // hand-edited: regenerating it from the same snapshot yields the same bytes.
 import { writeFileSync, mkdirSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { openDb } from './load.mjs';
 import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, engineBehindCounts } from './analyze.mjs';
 import { exitCodeFor, formatError, userError } from './errors.mjs';
+import { REPORTS_DIR } from './paths.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 const md = {
   h1: s => `# ${s}\n`,
@@ -549,8 +548,8 @@ export function writeReport(db, sid) {
   const snap = db.prepare('SELECT taken_at FROM snapshot WHERE id=?').get(sid);
   if (!snap) throw userError('NO_SNAPSHOT', `snapshot ${sid} is not loaded`, '`hk snapshots` lists the ones that are');
   const text = buildReport(db, sid);
-  mkdirSync(join(ROOT, 'reports'), { recursive: true });
-  const file = join(ROOT, 'reports', `AUDIT-${snap.taken_at.slice(0, 10)}.md`);
+  mkdirSync(REPORTS_DIR, { recursive: true });
+  const file = join(REPORTS_DIR, `AUDIT-${snap.taken_at.slice(0, 10)}.md`);
   writeFileSync(file, text);
   return file;
 }

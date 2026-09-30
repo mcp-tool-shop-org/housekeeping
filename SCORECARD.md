@@ -5,7 +5,7 @@
 
 **Repo:** housekeeping
 **Date:** 2026-09-30
-**Type tags:** `[all]` `[cli]` `[mcp]` (not published to a registry)
+**Type tags:** `[all]` `[npm]` `[cli]` `[mcp]` (on npm from v1.3.0)
 
 ## Pre-Remediation Assessment
 

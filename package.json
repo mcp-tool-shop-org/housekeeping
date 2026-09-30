@@ -1,12 +1,41 @@
 {
   "name": "@mcptoolshop/housekeeping",
-  "version": "1.2.0",
-  "private": true,
+  "version": "1.3.0",
   "description": "Operational-health warehouse for a GitHub organization: CI, issues, PRs, releases, Actions cost and repo hygiene, collected into SQLite and audited against written rules.",
+  "keywords": [
+    "github",
+    "organization",
+    "ci",
+    "audit",
+    "github-actions",
+    "sqlite",
+    "mcp",
+    "cli"
+  ],
+  "homepage": "https://mcp-tool-shop-org.github.io/housekeeping/",
+  "bugs": {
+    "url": "https://github.com/mcp-tool-shop-org/housekeeping/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcp-tool-shop-org/housekeeping.git"
+  },
+  "license": "MIT",
+  "author": "mcp-tool-shop <64996768+mcp-tool-shop@users.noreply.github.com>",
   "type": "module",
   "bin": {
-    "hk": "./src/cli.mjs"
+    "hk": "./src/cli.mjs",
+    "hk-mcp": "./src/mcp.mjs"
   },
+  "files": [
+    "src/",
+    "rules/",
+    "README.md",
+    "README.*.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "housekeeping.config.example.json"
+  ],
   "scripts": {
     "collect": "node src/collect.mjs",
     "load": "node src/cli.mjs load",
@@ -17,7 +46,8 @@
     "mcp": "node src/mcp.mjs",
     "test": "node --test test/*.mjs",
     "verify:findings": "node --test test/verify-findings.mjs",
-    "verify": "npm test && node src/cli.mjs help"
+    "verify": "npm test && node src/cli.mjs help",
+    "prepublishOnly": "node -e \"if (require('fs').existsSync('public/SHIP_GATE.md')) { console.error('refusing: this is the private working repository; the package is published from the public repository by its release workflow'); process.exit(1) }\""
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
@@ -25,5 +55,9 @@
   },
   "engines": {
     "node": ">=22.5.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

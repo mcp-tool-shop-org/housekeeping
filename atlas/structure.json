@@ -15,6 +15,10 @@
         {
           "hash": "3b0b6f321adacfcf28811e4e5cfb582088110018cf95f67d81bdc14ca00a3226",
           "path": ".github/workflows/pages.yml"
+        },
+        {
+          "hash": "2d2c7948b585db37e0f8484f567d74afc78159d4b4b18daf5cab1ae98341a853",
+          "path": ".github/workflows/release.yml"
         }
       ],
       "globs": [
@@ -40,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "9d1a269a874d288881d21668a92a4106ad18b85f995e76e4f250f2e6990bd271",
+          "hash": "947d9d9e04e5b37d2e39c3da2cfe1a5d12e53ba909f1af256ba8898621d89141",
           "path": "CHANGELOG.md"
         },
         {
@@ -48,39 +52,39 @@
           "path": "LICENSE"
         },
         {
-          "hash": "ba580e943b665613fb6bfd1a00da29144268798e3e0b5b8c74279ecf78128175",
+          "hash": "9b4f4b9c948ba54d0fb62e61d9732796ce95c22ded2d51f34795d6261efd05eb",
           "path": "README.es.md"
         },
         {
-          "hash": "55deac862d3b9a8db9c147269e9e74f8f320ab5ab7a538bcc0bfcb0a910cf0a9",
+          "hash": "0ebcf27fe45687e1c857fe55c0ee22662a602b407ae005e96af6b4c914736de1",
           "path": "README.fr.md"
         },
         {
-          "hash": "5d1fb6b47919c99ce97c4f2dbf92038e2effabd86722f42e4c25e57378fa3d8f",
+          "hash": "73fba83e1336b691043b72b176fbada3abeedbc65f8680b63e2ef25232f655ee",
           "path": "README.hi.md"
         },
         {
-          "hash": "bc2c88f587b78ba28b67487fb4355d1bbc525f186192f40c03f969489c13be3d",
+          "hash": "660d67d9e812abef181a1bc44b0ce5e965c4aff5ed41d3dfcbc0836f914da023",
           "path": "README.it.md"
         },
         {
-          "hash": "960c167048cb8395b1ce752602d4b18112cc4802f045b64eea35e3c3f66a570f",
+          "hash": "b98795deb4b8c901472534327635fd7845d719487c4f8b310765d96d4ab17605",
           "path": "README.ja.md"
         },
         {
-          "hash": "bedcb13567e43a09225a1595c847de07874321a933b465e33993b55cf7fd511f",
+          "hash": "3a5e3bfe099f3df89d13aa646460d999f80da394c42ee91975abaf01196893ee",
           "path": "README.md"
         },
         {
-          "hash": "59d4b9247b58ddb5b5dc2b6cf3f1b2cb91ac329971981272bbe2d15fab87f7ab",
+          "hash": "8b9f3e3c6bdc06f04dd86407ef2f5113640fd1f0c6d90f82a8aa57f6bb9f97e2",
           "path": "README.pt-BR.md"
         },
         {
-          "hash": "8c1dd9308fa10a2b5db4ec0909dd3eb9cc8fdedfc27d656cc414e9ae9825876e",
+          "hash": "19788ceb417870959de0cc2955bd733ed63b2826c220d06ba8d9e1f44fb2d834",
           "path": "README.zh.md"
         },
         {
-          "hash": "a2f3293788dde3e98b0d200f32bf9087859b60f47428a5d28862cf60377c5ef4",
+          "hash": "dd1660e3da27646bbb648ce0b36b559647445519c383e525beed49795a0ad07a",
           "path": "SCORECARD.md"
         },
         {
@@ -88,7 +92,7 @@
           "path": "SECURITY.md"
         },
         {
-          "hash": "6111523d56280e3b2fdf8e71015de444718eacdf8b729a33113e4b1b25528012",
+          "hash": "0141ea3ef8a9688caf0a1821c84020d3e723623df5a96ee2aeadb2ddbdf136c9",
           "path": "SHIP_GATE.md"
         },
         {
@@ -96,16 +100,16 @@
           "path": "housekeeping.config.example.json"
         },
         {
-          "hash": "5556287f6696e1eeacf8e5717a27823f9d34ff69d7af0395a472cad04f7ca113",
+          "hash": "2406d8518295844e1ab36ff3a9a264aea60a6574b38e5a9c94a8e01d837ee8f7",
+          "path": "logo.png"
+        },
+        {
+          "hash": "862dc081be8c6f7805a8ea6d52fc5368a61ebafb8076beacc05a27a419c4bc2a",
           "path": "package-lock.json"
         },
         {
-          "hash": "0c27b9d7a8d68844c69e8ae0833b20b1e198f19dcd1a9edc282150f967bcf3b3",
+          "hash": "c1deec9a2c453bf1cb405711f9ddd973084bbb209e9c38c06883f02caebe0dca",
           "path": "package.json"
-        },
-        {
-          "hash": "2406d8518295844e1ab36ff3a9a264aea60a6574b38e5a9c94a8e01d837ee8f7",
-          "path": "readme.png"
         }
       ],
       "globs": [
@@ -192,7 +196,7 @@
           "path": "site/src/content/docs/handbook/architecture.md"
         },
         {
-          "hash": "d8e7a4a643150669f3a042f6c7d97760d1f84053a7c874341de6b89f7d01a43c",
+          "hash": "c721f907eca351a6849e8c95ccf5899d4bc01aa401e4a28a24eb4628fca2432c",
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
@@ -200,7 +204,7 @@
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
-          "hash": "7ba2401cba9abe6b3bf1c6b906f925442961197e15e25b769a55425e44f74593",
+          "hash": "5a6ecf6e33e01731ac34a6d4e8da516bcabc1d2c1a024e4e8a80c782d41172e8",
           "path": "site/src/content/docs/handbook/getting-started.md"
         },
         {
@@ -232,7 +236,7 @@
           "path": "site/src/pages/index.astro"
         },
         {
-          "hash": "21c815237bf6b2546e30a6fb23a4e5d70ac8aba396c6c5679d9c62efd24cd54a",
+          "hash": "79fb2709539c47f479bb03b7b8543afbe39cbd513341bdae5f6e7f18330d8b65",
           "path": "site/src/site-config.ts"
         },
         {
@@ -259,12 +263,13 @@
       "unresolvedSites": 0
     },
     {
-      "dynamicReads": 3,
+      "dynamicReads": 2,
       "dynamicSpawns": 5,
       "dynamicSpawnsInTests": 0,
-      "dynamicWrites": 0,
+      "dynamicWrites": 3,
       "entryPoints": [
-        "src/cli.mjs"
+        "src/cli.mjs",
+        "src/mcp.mjs"
       ],
       "externals": 0,
       "files": [
@@ -829,135 +834,135 @@
             {
               "in": "safeJson",
               "kind": "catch",
-              "line": 123
+              "line": 122
             },
             {
               "in": "latestSnapshotOnDisk",
               "kind": "catch",
-              "line": 176
+              "line": 175
             },
             {
               "in": "recordSweep",
               "kind": "catch",
-              "line": 186
+              "line": 185
             },
             {
               "in": "recordingFailure",
               "kind": "catch",
-              "line": 208
+              "line": 207
             },
             {
               "in": "recordingFailure",
               "kind": "throw",
-              "line": 214
+              "line": 213
             },
             {
               "in": "collectRepos",
               "kind": "catch",
+              "line": 230
+            },
+            {
+              "in": "collectRepos",
+              "kind": "throw",
               "line": 231
             },
             {
               "in": "collectRepos",
               "kind": "throw",
-              "line": 232
-            },
-            {
-              "in": "collectRepos",
-              "kind": "throw",
-              "line": 238
+              "line": 237
             },
             {
               "in": "backfillDefaultBranchRuns",
               "kind": "catch",
-              "line": 323
+              "line": 322
             },
             {
               "in": "deployNeeds",
               "kind": "catch",
-              "line": 425
+              "line": 424
             },
             {
               "in": "readAtlasCache",
               "kind": "catch",
-              "line": 614
+              "line": 613
             },
             {
               "in": "atlasFleetVersion",
               "kind": "catch",
-              "line": 631
+              "line": 630
             },
             {
               "in": "collectAtlasMaps",
               "kind": "catch",
-              "line": 673
+              "line": 672
             },
             {
               "in": "collectAtlasMaps",
               "kind": "catch",
-              "line": 680
+              "line": 679
             },
             {
               "in": "refreshMergeable",
               "kind": "catch",
-              "line": 747
+              "line": 746
             },
             {
               "in": "collectSecurity",
               "kind": "catch",
-              "line": 792
+              "line": 791
             },
             {
               "in": "collectSecurity",
               "kind": "catch",
-              "line": 809
+              "line": 808
             },
             {
               "in": "readPackageMapCache",
               "kind": "catch",
-              "line": 834
+              "line": 833
             },
             {
               "in": "auditPackageMap",
               "kind": "throw",
-              "line": 843
+              "line": 842
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 857
+              "line": 856
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 887
+              "line": 886
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 897
+              "line": 896
             },
             {
               "in": "collectBilling",
               "kind": "catch",
-              "line": 931
+              "line": 930
             },
             {
               "in": "readRunCostCache",
               "kind": "catch",
-              "line": 951
+              "line": 950
             },
             {
               "in": "collectRunCosts",
               "kind": "catch",
-              "line": 1060
+              "line": 1059
             },
             {
               "in": "sweep",
               "kind": "catch",
-              "line": 1154
+              "line": 1153
             }
           ],
-          "hash": "09d0a1b75342af9c3c0d7c21595adb64c0e908ecb4c69ae3d169f5830a402f78",
+          "hash": "173e781dc8c26a60d01a6718119be200a4fefe7e8027dea20f54287f881d61db",
           "importsFiles": [
             "src/config.mjs",
             "src/cost.mjs",
@@ -965,6 +970,7 @@
             "src/gh.mjs",
             "src/lockfile.mjs",
             "src/log.mjs",
+            "src/paths.mjs",
             "src/workflow-risks.mjs"
           ],
           "path": "src/collect.mjs",
@@ -972,7 +978,7 @@
             {
               "calls": [
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -987,7 +993,7 @@
             {
               "calls": [
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1003,21 +1009,21 @@
             {
               "calls": [
                 {
-                  "line": 230,
+                  "line": 229,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 232,
+                  "line": 231,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1033,14 +1039,14 @@
             {
               "calls": [
                 {
-                  "line": 270,
+                  "line": 269,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1056,7 +1062,7 @@
             {
               "calls": [
                 {
-                  "line": 318,
+                  "line": 317,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1071,21 +1077,21 @@
             {
               "calls": [
                 {
-                  "line": 331,
+                  "line": 330,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 332,
+                  "line": 331,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1101,14 +1107,14 @@
             {
               "calls": [
                 {
-                  "line": 400,
+                  "line": 399,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1124,14 +1130,14 @@
             {
               "calls": [
                 {
-                  "line": 429,
+                  "line": 428,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 431,
+                  "line": 430,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1146,7 +1152,7 @@
             {
               "calls": [
                 {
-                  "line": 429,
+                  "line": 428,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1154,7 +1160,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 431,
+                  "line": 430,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1162,14 +1168,14 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 474,
+                  "line": 473,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1185,14 +1191,14 @@
             {
               "calls": [
                 {
-                  "line": 656,
+                  "line": 655,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1208,14 +1214,14 @@
             {
               "calls": [
                 {
-                  "line": 694,
+                  "line": 693,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1231,7 +1237,7 @@
             {
               "calls": [
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1239,7 +1245,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 746,
+                  "line": 745,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1254,14 +1260,14 @@
             {
               "calls": [
                 {
-                  "line": 776,
+                  "line": 775,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1269,21 +1275,21 @@
                   "via": "log"
                 },
                 {
-                  "line": 799,
+                  "line": 798,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 804,
+                  "line": 803,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 807,
+                  "line": 806,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1298,56 +1304,56 @@
             {
               "calls": [
                 {
-                  "line": 853,
+                  "line": 852,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 856,
+                  "line": 855,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 861,
+                  "line": 860,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 868,
+                  "line": 867,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 872,
+                  "line": 871,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 879,
+                  "line": 878,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 884,
+                  "line": 883,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1363,24 +1369,24 @@
             {
               "calls": [
                 {
-                  "line": 916,
+                  "line": 915,
                   "name": "getUTCFullYear",
                   "target": null
                 },
                 {
-                  "line": 916,
+                  "line": 915,
                   "name": "getUTCMonth",
                   "target": null
                 },
                 {
-                  "line": 918,
+                  "line": 917,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1397,7 +1403,7 @@
               "calls": [
                 {
                   "branch": "!billing.ok",
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1405,42 +1411,42 @@
                   "via": "log"
                 },
                 {
-                  "line": 978,
+                  "line": 977,
                   "name": "ratesFromUsage",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 979,
+                  "line": 978,
                   "name": "withFallback",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1000,
+                  "line": 999,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1003,
+                  "line": 1002,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1035,
+                  "line": 1034,
                   "name": "priceRun",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1048,
+                  "line": 1047,
                   "name": "runnerClass",
                   "target": {
                     "file": "src/cost.mjs"
@@ -1455,7 +1461,7 @@
             {
               "calls": [
                 {
-                  "line": 1087,
+                  "line": 1086,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1463,7 +1469,7 @@
                   "via": "sweep"
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1471,7 +1477,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 230,
+                  "line": 229,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1479,7 +1485,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 232,
+                  "line": 231,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1487,7 +1493,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 746,
+                  "line": 745,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1495,7 +1501,7 @@
                   "via": "refreshMergeable"
                 },
                 {
-                  "line": 331,
+                  "line": 330,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1503,7 +1509,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 332,
+                  "line": 331,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1511,7 +1517,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 400,
+                  "line": 399,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1519,7 +1525,7 @@
                   "via": "collectFailedSteps"
                 },
                 {
-                  "line": 429,
+                  "line": 428,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1527,7 +1533,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 431,
+                  "line": 430,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1535,7 +1541,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 474,
+                  "line": 473,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1543,7 +1549,7 @@
                   "via": "collectDeploySettings"
                 },
                 {
-                  "line": 776,
+                  "line": 775,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1551,7 +1557,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 799,
+                  "line": 798,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1559,7 +1565,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 804,
+                  "line": 803,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1567,7 +1573,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 807,
+                  "line": 806,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1575,7 +1581,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 853,
+                  "line": 852,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1583,7 +1589,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 856,
+                  "line": 855,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1591,7 +1597,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 861,
+                  "line": 860,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1599,7 +1605,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 868,
+                  "line": 867,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1607,7 +1613,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 872,
+                  "line": 871,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1615,7 +1621,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 879,
+                  "line": 878,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1623,7 +1629,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 884,
+                  "line": 883,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1631,7 +1637,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 656,
+                  "line": 655,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1639,7 +1645,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 916,
+                  "line": 915,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1654,14 +1660,14 @@
             {
               "calls": [
                 {
-                  "line": 1087,
+                  "line": 1086,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 120,
+                  "line": 119,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1669,7 +1675,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 230,
+                  "line": 229,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1677,7 +1683,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 232,
+                  "line": 231,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1685,7 +1691,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 746,
+                  "line": 745,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1693,7 +1699,7 @@
                   "via": "refreshMergeable"
                 },
                 {
-                  "line": 331,
+                  "line": 330,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1701,7 +1707,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 332,
+                  "line": 331,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1709,7 +1715,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 400,
+                  "line": 399,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1717,7 +1723,7 @@
                   "via": "collectFailedSteps"
                 },
                 {
-                  "line": 429,
+                  "line": 428,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1725,7 +1731,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 431,
+                  "line": 430,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1733,7 +1739,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 474,
+                  "line": 473,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1741,7 +1747,7 @@
                   "via": "collectDeploySettings"
                 },
                 {
-                  "line": 776,
+                  "line": 775,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1749,7 +1755,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 799,
+                  "line": 798,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1757,7 +1763,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 804,
+                  "line": 803,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1765,7 +1771,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 807,
+                  "line": 806,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1773,7 +1779,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 853,
+                  "line": 852,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1781,7 +1787,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 856,
+                  "line": 855,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1789,7 +1795,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 861,
+                  "line": 860,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1797,7 +1803,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 868,
+                  "line": 867,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1805,7 +1811,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 872,
+                  "line": 871,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1813,7 +1819,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 879,
+                  "line": 878,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1821,7 +1827,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 884,
+                  "line": 883,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1829,7 +1835,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 656,
+                  "line": 655,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1837,7 +1843,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 916,
+                  "line": 915,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1863,59 +1869,60 @@
             {
               "in": "parseConfig",
               "kind": "catch",
-              "line": 35
+              "line": 34
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 35
+              "line": 34
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 37
+              "line": 36
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 41
+              "line": 40
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 45
+              "line": 44
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 49
+              "line": 48
             },
             {
               "in": "loadConfig",
               "kind": "catch",
-              "line": 58
+              "line": 57
             },
             {
               "in": "loadConfig",
               "kind": "throw",
-              "line": 60
+              "line": 59
             },
             {
               "in": "resolveOrg",
               "kind": "throw",
-              "line": 72
+              "line": 71
             }
           ],
-          "hash": "e5713d8b16bf3aa0d9d0316f3bfb30814c2249133f9ce8cd6b7949d62cef89ca",
+          "hash": "36a8b209b1ec057741c2e52eabf0b30279728a80db388c8fca1b282a9ca92b76",
           "importsFiles": [
-            "src/errors.mjs"
+            "src/errors.mjs",
+            "src/paths.mjs"
           ],
           "path": "src/config.mjs",
           "sequences": [
             {
               "calls": [
                 {
-                  "line": 22,
+                  "line": 21,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -1930,7 +1937,7 @@
             {
               "calls": [
                 {
-                  "line": 22,
+                  "line": 21,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -1946,7 +1953,7 @@
             {
               "calls": [
                 {
-                  "line": 22,
+                  "line": 21,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -1963,7 +1970,7 @@
               "calls": [
                 {
                   "branch": "!org",
-                  "line": 72,
+                  "line": 71,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2238,54 +2245,55 @@
             {
               "in": "openDb",
               "kind": "catch",
-              "line": 77
+              "line": 76
             },
             {
               "in": "openDb",
               "kind": "throw",
-              "line": 94
+              "line": 93
             },
             {
               "in": "inspectWorkflow",
               "kind": "catch",
-              "line": 119
+              "line": 118
             },
             {
               "in": "failedStepRows",
               "kind": "catch",
-              "line": 445
+              "line": 444
             },
             {
               "in": "loadSnapshot",
               "kind": "catch",
-              "line": 484
+              "line": 483
             },
             {
               "in": "loadSnapshot",
               "kind": "throw",
-              "line": 486
+              "line": 485
             },
             {
               "in": "latestSnapshotFile",
               "kind": "catch",
-              "line": 894
+              "line": 893
+            },
+            {
+              "in": "latestSnapshotFile",
+              "kind": "throw",
+              "line": 893
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
               "line": 894
-            },
-            {
-              "in": "latestSnapshotFile",
-              "kind": "throw",
-              "line": 895
             }
           ],
-          "hash": "12ec11e6094a8ae001059db0d16ab1b7c9971e39082c61c41782521a4bd4aa0c",
+          "hash": "2437ae6932b264c01e59da217f6806c43cae7802e81d9703c8f56c85ee8cac05",
           "importsFiles": [
             "src/collect.mjs",
             "src/cost.mjs",
             "src/errors.mjs",
+            "src/paths.mjs",
             "src/workflow-risks.mjs"
           ],
           "path": "src/load.mjs",
@@ -2293,49 +2301,65 @@
             {
               "calls": [
                 {
-                  "line": 188,
+                  "line": 80,
+                  "name": "PACKAGE_ROOT",
+                  "passed": true,
+                  "target": {
+                    "file": "src/paths.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": true,
+              "isDefaultExport": false,
+              "name": "openDb"
+            },
+            {
+              "calls": [
+                {
+                  "line": 187,
                   "name": "editsWorkflowFiles",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 189,
+                  "line": 188,
                   "name": "prCreateWithDefaultToken",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 191,
+                  "line": 190,
                   "name": "auditSteps",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 195,
+                  "line": 194,
                   "name": "atlasCheckPins",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 198,
+                  "line": 197,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 205,
+                  "line": 204,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 212,
+                  "line": 211,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2350,7 +2374,7 @@
             {
               "calls": [
                 {
-                  "line": 334,
+                  "line": 333,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2365,7 +2389,7 @@
             {
               "calls": [
                 {
-                  "line": 458,
+                  "line": 457,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2380,18 +2404,18 @@
             {
               "calls": [
                 {
-                  "line": 479,
+                  "line": 478,
                   "name": "exec",
                   "target": null
                 },
                 {
-                  "line": 491,
+                  "line": 490,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 552,
+                  "line": 551,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2399,7 +2423,7 @@
                   "via": "loadSnapshotInner"
                 },
                 {
-                  "line": 188,
+                  "line": 187,
                   "name": "editsWorkflowFiles",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2407,7 +2431,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 189,
+                  "line": 188,
                   "name": "prCreateWithDefaultToken",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2415,7 +2439,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 191,
+                  "line": 190,
                   "name": "auditSteps",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2423,7 +2447,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 195,
+                  "line": 194,
                   "name": "atlasCheckPins",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2431,7 +2455,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 198,
+                  "line": 197,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2439,7 +2463,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 205,
+                  "line": 204,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2447,7 +2471,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 212,
+                  "line": 211,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2455,7 +2479,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 458,
+                  "line": 457,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2463,7 +2487,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 868,
+                  "line": 867,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2471,7 +2495,7 @@
                   "via": "loadSnapshotInner"
                 },
                 {
-                  "line": 482,
+                  "line": 481,
                   "name": "exec",
                   "target": null
                 }
@@ -2484,20 +2508,20 @@
             {
               "calls": [
                 {
-                  "line": 491,
+                  "line": 490,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 552,
+                  "line": 551,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
                   }
                 },
                 {
-                  "line": 188,
+                  "line": 187,
                   "name": "editsWorkflowFiles",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2505,7 +2529,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 189,
+                  "line": 188,
                   "name": "prCreateWithDefaultToken",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2513,7 +2537,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 191,
+                  "line": 190,
                   "name": "auditSteps",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2521,7 +2545,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 195,
+                  "line": 194,
                   "name": "atlasCheckPins",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2529,7 +2553,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 198,
+                  "line": 197,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2537,7 +2561,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 205,
+                  "line": 204,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2545,7 +2569,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 212,
+                  "line": 211,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2553,7 +2577,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 458,
+                  "line": 457,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2561,7 +2585,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 868,
+                  "line": 867,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2576,8 +2600,16 @@
             {
               "calls": [
                 {
+                  "line": 890,
+                  "name": "DATA_DIR",
+                  "passed": true,
+                  "target": {
+                    "file": "src/paths.mjs"
+                  }
+                },
+                {
                   "branch": "!files.length",
-                  "line": 895,
+                  "line": 894,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2741,17 +2773,28 @@
           ]
         },
         {
+          "entry": "str",
+          "entryRule": 1,
           "failurePaths": [
             {
               "kind": "catch",
-              "line": 292
+              "line": 291
             }
           ],
-          "hash": "b58b425827f95d91dc0556c9c8c41f4bf458536bb2d20a2eff2fa2a1a507d6bc",
+          "hash": "75f9708a655025d196a34a212c2e35350e60e5a128473ce9c29794b0df0fb848",
           "importsFiles": [
-            "src/errors.mjs"
+            "src/errors.mjs",
+            "src/paths.mjs"
           ],
-          "path": "src/mcp.mjs"
+          "path": "src/mcp.mjs",
+          "sequences": []
+        },
+        {
+          "exports": [
+            "workDir"
+          ],
+          "hash": "0f23a2f1f73b477c39e7a005e91053f75a376820a95d3de1d55a52e98277d764",
+          "path": "src/paths.mjs"
         },
         {
           "entry": "writeReport",
@@ -2764,48 +2807,49 @@
             {
               "in": "writeReport",
               "kind": "throw",
-              "line": 550
+              "line": 549
             },
             {
               "kind": "throw",
-              "line": 565
+              "line": 564
             },
             {
               "kind": "catch",
-              "line": 567
+              "line": 566
             }
           ],
-          "hash": "f88afe3826a507cf37b250c65361188b6f968607ffa2c2363a80e079e5b60837",
+          "hash": "9c6fcb0530f01756f9959a25c7673f440473ebdb67a192b7d8db425559febd6d",
           "importsFiles": [
             "src/analyze.mjs",
             "src/errors.mjs",
-            "src/load.mjs"
+            "src/load.mjs",
+            "src/paths.mjs"
           ],
           "path": "src/report.mjs",
           "sequences": [
             {
               "calls": [
                 {
-                  "line": 30,
+                  "line": 29,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 474,
+                  "line": 473,
                   "name": "engineBehindCounts",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 492,
+                  "line": 491,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 525,
+                  "line": 524,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2820,26 +2864,26 @@
             {
               "calls": [
                 {
-                  "line": 549,
+                  "line": 548,
                   "name": "prepare",
                   "target": null
                 },
                 {
                   "branch": "!snap",
-                  "line": 550,
+                  "line": 549,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
                   }
                 },
                 {
-                  "line": 30,
+                  "line": 29,
                   "name": "prepare",
                   "target": null,
                   "via": "buildReport"
                 },
                 {
-                  "line": 474,
+                  "line": 473,
                   "name": "engineBehindCounts",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2847,7 +2891,7 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 492,
+                  "line": 491,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2855,12 +2899,20 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 525,
+                  "line": 524,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
                   },
                   "via": "buildReport"
+                },
+                {
+                  "line": 551,
+                  "name": "REPORTS_DIR",
+                  "passed": true,
+                  "target": {
+                    "file": "src/paths.mjs"
+                  }
                 }
               ],
               "exported": true,
@@ -2903,7 +2955,7 @@
       "origin": "authored",
       "outsidePlaces": [
         {
-          "reads": 20,
+          "reads": 21,
           "where": [
             "caller"
           ],
@@ -2931,19 +2983,19 @@
           "writes": 1
         }
       ],
-      "outsideReads": 22,
+      "outsideReads": 23,
       "outsideWrites": 2,
       "role": "code",
       "testRunners": [
         "node --test"
       ],
-      "testedBy": 22,
+      "testedBy": 23,
       "unresolvedSites": 0
     },
     {
       "dynamicReads": 0,
-      "dynamicSpawns": 0,
-      "dynamicSpawnsInTests": 0,
+      "dynamicSpawns": 1,
+      "dynamicSpawnsInTests": 1,
       "dynamicWrites": 0,
       "entryPoints": [],
       "externals": 0,
@@ -3138,6 +3190,14 @@
           "testFramework": "node --test"
         },
         {
+          "hash": "35c163d4994dfb0a4b53cfe3ad778fe7d9dc989ba009a4293ac5c1f0e3b74548",
+          "importsFiles": [
+            "src/paths.mjs"
+          ],
+          "path": "test/paths.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
           "hash": "3eb7863849df23f8a13d602554d7f83d917f36465ce04c18d46aecd5034653d5",
           "importsFiles": [
             "src/lockfile.mjs"
@@ -3286,7 +3346,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 23
+          "files": 24
         },
         {
           "boundary": "src",
@@ -3295,7 +3355,7 @@
             "file": "src/cost.mjs",
             "from": "test/actions-cost.test.mjs"
           },
-          "files": 11
+          "files": 12
         }
       ],
       "readers": [],
@@ -3323,7 +3383,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 23,
+          "files": 24,
           "job": "test",
           "runner": "node --test",
           "step": "3",
@@ -3364,10 +3424,6 @@
         {
           "event": "workflow_dispatch"
         }
-      ],
-      "untrackedLandings": [
-        "data/snapshots/",
-        "reports/"
       ],
       "uses": [
         "actions/checkout",
@@ -3519,6 +3575,191 @@
     },
     {
       "checksCount": 0,
+      "commands": [
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "cd",
+            "echo",
+            "mkdir",
+            "npm"
+          ],
+          "step": "npm with Trusted Publishing support"
+        },
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "echo",
+            "node"
+          ],
+          "step": "The release tag matches package.json"
+        },
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "npm"
+          ],
+          "step": "4"
+        },
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "npm"
+          ],
+          "step": "5"
+        },
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "npm"
+          ],
+          "step": "Package contents"
+        },
+        {
+          "dir": "",
+          "job": "publish",
+          "programs": [
+            "npm"
+          ],
+          "step": "Publish"
+        }
+      ],
+      "elsewhere": [],
+      "file": ".github/workflows/release.yml",
+      "gated": [
+        {
+          "jobs": [
+            "publish"
+          ],
+          "pushes": false,
+          "sends": [
+            "publishesTo:npm",
+            "packages:{\"dir\":\"\",\"name\":\"@mcptoolshop/housekeeping\",\"registry\":\"npm\"}"
+          ],
+          "stages": [],
+          "when": {
+            "event": "release"
+          }
+        }
+      ],
+      "jobs": [
+        {
+          "basis": "declared",
+          "name": "publish",
+          "runsOn": [
+            {
+              "labels": [
+                "ubuntu-latest"
+              ],
+              "platform": {
+                "cpu": "x64",
+                "libc": "glibc",
+                "os": "linux"
+              }
+            }
+          ],
+          "setup": [
+            {
+              "ranges": [
+                {
+                  "from": "22",
+                  "range": ">=22.0.0 <23.0.0-0"
+                }
+              ],
+              "step": "1",
+              "uses": "actions/setup-node",
+              "version": "22"
+            }
+          ]
+        }
+      ],
+      "landings": [],
+      "mentions": [
+        {
+          "job": "publish",
+          "path": "package.json"
+        }
+      ],
+      "name": "Release",
+      "permissions": [
+        "contents:read",
+        "id-token:write"
+      ],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "test",
+          "depth": 0,
+          "files": 24
+        },
+        {
+          "boundary": "src",
+          "depth": 1,
+          "enters": {
+            "file": "src/cost.mjs",
+            "from": "test/actions-cost.test.mjs"
+          },
+          "files": 12
+        }
+      ],
+      "readers": [],
+      "runs": [
+        {
+          "directory": true,
+          "job": "publish",
+          "matched": true,
+          "path": "test/",
+          "runKind": "executes"
+        }
+      ],
+      "runsCount": 1,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "tests": [
+        {
+          "files": 24,
+          "job": "publish",
+          "runner": "node --test",
+          "step": "5",
+          "through": [
+            "npm test"
+          ]
+        }
+      ],
+      "triggers": [
+        {
+          "event": "release",
+          "types": [
+            "published"
+          ]
+        },
+        {
+          "event": "workflow_dispatch"
+        }
+      ],
+      "uses": [
+        "actions/checkout",
+        "actions/setup-node"
+      ],
+      "usesWorkflowToken": false
+    },
+    {
+      "checksCount": 0,
       "commands": [],
       "elsewhere": [],
       "file": "package.json",
@@ -3527,13 +3768,12 @@
       "mentions": [],
       "name": "hk",
       "permissions": [],
-      "privatePackage": true,
       "pushes": false,
       "reach": [
         {
           "boundary": "src",
           "depth": 0,
-          "files": 12
+          "files": 13
         }
       ],
       "readers": [],
@@ -3557,11 +3797,48 @@
       },
       "stages": [],
       "triggers": [],
-      "unshipped": true,
-      "untrackedLandings": [
-        "data/snapshots/",
-        "reports/"
+      "uses": [],
+      "usesWorkflowToken": false
+    },
+    {
+      "checksCount": 0,
+      "commands": [],
+      "elsewhere": [],
+      "file": "package.json",
+      "kind": "command",
+      "landings": [],
+      "mentions": [],
+      "name": "hk-mcp",
+      "permissions": [],
+      "pushes": false,
+      "reach": [
+        {
+          "boundary": "src",
+          "depth": 0,
+          "files": 3
+        }
       ],
+      "readers": [],
+      "runs": [
+        {
+          "path": "src/mcp.mjs",
+          "runKind": "executes"
+        }
+      ],
+      "runsCount": 1,
+      "secrets": [],
+      "sends": {
+        "deploysPages": false,
+        "dispatchesTo": [],
+        "opensIssues": false,
+        "opensIssuesOnFailure": false,
+        "opensPullRequests": false,
+        "publishes": false,
+        "publishesTo": [],
+        "releases": false
+      },
+      "stages": [],
+      "triggers": [],
       "uses": [],
       "usesWorkflowToken": false
     }
@@ -3576,8 +3853,8 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
-    "tracked": 80
+    "commit": "b003f4348aec1179d5620283ceca41c22544b25c",
+    "tracked": 83
   },
   "landings": [
     {
@@ -3639,18 +3916,6 @@
       ],
       "target": "README.md",
       "writers": []
-    },
-    {
-      "readers": [],
-      "target": "data/snapshots",
-      "tracked": false,
-      "writers": [
-        {
-          "by": "src/collect.mjs",
-          "confidence": "ast",
-          "untrackedInputs": true
-        }
-      ]
     },
     {
       "readers": [
@@ -3718,13 +3983,23 @@
     {
       "readers": [
         {
+          "by": ".github/workflows/release.yml",
+          "confidence": "config"
+        },
+        {
           "by": "src/mcp.mjs",
           "call": "readFileSync",
-          "confidence": "ast"
+          "confidence": "weak"
         },
         {
           "by": "test/lockfile-audit.test.mjs",
           "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
+          "by": "test/paths.test.mjs",
+          "call": "readFileSync",
           "confidence": "ast",
           "fromTests": true
         },
@@ -3737,17 +4012,6 @@
       ],
       "target": "package.json",
       "writers": []
-    },
-    {
-      "readers": [],
-      "target": "reports",
-      "tracked": false,
-      "writers": [
-        {
-          "by": "src/report.mjs",
-          "confidence": "ast"
-        }
-      ]
     },
     {
       "readers": [
@@ -3875,6 +4139,6 @@
   "overlaps": [],
   "submodules": [],
   "symlinks": [],
-  "testFiles": 23,
+  "testFiles": 24,
   "unassigned": []
 }

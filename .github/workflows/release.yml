@@ -1,0 +1,67 @@
+name: Release
+
+# Publishes @mcptoolshop/housekeeping to npm when a GitHub release is
+# published. npm Trusted Publishing authenticates this workflow by its
+# repository and filename, so both must stay as they are. There is no
+# `environment:` on the job, and there must not be one unless the trusted
+# publisher on npmjs.com names the same environment.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write   # the OIDC token npm exchanges for a publish, and the provenance statement
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+
+      # Trusted Publishing needs npm 11.5 or later. Upgrading Node 22's bundled
+      # npm in place races on its own rebuild, so a current npm is installed
+      # into a separate directory and put first on PATH instead.
+      - name: npm with Trusted Publishing support
+        run: |
+          SANDBOX="$HOME/.npm-cli-sandbox"
+          mkdir -p "$SANDBOX"
+          cd "$SANDBOX"
+          echo '{"name":"npm-cli-sandbox","version":"0.0.0","private":true}' > package.json
+          npm install --no-save --no-audit --no-fund --silent npm@latest
+          echo "$SANDBOX/node_modules/.bin" >> "$GITHUB_PATH"
+          "$SANDBOX/node_modules/.bin/npm" --version
+
+      - name: The release tag matches package.json
+        if: github.event_name == 'release'
+        run: |
+          PKG="$(node -p "require('./package.json').version")"
+          TAG="${GITHUB_REF_NAME#v}"
+          if [ "$PKG" != "$TAG" ]; then
+            echo "::error::release tag $GITHUB_REF_NAME does not match package.json version $PKG"
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npm test
+
+      - name: Package contents
+        run: npm pack --dry-run
+
+      - name: Publish
+        if: github.event_name == 'release'
+        run: npm publish --provenance --access public

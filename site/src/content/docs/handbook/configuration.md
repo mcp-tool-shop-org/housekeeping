@@ -60,6 +60,7 @@ The file names your organization and its repositories, so the repository's
 
 | Variable | Effect |
 |---|---|
+| `HK_HOME` | The directory that holds `data/`, `reports/` and the config file. Unset, it is the clone when housekeeping runs from one, and the current directory when it runs as an installed package. |
 | `HK_CONFIG` | Path to the config file. |
 | `HK_DB` | Path to the SQLite database, for the CLI and the MCP server. |
 | `HK_LOG` | `silent`, `normal`, `verbose` or `debug`. An unknown value is an error. |

@@ -9,13 +9,12 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { ListToolsRequestSchema, CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { DatabaseSync } from 'node:sqlite';
 import { existsSync, readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { EXIT, formatError, readOnlyQuery, structured, userError } from './errors.mjs';
+import { DATA_DIR, PACKAGE_ROOT } from './paths.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DB_FILE = process.env.HK_DB || join(ROOT, 'data', 'housekeeping.db');
-const VERSION = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version;
+const DB_FILE = process.env.HK_DB || join(DATA_DIR, 'housekeeping.db');
+const VERSION = JSON.parse(readFileSync(join(PACKAGE_ROOT, 'package.json'), 'utf8')).version;
 
 if (!existsSync(DB_FILE)) {
   console.error(formatError(userError('NO_DATABASE', `no database at ${DB_FILE}`, 'run `hk refresh` first')));

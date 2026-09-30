@@ -11,12 +11,11 @@
 //
 // No network and no database here, so every branch is unit-testable.
 import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { userError } from './errors.mjs';
+import { WORK_DIR } from './paths.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const CONFIG_PATH = process.env.HK_CONFIG ?? join(ROOT, 'housekeeping.config.json');
+export const CONFIG_PATH = process.env.HK_CONFIG ?? join(WORK_DIR, 'housekeeping.config.json');
 
 const KEYS = ['org', 'metaRepos'];
 const invalid = message => userError('CONFIG_INVALID', message,

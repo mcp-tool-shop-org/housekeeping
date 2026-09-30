@@ -93,11 +93,11 @@ export const config: SiteConfig = {
       cards: [
         {
           title: 'Install',
-          code: 'gh repo clone \\\n  mcp-tool-shop-org/housekeeping\ncd housekeeping\nnpm install && npm link',
+          code: 'npm install -g \\\n  @mcptoolshop/housekeeping\nmkdir warehouse && cd warehouse',
         },
         {
           title: 'Sweep',
-          code: '# set "org" in\n# housekeeping.config.json\nhk refresh',
+          code: 'hk refresh your-org',
         },
         {
           title: 'Ask',

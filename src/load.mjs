@@ -4,7 +4,6 @@
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync, readdirSync, mkdirSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { parse as parseYaml } from 'yaml';
 import {
@@ -15,9 +14,9 @@ import {
 import { safeJson } from './collect.mjs';
 import { reconcileRepos } from './cost.mjs';
 import { HkError, userError } from './errors.mjs';
+import { DATA_DIR, PACKAGE_ROOT } from './paths.mjs';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const DB_PATH = process.env.HK_DB || join(ROOT, 'data', 'housekeeping.db');
+export const DB_PATH = process.env.HK_DB || join(DATA_DIR, 'housekeeping.db');
 
 const DAY = 86400_000;
 const daysSince = iso => (iso ? Math.floor((Date.now() - Date.parse(iso)) / DAY) : null);
@@ -78,7 +77,7 @@ export function openDb(path = DB_PATH, { fresh = false } = {}) {
     }
   }
   const db = new DatabaseSync(path);
-  const ddl = readFileSync(join(ROOT, 'src', 'schema.sql'), 'utf8');
+  const ddl = readFileSync(join(PACKAGE_ROOT, 'src', 'schema.sql'), 'utf8');
   db.exec(ddl);
 
   // CREATE TABLE IF NOT EXISTS silently does nothing when a table already
@@ -888,7 +887,7 @@ function loadSnapshotInner(db, snap) {
 }
 
 export function latestSnapshotFile() {
-  const dir = join(ROOT, 'data', 'snapshots');
+  const dir = join(DATA_DIR, 'snapshots');
   let files = [];
   try { files = readdirSync(dir).filter(f => f.endsWith('.json')).sort(); }
   catch (e) { if (e.code !== 'ENOENT') throw e; }      // no directory yet is the same as no snapshots

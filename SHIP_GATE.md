@@ -1,12 +1,13 @@
 # Ship Gate
 
 > No repo is "done" until every applicable line is checked.
-> Checked per release. This file records the gate for **v1.2.0**.
+> Checked per release. This file records the gate for **v1.3.0**.
 
 **Tags:** `[all]` every repo · `[npm]` `[pypi]` `[vsix]` `[desktop]` `[container]` published artifacts · `[mcp]` MCP servers · `[cli]` CLI tools
 
-This repository is `[all]` `[cli]` `[mcp]`. It is not published to a package
-registry, so the `[npm]` publishing lines are skipped with that reason.
+This repository is `[all]` `[npm]` `[cli]` `[mcp]`. It is published to npm as
+`@mcptoolshop/housekeeping` by its release workflow, through npm Trusted
+Publishing, with provenance.
 
 ---
 
@@ -51,8 +52,8 @@ registry, so the `[npm]` publishing lines are skipped with that reason.
 - [x] `[all]` Dependency scanning runs in CI (ecosystem-appropriate) — executed by `npx @mcptoolshop/shipcheck ci`; `npm audit --audit-level=high` is a blocking CI step (2026-09-30)
 - [x] `[all]` No known high/critical vulnerabilities in any dependency tree, and Dependabot alerts are enabled — executed by `npx @mcptoolshop/shipcheck deps` (2026-09-30)
 - [ ] `[all]` SKIP: dependency updates are applied in the source this repository is built from, and arrive here with the next build. An update bot opening pull requests here would be overwritten.
-- [ ] `[npm]` SKIP: not published to npm (`"private": true`)
-- [ ] `[npm]` SKIP: not published to npm, so there is no publishable package to pack
+- [x] `[npm]` `npm pack --dry-run` includes: src/, rules/, README.md and its translations, CHANGELOG.md, LICENSE, the example config (files field) — checked against an allow-list on every build of this repository, and run again by `release.yml` before it publishes (2026-09-30)
+- [x] `[npm]` Published by CI only: `release.yml` on a published release, through npm Trusted Publishing (OIDC) with provenance; no long-lived token (2026-09-30)
 - [x] `[npm]` `engines.node` set — `>=22.5.0` (2026-09-30)
 - [x] `[npm]` Lockfile committed — executed by `npx @mcptoolshop/shipcheck manifest`; both lockfiles are also checked for every platform's native packages on each build of this repository (2026-09-30)
 - [ ] `[vsix]` SKIP: not a VS Code extension

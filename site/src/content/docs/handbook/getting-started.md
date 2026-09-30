@@ -20,18 +20,28 @@ It is developed on Windows and its tests also run on Linux in CI.
 ## Install
 
 ```bash
+npm install -g @mcptoolshop/housekeeping
+```
+
+That puts `hk` and `hk-mcp` on your path. An installed housekeeping keeps its
+data, reports and config in the directory you run it from, or in `HK_HOME`, so
+make a directory for it:
+
+```bash
+mkdir warehouse && cd warehouse
+```
+
+Or work from a clone, which keeps everything in the clone:
+
+```bash
 git clone https://github.com/mcp-tool-shop-org/housekeeping.git
 cd housekeeping
 npm install
-```
-
-To get the `hk` command on your path:
-
-```bash
 npm link
 ```
 
-Without it, every `hk <command>` on these pages is `node src/cli.mjs <command>`.
+In a clone without `npm link`, every `hk <command>` on these pages is
+`node src/cli.mjs <command>`.
 
 ## Name your organization
 
