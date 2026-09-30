@@ -131,6 +131,7 @@ or the `hk_schema` tool shows the columns.
 | `release`, `tag` | GitHub Release, git tag |
 | `workflow` | workflow file, with its rule flags |
 | `workflow_run` | recorded run |
+| `run_failed_step` | failed step of a red default-branch run, and the same step as a map names it |
 | `workflow_environment`, `environment`, `deploy_settings` | what a deploy depends on |
 | `branch_protection`, `check_context` | protection rule, observed check name |
 | `package_script`, `package_dep` | npm script, declared dependency |

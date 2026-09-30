@@ -3,6 +3,22 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- The default-branch CI findings say where a red run broke: the failed job and
+  step, matched to the workflow file by name. One REST call per red run.
+- With an Atlas map, the failed step is joined to the map's entry for it, and
+  a map finding recorded against that same step is cited as a prediction.
+- `run_failed_step` table.
+
+### Fixed
+
+- The Atlas map record kept a command's `directory`, a key no map writes; it
+  now keeps `dir`, and keeps the door's `unresolvedChecks`. Cached records are
+  re-read once.
+
 ## [1.2.0] - 2026-09-30
 
 The first public release.

@@ -59,15 +59,17 @@ CREATE TABLE IF NOT EXISTS atlas_map (
 );
 
 -- Each door of a map, trimmed (collect.mjs trimAtlasDoor). The JSON columns
--- are kept as Atlas wrote them; `jobs` and `findings` are NULL until the
--- map's engine records them.
+-- are kept as Atlas wrote them; `jobs`, `findings` and `unresolved_checks`
+-- are NULL until the map's engine records them (Atlas 1.24.0).
 CREATE TABLE IF NOT EXISTS atlas_door (
   snapshot_id INTEGER, repo TEXT, file TEXT, name TEXT, kind TEXT,
-  triggers TEXT, sends TEXT, counts TEXT, jobs TEXT, findings TEXT
+  triggers TEXT, sends TEXT, counts TEXT, jobs TEXT, findings TEXT,
+  unresolved_checks TEXT
 );
 
 -- Each command of a door: the job and step it runs in and the programs it
--- runs. `step` is Atlas's step reference as recorded in the map.
+-- runs. `step` is Atlas's step reference as recorded in the map: the step's
+-- name, or its index from 0 as a string when it has none.
 CREATE TABLE IF NOT EXISTS atlas_door_command (
   snapshot_id INTEGER, repo TEXT, file TEXT, door TEXT,
   job TEXT, step TEXT, programs TEXT, directory TEXT
@@ -193,6 +195,21 @@ CREATE TABLE IF NOT EXISTS workflow_run (
   is_latest_for_workflow INTEGER,   -- newest run for this workflow on any branch
   on_default_branch INTEGER,        -- run's head branch == repo default branch
   is_latest_on_default INTEGER      -- newest run for this workflow ON the default branch
+);
+
+-- Where a red default-branch run broke (collect.mjs collectFailedSteps), one
+-- row per failed step of a failed job, or one row with step NULL for a job
+-- that failed outside any step. `api_job` and `api_step` are as the Actions
+-- API displays them; `job` and `step` are the same place as an Atlas map
+-- names it (workflow-risks.mjs resolveFailedStep), so they join
+-- atlas_door_command on (repo, file = path, job, step). `unresolved` says why
+-- no single step of the file could be named; then `step` is NULL. The file is
+-- read at the sweep, the run may be older: a workflow edited since is one of
+-- the reasons. No rows for a run means it was not read, never that it passed.
+CREATE TABLE IF NOT EXISTS run_failed_step (
+  snapshot_id INTEGER, repo TEXT, run_id INTEGER, path TEXT,
+  api_job TEXT, api_step TEXT, step_number INTEGER,
+  job TEXT, step TEXT, phase TEXT, unresolved TEXT
 );
 
 CREATE TABLE IF NOT EXISTS file_presence (

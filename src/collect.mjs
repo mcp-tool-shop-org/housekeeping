@@ -15,7 +15,7 @@ import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs'
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const COLLECTOR_VERSION = '1.3.0';
+export const COLLECTOR_VERSION = '1.4.0';
 
 const REPO_FIELDS = `
   id name description url homepageUrl
@@ -350,6 +350,68 @@ async function collectRuns(org, repos, concurrency = 10) {
   return { runs, errors };
 }
 
+const RED = new Set(['failure', 'timed_out']);
+
+/**
+ * The runs whose failure the CI rules report: per repo and workflow file, the
+ * newest run on the default branch, when it is red. Pure. Runs arrive newest
+ * first, so the first sighting of a path is its latest -- the loader's own
+ * `is_latest_on_default`. Dependabot's dynamic workflows have no file in the
+ * repository and so no step to name; they are left out.
+ */
+export function failedStepTargets(runs, repos) {
+  const branchOf = new Map((repos ?? []).map(r => [r.name, r.defaultBranchRef?.name ?? null]));
+  const seen = new Set(), out = [];
+  for (const x of runs ?? []) {
+    const branch = branchOf.get(x.repo);
+    if (!branch || x.branch !== branch) continue;
+    const key = `${x.repo}\n${x.path}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (RED.has(x.conclusion) && /^\.github\/workflows\//.test(x.path ?? '')) out.push(x);
+  }
+  return out;
+}
+
+/**
+ * The failed jobs and steps of one run, from the Actions API. Pure.
+ * A job that timed out has no failed step: the step it was in is `cancelled`.
+ * That one is kept, and only when the job has no failed step, so a cancelled
+ * step never stands in for the one that actually broke.
+ */
+export function failedJobs(apiJobs) {
+  return (apiJobs ?? []).filter(j => RED.has(j.conclusion)).map(j => {
+    const steps = (j.steps ?? []).map(s => ({ number: s.number, name: s.name, conclusion: s.conclusion }));
+    const red = steps.filter(s => RED.has(s.conclusion));
+    return { name: j.name, conclusion: j.conclusion, steps: red.length ? red : steps.filter(s => s.conclusion === 'cancelled').slice(0, 1) };
+  });
+}
+
+/**
+ * Pass 3a - where each red default-branch run broke. One REST call per run in
+ * failedStepTargets (seven red runs on 2026-09-30, five with a workflow file),
+ * so nothing is cached. `filter=latest` asks for the last attempt only: the
+ * run's conclusion is the last attempt's, and so are the jobs that explain it.
+ * A failed call is recorded against the run and the loader stores nothing for
+ * it, which the rules read as "not measured".
+ */
+export async function collectFailedSteps(org, runs, repos, { get = rest, concurrency = 6 } = {}) {
+  const targets = failedStepTargets(runs, repos);
+  const results = await pMap(targets, x =>
+    get(`repos/${org}/${x.repo}/actions/runs/${x.run_id}/jobs?filter=latest&per_page=100`), concurrency);
+  const out = results.map((res, i) => {
+    const x = targets[i];
+    const base = { repo: x.repo, run_id: x.run_id, path: x.path };
+    // `job_count` keeps "no job failed" apart from "no job ran": a run GitHub
+    // rejects before it starts (an invalid workflow file) has no jobs at all.
+    return res.ok
+      ? { ...base, job_count: (res.value?.jobs ?? []).length, jobs: failedJobs(res.value?.jobs) }
+      : { ...base, error: String(res.error).slice(0, 160) };
+  });
+  log(`failed steps: ${out.filter(r => !r.error).length}/${targets.length} red runs read`);
+  return { ok: true, runs: out };
+}
+
 /**
  * What a repo's workflows need from its settings, read from the workflow text
  * the sweep already holds. Pure. Parse failures are skipped: a file GitHub
@@ -499,7 +561,9 @@ export async function collectDeploySettings(org, repos, workflowFiles, { get = r
 //
 // Bump when the trimmed shape changes: a cached record trimmed by an older
 // version is then fetched again rather than served in the old shape.
-export const ATLAS_TRIM_VERSION = 1;
+// 2 (2026-09-30): commands keep `dir`, the key Atlas writes (1 read
+// `directory`, which no map has); doors keep `unresolvedChecks`.
+export const ATLAS_TRIM_VERSION = 2;
 const ATLAS_CACHE = join(ROOT, 'data', 'atlas-map-cache.json');
 const ATLAS_PACKAGE = '@dogfood-lab/atlas';
 
@@ -513,24 +577,26 @@ const pick = (obj, keys) => {
  * One door without its long lists. Pure.
  *
  * Kept: what the door is (file, name, kind), what starts it (triggers), what
- * each command runs (job, step, programs, and the directory once maps record
- * it), what it sends, and its counts. `jobs` and `findings` are kept whole
- * whenever a door carries them -- Atlas 1.25.0 adds both -- so the slices that
- * read them need no collector change. Dropped: landings, reach, runs, readers,
- * mentions and the other per-file lists; each is recoverable from the map at
- * the commit the record names.
+ * each command runs (job, step, programs, and `dir` once maps record it),
+ * what it sends, and its counts. `jobs`, `findings` and `unresolvedChecks` are
+ * kept whole whenever a door carries them -- Atlas 1.24.0 adds all three: the
+ * runtime of each job, the D1/D2 door findings, and what a door check could
+ * not judge -- so the slices that read them need no collector change.
+ * Dropped: landings, reach, runs, readers, mentions and the other per-file
+ * lists; each is recoverable from the map at the commit the record names.
  */
 export function trimAtlasDoor(door) {
   if (!door || typeof door !== 'object') return null;
   const out = pick(door, ['file', 'name', 'kind', 'triggers', 'sends']);
   out.commands = Array.isArray(door.commands)
-    ? door.commands.map(c => pick(c, ['job', 'step', 'programs', 'directory']))
+    ? door.commands.map(c => pick(c, ['job', 'step', 'programs', 'dir']))
     : [];
   const counts = {};
   for (const [k, v] of Object.entries(door)) if (/Count$/.test(k) && typeof v === 'number') counts[k] = v;
   out.counts = counts;
   if (door.jobs !== undefined) out.jobs = door.jobs;
   if (door.findings !== undefined) out.findings = door.findings;
+  if (door.unresolvedChecks !== undefined) out.unresolvedChecks = door.unresolvedChecks;
   return out;
 }
 
@@ -1024,6 +1090,7 @@ async function sweep(org, ctx) {
   ctx.stage = 'mergeable';      const mergeableResolved = await refreshMergeable(org, repos);
   ctx.stage = 'workflow_files'; const workflowFiles = await collectWorkflowFiles(org, repos);
   ctx.stage = 'runs';           const { runs, errors } = await collectRuns(org, repos);
+  ctx.stage = 'failed_steps';   const failedSteps = await collectFailedSteps(org, runs, repos);
   ctx.stage = 'deploy_settings'; const deploySettings = await collectDeploySettings(org, repos, workflowFiles);
   ctx.stage = 'npm';            const npm = await collectNpm(repos);
   ctx.stage = 'security';       const security = await collectSecurity(org, repos);
@@ -1047,6 +1114,7 @@ async function sweep(org, ctx) {
     repos,
     workflow_files: Object.fromEntries(workflowFiles),
     workflow_runs: runs,
+    failed_steps: failedSteps,
     deploy_settings: { ok: deploySettings.ok, calls: deploySettings.calls, repos: deploySettings.repos },
     npm,
     security,
@@ -1056,7 +1124,8 @@ async function sweep(org, ctx) {
     atlas_maps: { ok: atlasMaps.ok, fleet_version: atlasMaps.fleet_version, repos: atlasMaps.repos },
     billing,
     run_costs: runCosts,
-    errors: errors.concat(deploySettings.errors ?? [], runCosts.errors ?? []),
+    errors: errors.concat(deploySettings.errors ?? [], runCosts.errors ?? [],
+      failedSteps.runs.filter(x => x.error).map(x => ({ repo: x.repo, stage: 'failed_steps', message: x.error }))),
   };
 
   const dir = join(ROOT, 'data', 'snapshots');

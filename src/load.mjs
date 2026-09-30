@@ -10,6 +10,7 @@ import { parse as parseYaml } from 'yaml';
 import {
   editsWorkflowFiles, prCreateWithDefaultToken, auditSteps,
   pagesDeployJobs, jobEnvironment, jobRunsOnDefaultBranch, atlasCheckPins,
+  resolveFailedStep,
 } from './workflow-risks.mjs';
 import { safeJson } from './collect.mjs';
 import { reconcileRepos } from './cost.mjs';
@@ -417,6 +418,41 @@ export function hasAtlasMap(repo) {
   return typeof repo.atlasMap?.oid === 'string' ? 1 : null;
 }
 
+/**
+ * The rows of run_failed_step for one collected run. Pure.
+ * `record` is an entry of snapshot.failed_steps.runs; `text` is the run's
+ * workflow file as the sweep read it, or null when the file is gone. A record
+ * that carries an error yields nothing -- the run was not read, which is not
+ * the same as a run with no failed step.
+ */
+export function failedStepRows(record, text) {
+  if (!record || record.error || !Array.isArray(record.jobs)) return [];
+  let doc = null, why = null;
+  if (text == null) why = 'the workflow file is not on the default branch any more';
+  else {
+    try { doc = parseYaml(text, { logLevel: 'silent' }); } catch { doc = null; }
+    if (!doc || typeof doc !== 'object') { doc = null; why = 'the workflow file does not parse'; }
+  }
+  const rows = [];
+  if (!record.jobs.length) {
+    const unresolved = record.job_count === 0
+      ? 'no job ran, which is how GitHub fails a run whose workflow file it cannot use'
+      : 'no job failed; the run itself did';
+    return [{ api_job: null, api_step: null, step_number: null, job: null, step: null, phase: null, unresolved }];
+  }
+  for (const j of record.jobs) {
+    const steps = Array.isArray(j.steps) && j.steps.length ? j.steps : [null];
+    for (const s of steps) {
+      const at = doc ? resolveFailedStep(doc, j.name, s?.name ?? null, s?.number ?? null) : { unresolved: why };
+      rows.push({
+        api_job: j.name ?? null, api_step: s?.name ?? null, step_number: s?.number ?? null,
+        job: at.job ?? null, step: at.step ?? null, phase: at.phase ?? null, unresolved: at.unresolved ?? null,
+      });
+    }
+  }
+  return rows;
+}
+
 export function isWorkspaceRoot(pkg, rootEntryNames = [], pnpmWorkspaceText) {
   if (pkg?.workspaces) return true;
   const names = new Set(rootEntryNames.map(n => String(n).toLowerCase()));
@@ -449,6 +485,11 @@ function loadSnapshotInner(db, snap) {
   const sid = db.prepare('SELECT last_insert_rowid() AS id').get().id;
 
   const npmByRepo = new Map((snap.npm ?? []).map(n => [n.repo, n]));
+  const failedByRepo = new Map();
+  for (const x of snap.failed_steps?.runs ?? []) {
+    if (!failedByRepo.has(x.repo)) failedByRepo.set(x.repo, []);
+    failedByRepo.get(x.repo).push(x);
+  }
   const runsByRepo = new Map();
   for (const r of snap.workflow_runs ?? []) {
     if (!runsByRepo.has(r.repo)) runsByRepo.set(r.repo, []);
@@ -480,6 +521,7 @@ function loadSnapshotInner(db, snap) {
     deploy: insertInto('deploy_settings'),
     env: insertInto('environment'),
     run: insertInto('workflow_run'),
+    failedStep: insertInto('run_failed_step'),
     fp: insertInto('file_presence'),
     secAlert: insertInto('security_alert'),
     repoSec: insertInto('repo_security'),
@@ -557,11 +599,14 @@ function loadSnapshotInner(db, snap) {
       const json = v => (v === undefined ? null : JSON.stringify(v));
       for (const d of doors) {
         stmts.atlasDoor.run(sid, r.name, d.file ?? null, d.name ?? null, d.kind ?? null,
-          json(d.triggers), json(d.sends), json(d.counts), json(d.jobs), json(d.findings));
+          json(d.triggers), json(d.sends), json(d.counts), json(d.jobs), json(d.findings),
+          json(d.unresolvedChecks));
         for (const c of d.commands ?? []) {
+          // Atlas writes `dir`; records trimmed before collector 1.4.0 asked
+          // for `directory`, which no map carries, so either spelling is read.
           stmts.atlasCmd.run(sid, r.name, d.file ?? null, d.name ?? null,
             c.job ?? null, c.step == null ? null : String(c.step),
-            Array.isArray(c.programs) ? c.programs.join('\n') : null, c.directory ?? null);
+            Array.isArray(c.programs) ? c.programs.join('\n') : null, c.dir ?? c.directory ?? null);
         }
       }
     }
@@ -673,6 +718,14 @@ function loadSnapshotInner(db, snap) {
         run.event, run.status, run.conclusion, run.branch,
         run.created_at, run.updated_at, dur, run.url,
         bool(isLatest), bool(onDefault), bool(isLatestDefault));
+    }
+
+    for (const x of failedByRepo.get(r.name) ?? []) {
+      const text = wfFiles.find(f => f.path === x.path)?.text ?? null;
+      for (const row of failedStepRows(x, text)) {
+        stmts.failedStep.run(sid, r.name, x.run_id, x.path, row.api_job, row.api_step,
+          row.step_number, row.job, row.step, row.phase, row.unresolved);
+      }
     }
 
     const fp = filePresence(r);

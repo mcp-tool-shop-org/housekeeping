@@ -287,6 +287,59 @@ export function atlasMapFindings({
   return out;
 }
 
+// ---- where a red run broke, and whether the map saw it coming --------------
+//
+// A red default branch says THAT a workflow failed; the run's jobs say WHERE.
+// The Atlas map names the same place by job key and step reference, so a
+// failed step joins the door command it ran and any door finding (D1: the
+// toolchain the job pins is one a package refuses; D2: a lockfile that lacks
+// the job's platform) recorded against that exact step. A finding at a
+// different step of the same door is not cited: it may be real, but it is
+// not what broke this run.
+
+const DOOR_RULES = {
+  D1: f => `${f.package ?? 'a package'} ${f.version ?? ''} requires Node ${f.requires ?? '(unstated)'}, and the job pins ${(f.pins ?? []).join(', ') || 'an older one'}`.replace(/ {2,}/g, ' '),
+  'D1-python': f => `${f.manifest ?? 'the project'} requires Python ${f.requires ?? '(unstated)'}, and the job pins ${(f.pins ?? []).join(', ') || 'an older one'}`,
+  D2: f => {
+    const pk = f.packages ?? [];
+    return `${f.tool ?? 'the install'} runs on ${(f.platforms ?? []).join(', ') || 'a platform'} from ${f.lock ?? 'a lockfile'}, which lacks that platform's build of ${pk.slice(0, 3).join(', ')}${pk.length > 3 ? ` and ${pk.length - 3} more` : ''}`;
+  },
+};
+
+/**
+ * One sentence on where a red run broke, for the CI finding's message. Pure.
+ *
+ * `steps` are run_failed_step rows of the run; `commands` the
+ * atlas_door_command rows of its workflow file; `doorFindings` the parsed
+ * `findings` of that door, or null when the map records none. Empty string
+ * when the run was not read: silence, never a guess.
+ */
+export function failedStepNote({ steps = [], commands = [], doorFindings = null }) {
+  if (!steps.length) return '';
+  const parts = [], predicted = [];
+  if (steps.length === 1 && steps[0].api_job == null) {
+    const why = steps[0].unresolved ?? 'no job failed';
+    return `${why[0].toUpperCase()}${why.slice(1)}.`;
+  }
+  for (const s of steps.slice(0, 3)) {
+    const where = s.api_step ? `job "${s.api_job}", step "${s.api_step}"` : `job "${s.api_job}", outside any step`;
+    if (s.step == null) {
+      const said = !s.unresolved || s.unresolved === 'the job failed outside any step';
+      parts.push(said ? where : `${where} (${s.unresolved})`);
+      continue;
+    }
+    const cmd = commands.find(c => c.job === s.job && c.step === s.step);
+    const runs = cmd?.programs ? ` (runs ${cmd.programs.split('\n').join(', ')}${cmd.directory ? ` in ${cmd.directory}/` : ''})` : '';
+    parts.push(`${where}${runs}`);
+    for (const f of doorFindings ?? []) {
+      if (f?.job === s.job && String(f?.step) === s.step && DOOR_RULES[f.rule]) predicted.push(`${f.rule}: ${DOOR_RULES[f.rule](f)}`);
+    }
+  }
+  const more = steps.length > 3 ? ` and ${steps.length - 3} more` : '';
+  return `It broke at ${parts.join('; ')}${more}.`
+    + (predicted.length ? ` The Atlas map flagged that step before it ran: ${predicted.join('; ')}.` : '');
+}
+
 export function classifyRequiredChecks({ required, observedNames, declaredJobs }) {
   // GitHub appends the matrix cell in parentheses only when a job has no
   // `name:`, so the text before it is the job id.
@@ -387,6 +440,34 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
     q('SELECT * FROM atlas_map WHERE snapshot_id = ?').map(x => [x.repo, x]),
   );
   const fleetEngine = db.prepare('SELECT version FROM atlas_fleet WHERE snapshot_id = ?').get(sid)?.version ?? null;
+
+  // Where each red run broke, and the door it broke in. Keyed by run id and by
+  // repo + workflow path; empty for a snapshot before collector 1.4.0, when the
+  // CI findings simply say less.
+  const failedStepsBy = new Map();
+  for (const x of q('SELECT * FROM run_failed_step WHERE snapshot_id = ? ORDER BY rowid')) {
+    if (!failedStepsBy.has(x.run_id)) failedStepsBy.set(x.run_id, []);
+    failedStepsBy.get(x.run_id).push(x);
+  }
+  const doorKey = (repo, file) => `${repo}\n${file}`;
+  const doorCmdsBy = new Map();
+  for (const c of q('SELECT * FROM atlas_door_command WHERE snapshot_id = ?')) {
+    const k = doorKey(c.repo, c.file);
+    if (!doorCmdsBy.has(k)) doorCmdsBy.set(k, []);
+    doorCmdsBy.get(k).push(c);
+  }
+  const doorFindingsBy = new Map(
+    q('SELECT repo, file, findings FROM atlas_door WHERE snapshot_id = ? AND findings IS NOT NULL')
+      .map(d => { try { return [doorKey(d.repo, d.file), JSON.parse(d.findings)]; } catch { return [doorKey(d.repo, d.file), null]; } }),
+  );
+  const whereItBroke = (repo, x) => {
+    const note = failedStepNote({
+      steps: failedStepsBy.get(x.run_id) ?? [],
+      commands: doorCmdsBy.get(doorKey(repo, x.path)) ?? [],
+      doorFindings: doorFindingsBy.get(doorKey(repo, x.path)) ?? null,
+    });
+    return note ? ` ${note}` : '';
+  };
 
   // Empty when the snapshot predates the security sweep. The rules below then
   // see `undefined` and stay silent, rather than reporting a clean org.
@@ -600,7 +681,8 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
           `Dependabot security-update run "${x.workflow_name}" failed.`, x.url);
       } else if (x.event === 'schedule') {
         F(name, 'CI_SCHEDULED_FAILING', 'medium', 'ci',
-          `Scheduled workflow "${x.workflow_name}" is failing (last run ${x.created_at?.slice(0, 10)}).`,
+          `Scheduled workflow "${x.workflow_name}" is failing (last run ${x.created_at?.slice(0, 10)}).`
+          + whereItBroke(name, x),
           x.url);
       } else if (!canStillRunOnPush(x)) {
         // A workflow that no longer fires on push cannot refresh its
@@ -611,11 +693,13 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
         // same error class as reading a deleted workflow's last failure as live.
         F(name, 'CI_STALE_TRIGGER_FAILING', 'info', 'ci',
           `"${x.workflow_name}" last failed on ${r.default_branch} (${x.created_at?.slice(0, 10)}) `
-          + `under triggers it no longer has; it now runs on ${wfTriggers(x) || 'other events'}.`,
+          + `under triggers it no longer has; it now runs on ${wfTriggers(x) || 'other events'}.`
+          + whereItBroke(name, x),
           x.url);
       } else {
         F(name, 'CI_RUN_FAILING', 'high', 'ci',
-          `Latest ${r.default_branch} run of "${x.workflow_name}" concluded ${x.conclusion} (${x.event}).`,
+          `Latest ${r.default_branch} run of "${x.workflow_name}" concluded ${x.conclusion} (${x.event}).`
+          + whereItBroke(name, x),
           x.url);
       }
     }

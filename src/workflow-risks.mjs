@@ -354,3 +354,102 @@ export function atlasCheckPins(doc, jobs) {
   }
   return pins;
 }
+
+// ---------------------------------------------------------------------------
+// Where a red run broke, in the terms an Atlas map uses. The Actions API names
+// a failed job and step as GitHub DISPLAYS them; an Atlas door records a
+// command by the job's key and the step's `name`, or the step's index from 0
+// as a string when it has none. This turns one into the other by reading the
+// workflow text, never by counting: GitHub numbers "Set up job" as step 1 and
+// inserts container and post steps, so a step number is not an index.
+//
+// Display names, as the API reports them (read from live runs, 2026-09-30):
+//   a job      -> its `name:` (expressions evaluated) or its key; a matrix cell
+//                 of a job whose name has no expression gets " (a, b)" appended
+//   a step     -> its `name:`; unnamed, "Run <uses as written>" or
+//                 "Run <first line of the script>"
+//   post / pre -> "Post <that display name>", "Pre <that display name>"
+//   the runner's own steps -> "Set up job", "Complete job", container steps
+
+/** A display template with `${{ ... }}` holes, as a whole-string pattern. */
+function templateRe(template, matrixSuffix) {
+  const body = template.split(/\$\{\{[\s\S]*?\}\}/).map(reEscape).join('[\\s\\S]*?');
+  return new RegExp(`^${body}${matrixSuffix ? '(?: \\(.*\\))?' : ''}$`);
+}
+
+const RUNNER_STEPS = /^(?:Set up job|Complete job|Initialize containers|Stop containers|Set up runner|Build container for action use: .*)$/;
+
+/** How GitHub displays step `st`, or null for a step with neither run nor uses. */
+export function stepDisplayName(st) {
+  if (!st || typeof st !== 'object') return null;
+  if (typeof st.name === 'string' && st.name.trim()) return st.name;
+  if (typeof st.uses === 'string') return `Run ${st.uses}`;
+  if (typeof st.run === 'string') {
+    const first = st.run.split('\n').map(l => l.trim()).find(Boolean);
+    return first ? `Run ${first}` : null;
+  }
+  return null;
+}
+
+/**
+ * The Atlas reference of the step a failed run stopped in. Pure.
+ *
+ * `doc` is the parsed workflow, `jobName` and `stepName` are the API's display
+ * names, `stepNumber` the API's step number (a tie-break only). Returns
+ * `{ job, step, index, phase }` -- `phase` is 'main', 'post' or 'pre' -- or
+ * `{ job?, unresolved }` naming why no single step of this file could be
+ * identified. An unresolved answer is never guessed into a resolved one: a
+ * wrong step would pin the failure on a command that did not run.
+ */
+export function resolveFailedStep(doc, jobName, stepName, stepNumber = null) {
+  const jobs = doc?.jobs && typeof doc.jobs === 'object' && !Array.isArray(doc.jobs)
+    ? Object.entries(doc.jobs) : [];
+  if (typeof jobName !== 'string' || !jobName) return { unresolved: 'no job name' };
+
+  // A reusable-workflow call shows as "<caller> / <called job>": its steps live
+  // in the called file, which is a different door.
+  const callers = jobs.filter(([, j]) => typeof j?.uses === 'string');
+  for (const [id, j] of callers) {
+    const t = typeof j.name === 'string' ? j.name : id;
+    if (jobName === t || jobName.startsWith(`${t} / `) || templateRe(t, true).test(jobName.split(' / ')[0])) {
+      return { job: id, unresolved: 'reusable workflow: the step is in the called file' };
+    }
+  }
+  const matches = jobs.filter(([id, j]) => {
+    if (!j || typeof j !== 'object' || typeof j.uses === 'string') return false;
+    const t = typeof j.name === 'string' ? j.name : id;
+    return templateRe(t, true).test(jobName);
+  });
+  if (!matches.length) return { unresolved: 'no job of this file displays as that name; the workflow may have changed since the run' };
+  const exact = matches.filter(([id, j]) => (typeof j.name === 'string' ? j.name : id) === jobName);
+  const hits = exact.length === 1 ? exact : matches;
+  if (hits.length > 1) return { unresolved: `the name fits ${hits.length} jobs: ${hits.map(([id]) => id).join(', ')}` };
+  const [jobId, job] = hits[0];
+
+  if (typeof stepName !== 'string' || !stepName) return { job: jobId, unresolved: 'the job failed outside any step' };
+  if (RUNNER_STEPS.test(stepName)) return { job: jobId, unresolved: `the runner's own step "${stepName}", not one the workflow declares` };
+  const m = /^(Post|Pre) (.+)$/.exec(stepName);
+  const phase = m ? m[1].toLowerCase() : 'main';
+  const shown = m ? m[2] : stepName;
+
+  const steps = Array.isArray(job.steps) ? job.steps : [];
+  const fits = [];
+  steps.forEach((st, index) => {
+    const d = stepDisplayName(st);
+    if (d == null) return;
+    const hasHole = typeof st.name === 'string' && /\$\{\{/.test(st.name);
+    if (hasHole ? templateRe(d, false).test(shown) : d === shown) fits.push(index);
+  });
+  // Post and pre steps exist only for `uses:` steps; a script step cannot own one.
+  const eligible = phase === 'main' ? fits : fits.filter(i => typeof steps[i].uses === 'string');
+  let index = eligible.length === 1 ? eligible[0] : null;
+  // Two identical steps (checkout twice): GitHub's number settles it only when
+  // "Set up job" is the one step before them, i.e. no container or services.
+  if (eligible.length > 1 && phase === 'main' && Number.isInteger(stepNumber)
+      && !job.container && !job.services && eligible.includes(stepNumber - 2)) index = stepNumber - 2;
+  if (index == null) {
+    return { job: jobId, unresolved: eligible.length ? `the name fits ${eligible.length} steps` : 'no step of this job displays as that name; the workflow may have changed since the run' };
+  }
+  const st = steps[index];
+  return { job: jobId, step: typeof st.name === 'string' && st.name.trim() ? st.name : String(index), index, phase };
+}

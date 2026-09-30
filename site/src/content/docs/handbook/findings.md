@@ -44,6 +44,16 @@ Merging them produces findings that are confident, plausible and wrong.
 
 The run's **event** decides which, never the branch name alone.
 
+Each of the three default-branch findings also says where the run broke: the
+failed job and step, read from the run's own jobs and matched to the workflow
+file by name, never by step number. When the repository keeps an Atlas map,
+the step is joined to the map's entry for it, and a map finding recorded
+against that same step (a toolchain a package refuses, or a lockfile without
+the job's platform) is cited as having predicted the failure. A map finding
+at a different step is not cited. A step that cannot be matched, because the
+workflow changed since the run or the step is the runner's own, is reported
+with the reason rather than guessed.
+
 ### History is not breakage
 
 - `CI_STALE_TRIGGER_FAILING`: a workflow's last default-branch run failed,
