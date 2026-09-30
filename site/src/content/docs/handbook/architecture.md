@@ -58,7 +58,7 @@ no `gh` call.
 | Actions runs | REST | With a targeted backfill, so a workflow that broke and went quiet does not fall out of the window. |
 | Deploy settings | REST | Pages and environments, only for repositories whose workflows use them. |
 | Security alerts and settings | REST | Including whether scanning is on at all. |
-| Lockfiles | REST, then the npm registry | Every committed npm lockfile is audited directly. |
+| Lockfiles | REST, then the npm registry | Every committed npm or pnpm lockfile is audited directly. |
 | Billing | REST | One call for the organization. |
 | Per-job cost | REST | Bounded by rank and by budget. See [Configuration](../configuration/). |
 

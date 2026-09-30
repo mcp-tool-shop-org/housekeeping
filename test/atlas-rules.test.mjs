@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadSnapshot } from '../src/load.mjs';
-import { analyze, healthScores, atlasMapFindings, ATLAS_ENGINE_BEHIND_COUNTS } from '../src/analyze.mjs';
+import { analyze, healthScores, atlasMapFindings, engineBehindCounts, ATLAS_ENGINE_BEHIND_COUNTS_SINCE } from '../src/analyze.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SCHEMA = readFileSync(join(ROOT, 'src', 'schema.sql'), 'utf8');
@@ -35,7 +35,7 @@ const MAP = { oid: 'b10b', byteSize: 1000 };
 
 /** One repo through loadSnapshot and analyze; returns the atlas findings. */
 function run({ files = [CI_WITH_CHECK('1.23.5')], atlasMap = MAP, engine = '1.23.5', fleet = FLEET,
-  archived = false, scripts, noAtlasPass = false }) {
+  archived = false, scripts, noAtlasPass = false, takenAt = '2026-09-30T00:00:00Z' }) {
   const db = new DatabaseSync(':memory:');
   db.exec(SCHEMA);
   const repo = {
@@ -47,7 +47,7 @@ function run({ files = [CI_WITH_CHECK('1.23.5')], atlasMap = MAP, engine = '1.23
   };
   if (atlasMap !== 'never-collected') repo.atlasMap = atlasMap;
   const snap = {
-    taken_at: '2026-09-30T00:00:00Z', org: 'org', collector_version: 'test', repo_count: 1, duration_ms: 1,
+    taken_at: takenAt, org: 'org', collector_version: 'test', repo_count: 1, duration_ms: 1,
     repos: [repo],
     workflow_files: { 'repo-a': files.map((text, i) => ({ path: `.github/workflows/w${i}.yml`, name: `w${i}.yml`, text, byteSize: text.length })) },
     workflow_runs: [],
@@ -131,7 +131,7 @@ test('a pin older than the fleet is reported as info, and costs no health points
   const r = run({ files: [CI_WITH_CHECK('1.20.0')], engine: null });
   assert.deepEqual(codes(r), ['ATLAS_ENGINE_BEHIND']);
   assert.equal(r.f[0].severity, 'info');
-  assert.match(r.f[0].message, /CI pins 1\.20\.0; the fleet engine is 1\.23\.5\. Reported, not counted/);
+  assert.match(r.f[0].message, /CI pins 1\.20\.0; the fleet engine is 1\.23\.5\. Reported, not counted: this snapshot predates/);
   assert.match(r.f[0].evidence, /map engine not recorded \(before 1\.23\.0\)/);
   // Same repo on the current pin: the score must not move.
   const current = run({ files: [CI_WITH_CHECK('1.23.5')], engine: null });
@@ -152,15 +152,29 @@ test('with no fleet version to measure against, nothing is behind', () => {
   assert.deepEqual(codes(run({ files: [CI_WITH_CHECK('1.14.0')], fleet: { version: null, source: 'npm', error: 'http_503' } })), []);
 });
 
-test('the transition switch is off, and flipping it makes the finding count', () => {
-  // rules/atlas-map.md, Transition: reported and not counted until the first
-  // pin-bump wave lands. The flip is a one-line change; this pins what it does.
-  assert.equal(ATLAS_ENGINE_BEHIND_COUNTS, false);
+test('the transition ends at the instant the wave ended: before it info, from it low', () => {
+  // rules/atlas-map.md, "Transition (ended 2026-09-30)": reported and not
+  // counted until the first pin-bump wave completed, a defect from then on.
+  // The switch is the moment the wave's last pull request merged, so a
+  // rebuild of an earlier snapshot reproduces that day's findings.
+  assert.equal(ATLAS_ENGINE_BEHIND_COUNTS_SINCE, '2026-09-30T21:44:11Z');
+  assert.equal(engineBehindCounts('2026-09-30T21:44:10Z'), false);
+  assert.equal(engineBehindCounts('2026-09-30T21:44:11Z'), true);
+  assert.equal(engineBehindCounts('2026-10-07T00:00:00Z'), true);
+  assert.equal(engineBehindCounts(null), false, 'an unknown time is not after anything');
   const args = { hasMap: 1, workflows: [{ path: 'ci.yml', on_triggers: 'push', atlas_check: '1.20.0' }], fleetVersion: '1.23.5' };
   assert.equal(atlasMapFindings(args)[0].severity, 'info');
   const counted = atlasMapFindings({ ...args, engineCounts: true })[0];
   assert.equal(counted.severity, 'low');
   assert.doesNotMatch(counted.message, /not counted/);
+});
+
+test('end to end: a snapshot taken after the wave files engine-behind as low and it costs health', () => {
+  const before = run({ files: [CI_WITH_CHECK('1.20.0')], engine: null });
+  const after = run({ files: [CI_WITH_CHECK('1.20.0')], engine: null, takenAt: '2026-10-01T00:00:00Z' });
+  assert.equal(before.f[0].severity, 'info');
+  assert.equal(after.f[0].severity, 'low');
+  assert.equal(healthScores(after.db, after.sid)[0].score, healthScores(before.db, before.sid)[0].score - 2);
 });
 
 test('atlasMapFindings: an unknown map state yields nothing at all', () => {

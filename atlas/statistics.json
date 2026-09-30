@@ -83,7 +83,7 @@
       "confidence": "low",
       "highWater": null,
       "name": "src",
-      "qualifyingSourceCommits": 1,
+      "qualifyingSourceCommits": 2,
       "rebaseline": null
     },
     {
@@ -99,7 +99,7 @@
       "confidence": "low",
       "highWater": null,
       "name": "test",
-      "qualifyingSourceCommits": 1,
+      "qualifyingSourceCommits": 2,
       "rebaseline": null
     }
   ],
@@ -122,8 +122,8 @@
         "path": ".gitignore"
       },
       {
-        "commits": 4,
-        "lines": 72,
+        "commits": 5,
+        "lines": 78,
         "path": "CHANGELOG.md"
       },
       {
@@ -187,8 +187,8 @@
         "path": "SHIP_GATE.md"
       },
       {
-        "commits": 1,
-        "lines": 83,
+        "commits": 2,
+        "lines": 103,
         "path": "atlas/README.md"
       },
       {
@@ -197,18 +197,18 @@
         "path": "atlas/boundaries.yaml"
       },
       {
-        "commits": 1,
-        "lines": 178,
+        "commits": 2,
+        "lines": 245,
         "path": "atlas/page.json"
       },
       {
-        "commits": 1,
-        "lines": 550,
+        "commits": 2,
+        "lines": 601,
         "path": "atlas/statistics.json"
       },
       {
-        "commits": 1,
-        "lines": 3765,
+        "commits": 2,
+        "lines": 3999,
         "path": "atlas/structure.json"
       },
       {
@@ -347,8 +347,8 @@
         "path": "site/tsconfig.json"
       },
       {
-        "commits": 3,
-        "lines": 1262,
+        "commits": 4,
+        "lines": 1318,
         "path": "src/analyze.mjs"
       },
       {
@@ -382,8 +382,8 @@
         "path": "src/gh.mjs"
       },
       {
-        "commits": 3,
-        "lines": 911,
+        "commits": 4,
+        "lines": 936,
         "path": "src/load.mjs"
       },
       {
@@ -402,13 +402,13 @@
         "path": "src/mcp.mjs"
       },
       {
-        "commits": 2,
-        "lines": 556,
+        "commits": 3,
+        "lines": 589,
         "path": "src/report.mjs"
       },
       {
-        "commits": 2,
-        "lines": 390,
+        "commits": 3,
+        "lines": 397,
         "path": "src/schema.sql"
       },
       {
@@ -422,8 +422,8 @@
         "path": "test/actions-cost.test.mjs"
       },
       {
-        "commits": 1,
-        "lines": 167,
+        "commits": 2,
+        "lines": 169,
         "path": "test/atlas-map.test.mjs"
       },
       {
@@ -468,6 +468,11 @@
       },
       {
         "commits": 1,
+        "lines": 131,
+        "path": "test/door-findings.test.mjs"
+      },
+      {
+        "commits": 1,
         "lines": 91,
         "path": "test/errors.test.mjs"
       },
@@ -482,8 +487,8 @@
         "path": "test/handbook-sidebar.test.mjs"
       },
       {
-        "commits": 1,
-        "lines": 328,
+        "commits": 2,
+        "lines": 332,
         "path": "test/inspect-workflow.test.mjs"
       },
       {
@@ -527,13 +532,13 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-09-30T20:15:22.064Z",
+  "generatedAt": "2026-09-30T21:57:41.113Z",
   "generatedFrom": {
-    "commit": "b4adbc9953fda132d41ef4194727ac7beee5100b"
+    "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3"
   },
   "pairs": [],
   "parameters": {
-    "appliedChangesetLimit": 20,
+    "appliedChangesetLimit": 20.25,
     "changeset": 50,
     "changesetFraction": 0.25,
     "cohesionDrop": 0.2,
@@ -542,16 +547,16 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-09-30T15:05:47-04:00",
-    "inScopeFiles": 80,
+    "headDate": "2026-09-30T16:16:10-04:00",
+    "inScopeFiles": 81,
     "pinnedStart": null,
     "priorFloor": "fallen",
-    "qualifyingCommits": 4,
+    "qualifyingCommits": 5,
     "qualifyingMinimum": 30,
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-03T19:05:47.000Z",
+    "since": "2026-04-03T20:16:10.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",

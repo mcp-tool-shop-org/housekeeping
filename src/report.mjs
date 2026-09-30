@@ -5,7 +5,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDb } from './load.mjs';
-import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE } from './analyze.mjs';
+import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, engineBehindCounts } from './analyze.mjs';
 import { exitCodeFor, formatError, userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -470,8 +470,10 @@ export function buildReport(db, sid) {
       `${atlas.mapped} of ${atlas.running} such repos have \`atlas/structure.json\` on their default branch; ` +
       `${atlas.unmapped} do not` + (atlas.unknown ? `; ${atlas.unknown} could not be read` : '') + '. ' +
       (fleet?.version
-        ? `The fleet engine is **${fleet.version}** (latest \`@dogfood-lab/atlas\` on npm). Until the first ` +
-          'pin-bump wave lands, an older engine is reported here and not counted in the health score.'
+        ? `The fleet engine is **${fleet.version}** (latest \`@dogfood-lab/atlas\` on npm). ` +
+          (engineBehindCounts(snap.taken_at)
+            ? 'An engine behind it counts as a defect (`low`): the first pin-bump wave ended on 2026-09-30.'
+            : 'This snapshot predates the end of the first pin-bump wave, so an older engine is reported here and not counted in the health score.')
         : `The fleet engine version could not be read${fleet?.error ? ` (${fleet.error})` : ''}, so no engine is judged behind.`)));
     push(md.table(q(`SELECT repo, code, message FROM finding
       WHERE snapshot_id=? AND code IN ('ATLAS_MAP_MISSING','ATLAS_CHECK_NOT_IN_CI')

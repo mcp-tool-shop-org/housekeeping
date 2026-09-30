@@ -1,5 +1,6 @@
-// Pure functions for auditing a committed package-lock.json against the npm
-// advisory registry -- no network here, so every branch is unit-testable.
+// Pure functions for auditing a committed package-lock.json or pnpm-lock.yaml
+// against the npm advisory registry -- no network here, so every branch is
+// unit-testable.
 //
 // Why this exists: on 2026-09-17 GitHub's Dependabot alert coverage turned out
 // to be silently per-manifest. One repo reported alerts on its root lockfile
@@ -148,12 +149,124 @@ export function countBySeverity(advisories) {
   return c;
 }
 
-/** Tree entries that are committed npm lockfiles worth auditing. */
+// A lockfile's kind, from its file name. Both kinds resolve packages from the
+// npm registry, so both are audited against the same advisory endpoint.
+const LOCK_KINDS = { 'package-lock.json': 'npm', 'pnpm-lock.yaml': 'pnpm' };
+
+/** Tree entries that are committed npm or pnpm lockfiles worth auditing. */
 export function lockfilePathsFromTree(entries) {
   return (entries ?? [])
     .filter(e => e && e.type === 'blob' && typeof e.path === 'string')
-    .filter(e => e.path === 'package-lock.json' || e.path.endsWith('/package-lock.json'))
+    .map(e => ({ e, kind: LOCK_KINDS[e.path.split('/').pop()] }))
+    .filter(({ kind }) => kind)
     // A vendored node_modules tree is someone else's lockfile.
-    .filter(e => !e.path.includes('node_modules/'))
-    .map(e => ({ path: e.path, sha: e.sha, size: e.size ?? null }));
+    .filter(({ e }) => !e.path.includes('node_modules/'))
+    .map(({ e, kind }) => ({ path: e.path, sha: e.sha, size: e.size ?? null, kind }));
+}
+
+// ---- pnpm ---------------------------------------------------------------
+//
+// pnpm-lock.yaml keys its packages by name and version, in three spellings
+// across lockfile versions:
+//   9.x   `name@1.2.3` in `packages`, and `name@1.2.3(peer@2.0.0)` in
+//         `snapshots`, which carries the dependency edges
+//   6.x   `/name@1.2.3` or `/name@1.2.3(peer@2.0.0)`, with `dev: true|false`
+//   5.x   `/name/1.2.3` or `/name/1.2.3_peer@2.0.0`, with `dev: true|false`
+// A scoped name keeps its leading `@`, so the version starts after the LAST
+// `@` (or, in 5.x, the last `/`). A key whose version is not a registry
+// version -- a git or tarball URL, `file:`, `link:` -- is not in the advisory
+// registry and is left out, as the npm path leaves out workspace links.
+
+const SEMVER = /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.+-]*)?$/;
+
+/** { name, version, key } for one pnpm package key, or null. Pure. */
+// A package name: an optional `@scope/`, then a name with no `/` or `@`.
+// 5.x is tried first because its peer suffix (`_peer@1.0.0`) carries an `@`
+// of its own, which the 6.x/9.x spelling would take for the version's.
+const PNPM_V5_KEY = /^\/((?:@[^/@]+\/)?[^/@]+)\/([^/_(]+)(?:_.*)?$/;
+const PNPM_KEY = /^\/?((?:@[^/@]+\/)?[^/@]+)@([^(]+)(?:\(.*)?$/;
+
+export function parsePnpmKey(key) {
+  if (typeof key !== 'string' || !key) return null;
+  const m = PNPM_V5_KEY.exec(key) ?? PNPM_KEY.exec(key);
+  if (!m) return null;
+  const [, name, version] = m;
+  return SEMVER.test(version) ? { name, version } : null;
+}
+
+/**
+ * The package map and dev-only names of a parsed pnpm-lock.yaml. Pure.
+ *
+ * Dev-ness: 5.x and 6.x mark each package `dev: true|false`, read like npm's
+ * flag. 9.x marks nothing, so what ships is computed: every package reachable
+ * through `snapshots` from any importer's `dependencies` or
+ * `optionalDependencies` is prod; the rest of the lock is dev-only. A 9.x
+ * lock with no `snapshots` cannot be walked, and then nothing is called
+ * dev-only -- the louder reading, never a guess that hides a shipped package.
+ */
+export function pnpmPackageMap(lock) {
+  const out = new Map();
+  const add = (name, version) => {
+    if (!out.has(name)) out.set(name, new Set());
+    out.get(name).add(version);
+  };
+  const pkgs = lock?.packages && typeof lock.packages === 'object' ? lock.packages : {};
+  const flagged = { prod: new Set(), dev: new Set() };
+  let anyFlag = false;
+  for (const [key, entry] of Object.entries(pkgs)) {
+    const p = parsePnpmKey(key);
+    if (!p) continue;
+    add(p.name, p.version);
+    if (entry && typeof entry.dev === 'boolean') { anyFlag = true; (entry.dev ? flagged.dev : flagged.prod).add(p.name); }
+  }
+  const packages = Object.fromEntries(
+    [...out.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => [k, [...v].sort()]),
+  );
+
+  let dev = [];
+  if (anyFlag) {
+    dev = [...flagged.dev].filter(n => !flagged.prod.has(n));
+  } else if (lock?.snapshots && typeof lock.snapshots === 'object') {
+    const snaps = lock.snapshots;
+    const prod = new Set();
+    const queue = [];
+    const visit = (name, ver) => {
+      if (typeof ver !== 'string' || ver.startsWith('link:') || ver.startsWith('file:')) return;
+      const key = `${name}@${ver}`;
+      if (prod.has(key)) return;
+      prod.add(key);
+      queue.push(key);
+    };
+    for (const imp of Object.values(lock.importers ?? {})) {
+      for (const field of ['dependencies', 'optionalDependencies']) {
+        for (const [name, d] of Object.entries(imp?.[field] ?? {})) visit(name, typeof d === 'string' ? d : d?.version);
+      }
+    }
+    while (queue.length) {
+      const s = snaps[queue.shift()];
+      for (const field of ['dependencies', 'optionalDependencies']) {
+        for (const [name, ver] of Object.entries(s?.[field] ?? {})) visit(name, ver);
+      }
+    }
+    const prodNames = new Set([...prod].map(k => parsePnpmKey(k)?.name).filter(Boolean));
+    dev = Object.keys(packages).filter(n => !prodNames.has(n));
+  }
+  return { packages, dev: dev.sort() };
+}
+
+/**
+ * One committed lockfile, read: { version, packages, dev }. Pure apart from
+ * parsing. `kind` is lockfilePathsFromTree's. Throws on a file that does not
+ * parse; the collector records that as not measured.
+ */
+export function readLockfile(text, kind, parseYaml) {
+  if (kind === 'pnpm') {
+    const lock = parseYaml(text);
+    if (!lock || typeof lock !== 'object') throw new Error('pnpm-lock.yaml does not parse to a mapping');
+    const { packages, dev } = pnpmPackageMap(lock);
+    const v = parseFloat(lock.lockfileVersion);
+    return { version: Number.isFinite(v) ? v : null, packages, dev };
+  }
+  const lock = JSON.parse(text);
+  return { version: lock.lockfileVersion ?? null, packages: packageMapFromLockfile(lock), dev: devOnlyPackages(lock) };
 }

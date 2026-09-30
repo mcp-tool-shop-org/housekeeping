@@ -125,7 +125,13 @@ never added. `ACTIONS_COST_BILLED_PRIVATE` is the one rule about money.
 
 The lockfile rules exist because GitHub's alert count is per manifest, and a
 manifest it has not parsed reports zero. housekeeping reads every committed
-npm lockfile itself and asks the npm advisory registry.
+`package-lock.json` and `pnpm-lock.yaml` itself and asks the npm advisory
+registry.
+
+A package is shipped when a production dependency reaches it. In a pnpm
+workspace that includes every workspace package's production dependencies,
+not only the root's, so it can name a package that `pnpm audit --prod`, which
+reads only the root project, does not.
 
 ### actions
 
@@ -193,7 +199,7 @@ npm lockfile itself and asks the npm advisory registry.
 |---|---|---|
 | `ATLAS_MAP_MISSING` | medium | the repository runs workflows and commits no map |
 | `ATLAS_CHECK_NOT_IN_CI` | medium | a map is committed and no workflow checks it |
-| `ATLAS_ENGINE_BEHIND` | info | the map or its check is pinned behind the current engine |
+| `ATLAS_ENGINE_BEHIND` | low | the map or its check is pinned behind the current engine (`info` in a snapshot taken before the first fleet pin-bump wave ended) |
 
 ## When a finding looks wrong
 

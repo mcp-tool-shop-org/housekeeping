@@ -10,7 +10,7 @@ import { graphql, rest, restPaged, restStatus, restWithStatus, pMap, whoami, loo
 import { resolveOrg } from './config.mjs';
 import { exitCodeFor, formatError } from './errors.mjs';
 import { info, isDebug } from './log.mjs';
-import { packageMapFromLockfile, advisoriesFromBulk, countBySeverity, lockfilePathsFromTree, devOnlyPackages } from './lockfile.mjs';
+import { readLockfile, advisoriesFromBulk, countBySeverity, lockfilePathsFromTree } from './lockfile.mjs';
 import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs';
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
 
@@ -867,8 +867,9 @@ async function collectLockfiles(org, repos, concurrency = 6) {
         if (!entry) {
           const blob = await rest(`repos/${org}/${r.name}/git/blobs/${f.sha}`);
           const text = Buffer.from(String(blob?.content ?? ''), blob?.encoding === 'base64' ? 'base64' : 'utf8').toString('utf8');
-          const lock = JSON.parse(text);
-          entry = { version: lock.lockfileVersion ?? null, packages: packageMapFromLockfile(lock), dev: devOnlyPackages(lock) };
+          // npm's package-lock.json or pnpm's pnpm-lock.yaml; the cache is
+          // keyed by blob SHA, so a cached entry is already the right kind's.
+          entry = readLockfile(text, f.kind, t => parseYaml(t, { logLevel: 'silent' }));
           fetched++;
         } else {
           cached++;

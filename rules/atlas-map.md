@@ -16,11 +16,13 @@ default branch, made by the fleet's current engine version, and runs
   one. It moves by pull request: the pin and the regenerated map in the same
   change.
 
-## Transition (until the first fleet-wide pin bump lands)
+## Transition (ended)
 
-Until the first pin-bump wave completes, "made by the fleet's current engine
-version" is reported and not counted as a defect. A missing map, or a map with
-no `atlas check` in CI, counts from the day the rule took effect.
+Until the first pin-bump wave completed, "made by the fleet's current engine
+version" was reported and not counted as a defect. From the moment it
+completed, an engine behind the fleet's counts as a defect; a snapshot taken
+before that moment still reads as it did. A missing map, or a map with no
+`atlas check` in CI, counted from the day the rule took effect.
 
 ## Why
 

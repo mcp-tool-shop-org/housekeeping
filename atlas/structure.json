@@ -40,7 +40,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "189b51458dd5a9e8b33af0d078ddb5f61b3b1abd94c03d0011c600ca15a331a0",
+          "hash": "df1b8809a5817257ba804b4de7f748317b554e97a884fbdcb660ee0db76f9512",
           "path": "CHANGELOG.md"
         },
         {
@@ -124,7 +124,7 @@
       "externals": 0,
       "files": [
         {
-          "hash": "0ad5bb24abfa6369aa722ae0d1e320c38b1e3b350cfc043c295195599d56b4b2",
+          "hash": "c8cd2f72fd9972beb961d7c0234cf52d97a09473b958a949766daed17b1f6b46",
           "path": "rules/atlas-map.md"
         },
         {
@@ -188,7 +188,7 @@
           "path": "site/src/content.config.ts"
         },
         {
-          "hash": "2b0a5f782dabe80a4cfa5908fb7c1340abaa64d8310d2caa5ec3947f2f4cf449",
+          "hash": "43c7d6cf1a6331026722583d959993be59612513834f7139e20a1dd4eceffda6",
           "path": "site/src/content/docs/handbook/architecture.md"
         },
         {
@@ -196,7 +196,7 @@
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
-          "hash": "2163f50a521ea8a146aa3e28e5ae3d171b6425a701178c8fcd0864b6868a2512",
+          "hash": "1c1e1009acd4adb3c8cf1eef4d8d15008230636dff61d39974d83d2c1284a1df",
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
@@ -278,6 +278,7 @@
             "deploymentPatternMatches",
             "doorFindingRows",
             "doorFindingSentence",
+            "engineBehindCounts",
             "environmentAdmitsBranch",
             "failedStepNote",
             "healthScores",
@@ -289,15 +290,15 @@
             {
               "in": "parse",
               "kind": "catch",
-              "line": 336
+              "line": 344
             },
             {
               "in": "analyze",
               "kind": "catch",
-              "line": 507
+              "line": 516
             }
           ],
-          "hash": "eb6007f2c39ed63990bed47c42e3775d55017f25b82f7a931c3d6c33dca0f772",
+          "hash": "3ad3f765b513a2e4fb7fbab7c48be02c62baa371f4e766acd0cece00388f90e5",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -307,14 +308,14 @@
             {
               "calls": [
                 {
-                  "line": 224,
+                  "line": 232,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 225,
+                  "line": 233,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -329,14 +330,14 @@
             {
               "calls": [
                 {
-                  "line": 272,
+                  "line": 280,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 225,
+                  "line": 233,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -352,14 +353,14 @@
             {
               "calls": [
                 {
-                  "line": 330,
+                  "line": 338,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 333,
+                  "line": 341,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -374,12 +375,12 @@
             {
               "calls": [
                 {
-                  "line": 415,
+                  "line": 423,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 272,
+                  "line": 280,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -387,7 +388,7 @@
                   "via": "atlasMapFindings"
                 },
                 {
-                  "line": 225,
+                  "line": 233,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -395,14 +396,14 @@
                   "via": "isOlder"
                 },
                 {
-                  "line": 1143,
+                  "line": 1153,
                   "name": "rangeAdmits039",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 1271,
+                  "line": 1281,
                   "name": "prepare",
                   "target": null
                 }
@@ -415,7 +416,7 @@
             {
               "calls": [
                 {
-                  "line": 1276,
+                  "line": 1286,
                   "name": "prepare",
                   "target": null
                 }
@@ -928,35 +929,35 @@
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 886
+              "line": 887
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 896
+              "line": 897
             },
             {
               "in": "collectBilling",
               "kind": "catch",
-              "line": 930
+              "line": 931
             },
             {
               "in": "readRunCostCache",
               "kind": "catch",
-              "line": 950
+              "line": 951
             },
             {
               "in": "collectRunCosts",
               "kind": "catch",
-              "line": 1059
+              "line": 1060
             },
             {
               "in": "sweep",
               "kind": "catch",
-              "line": 1153
+              "line": 1154
             }
           ],
-          "hash": "4a52578fbc029fa9ff677b0c3cfd3abd67a5f0f0b2145927949916191ce505a9",
+          "hash": "09d0a1b75342af9c3c0d7c21595adb64c0e908ecb4c69ae3d169f5830a402f78",
           "importsFiles": [
             "src/config.mjs",
             "src/cost.mjs",
@@ -1325,28 +1326,21 @@
                   }
                 },
                 {
-                  "line": 871,
-                  "name": "packageMapFromLockfile",
+                  "line": 872,
+                  "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 871,
-                  "name": "devOnlyPackages",
-                  "target": {
-                    "file": "src/lockfile.mjs"
-                  }
-                },
-                {
-                  "line": 878,
+                  "line": 879,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 883,
+                  "line": 884,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1369,17 +1363,17 @@
             {
               "calls": [
                 {
-                  "line": 915,
+                  "line": 916,
                   "name": "getUTCFullYear",
                   "target": null
                 },
                 {
-                  "line": 915,
+                  "line": 916,
                   "name": "getUTCMonth",
                   "target": null
                 },
                 {
-                  "line": 917,
+                  "line": 918,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1411,42 +1405,42 @@
                   "via": "log"
                 },
                 {
-                  "line": 977,
+                  "line": 978,
                   "name": "ratesFromUsage",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 978,
+                  "line": 979,
                   "name": "withFallback",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 999,
+                  "line": 1000,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1002,
+                  "line": 1003,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1034,
+                  "line": 1035,
                   "name": "priceRun",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1047,
+                  "line": 1048,
                   "name": "runnerClass",
                   "target": {
                     "file": "src/cost.mjs"
@@ -1461,7 +1455,7 @@
             {
               "calls": [
                 {
-                  "line": 1086,
+                  "line": 1087,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1613,23 +1607,15 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 871,
-                  "name": "packageMapFromLockfile",
+                  "line": 872,
+                  "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   },
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 871,
-                  "name": "devOnlyPackages",
-                  "target": {
-                    "file": "src/lockfile.mjs"
-                  },
-                  "via": "collectLockfiles"
-                },
-                {
-                  "line": 878,
+                  "line": 879,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1637,7 +1623,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 883,
+                  "line": 884,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1651,6 +1637,12 @@
                     "file": "src/gh.mjs"
                   },
                   "via": "collectAtlasMaps"
+                },
+                {
+                  "line": 916,
+                  "name": "getUTCFullYear",
+                  "target": null,
+                  "via": "collectBilling"
                 }
               ],
               "exported": true,
@@ -1662,7 +1654,7 @@
             {
               "calls": [
                 {
-                  "line": 1086,
+                  "line": 1087,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1813,23 +1805,15 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 871,
-                  "name": "packageMapFromLockfile",
+                  "line": 872,
+                  "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   },
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 871,
-                  "name": "devOnlyPackages",
-                  "target": {
-                    "file": "src/lockfile.mjs"
-                  },
-                  "via": "collectLockfiles"
-                },
-                {
-                  "line": 878,
+                  "line": 879,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1837,7 +1821,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 883,
+                  "line": 884,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1851,6 +1835,12 @@
                     "file": "src/gh.mjs"
                   },
                   "via": "collectAtlasMaps"
+                },
+                {
+                  "line": 916,
+                  "name": "getUTCFullYear",
+                  "target": null,
+                  "via": "collectBilling"
                 }
               ],
               "exported": false,
@@ -2608,9 +2598,19 @@
             "devOnlyPackages",
             "lockfilePathsFromTree",
             "normaliseSeverity",
-            "packageMapFromLockfile"
+            "packageMapFromLockfile",
+            "parsePnpmKey",
+            "pnpmPackageMap",
+            "readLockfile"
           ],
-          "hash": "dd2b11abada27fadc9d167fef9dc6b3234d295d2d8580d9c4ec488ee09ab6419",
+          "failurePaths": [
+            {
+              "in": "readLockfile",
+              "kind": "throw",
+              "line": 265
+            }
+          ],
+          "hash": "499ed8bc0f4060d837f1d2649e0cbe8e979e17925e5d7fc17853bee48023644b",
           "path": "src/lockfile.mjs"
         },
         {
@@ -2764,18 +2764,18 @@
             {
               "in": "writeReport",
               "kind": "throw",
-              "line": 548
+              "line": 550
             },
             {
               "kind": "throw",
-              "line": 563
+              "line": 565
             },
             {
               "kind": "catch",
-              "line": 565
+              "line": 567
             }
           ],
-          "hash": "4b780c8501edfd4a84fd623845eeb7b3c8ea2e21957d24331127357c93bf63f5",
+          "hash": "f88afe3826a507cf37b250c65361188b6f968607ffa2c2363a80e079e5b60837",
           "importsFiles": [
             "src/analyze.mjs",
             "src/errors.mjs",
@@ -2791,14 +2791,21 @@
                   "target": null
                 },
                 {
-                  "line": 490,
+                  "line": 474,
+                  "name": "engineBehindCounts",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  }
+                },
+                {
+                  "line": 492,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 523,
+                  "line": 525,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2813,13 +2820,13 @@
             {
               "calls": [
                 {
-                  "line": 547,
+                  "line": 549,
                   "name": "prepare",
                   "target": null
                 },
                 {
                   "branch": "!snap",
-                  "line": 548,
+                  "line": 550,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2832,7 +2839,15 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 490,
+                  "line": 474,
+                  "name": "engineBehindCounts",
+                  "target": {
+                    "file": "src/analyze.mjs"
+                  },
+                  "via": "buildReport"
+                },
+                {
+                  "line": 492,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2840,7 +2855,7 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 523,
+                  "line": 525,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2888,7 +2903,7 @@
       "origin": "authored",
       "outsidePlaces": [
         {
-          "reads": 19,
+          "reads": 20,
           "where": [
             "caller"
           ],
@@ -2916,13 +2931,13 @@
           "writes": 1
         }
       ],
-      "outsideReads": 21,
+      "outsideReads": 22,
       "outsideWrites": 2,
       "role": "code",
       "testRunners": [
         "node --test"
       ],
-      "testedBy": 21,
+      "testedBy": 22,
       "unresolvedSites": 0
     },
     {
@@ -2956,7 +2971,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "28bbde105e3b07563483b3ee58ca1f5400a616310f8ac4017fc3777f98f9deff",
+          "hash": "0e0118bd06e0a6440fe9272e68df8b83be72fceb70726abd72cc1b0e0fd202fb",
           "importOrder": [
             "src/load.mjs",
             "src/analyze.mjs"
@@ -3123,6 +3138,14 @@
           "testFramework": "node --test"
         },
         {
+          "hash": "3eb7863849df23f8a13d602554d7f83d917f36465ce04c18d46aecd5034653d5",
+          "importsFiles": [
+            "src/lockfile.mjs"
+          ],
+          "path": "test/pnpm-lockfile.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
           "hash": "ab61f9d2b2303e99eaac93996bc5d87d1f3bf7a3f531c4ad5a9558858f6e19e4",
           "importsFiles": [
             "src/gh.mjs"
@@ -3263,7 +3286,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 22
+          "files": 23
         },
         {
           "boundary": "src",
@@ -3300,7 +3323,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 22,
+          "files": 23,
           "job": "test",
           "runner": "node --test",
           "step": "3",
@@ -3553,8 +3576,8 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "b4adbc9953fda132d41ef4194727ac7beee5100b",
-    "tracked": 79
+    "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3",
+    "tracked": 80
   },
   "landings": [
     {
@@ -3745,6 +3768,12 @@
           "call": "literal",
           "confidence": "ast",
           "fromTests": true
+        },
+        {
+          "by": "test/pnpm-lockfile.test.mjs",
+          "call": "literal",
+          "confidence": "ast",
+          "fromTests": true
         }
       ],
       "target": "site/package-lock.json",
@@ -3846,6 +3875,6 @@
   "overlaps": [],
   "submodules": [],
   "symlinks": [],
-  "testFiles": 22,
+  "testFiles": 23,
   "unassigned": []
 }

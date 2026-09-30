@@ -21,6 +21,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The deploy rules take a job's environment from the Atlas map where the map
   records one, and keep the workflow's own reading beside it
   (`workflow_environment.source`, `.parsed`); the report counts disagreements.
+- The lockfile audit reads `pnpm-lock.yaml` (lockfile versions 5, 6 and 9) as
+  well as `package-lock.json`. In a 9.x lock, what ships is found by walking
+  the dependency graph from every workspace package's production
+  dependencies.
+
+### Changed
+
+- `ATLAS_ENGINE_BEHIND` is `low`, and counts in the health score, for a
+  snapshot taken after the first fleet pin-bump wave ended; an earlier
+  snapshot keeps it at `info`, so rebuilding it reproduces that day's
+  findings. The rule's Transition section says the same.
 
 ### Fixed
 

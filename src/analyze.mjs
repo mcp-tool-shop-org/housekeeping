@@ -209,15 +209,23 @@ export function environmentAdmitsBranch(env, settings, branch) {
 
 // ---- the committed Atlas map (rules/atlas-map.md) -------------------------
 //
-// rules/atlas-map.md, "Transition (until the first fleet-wide pin bump
-// lands)": "made by the fleet's current engine version" is reported and not
-// counted as a defect until the first pin-bump wave completes (the wave to
-// Atlas 1.24.0, published 2026-09-30). This is the one switch that changes
-// that: while it is false, ATLAS_ENGINE_BEHIND is `info`, which the health
-// score weighs at 0. Flip it when the Atlas side reports the wave ended, not
-// before -- a missing map and a missing check
-// count from today, and are unaffected by it.
-export const ATLAS_ENGINE_BEHIND_COUNTS = false;
+// rules/atlas-map.md, "Transition (ended 2026-09-30)": "made by the fleet's
+// current engine version" was reported and not counted until the first
+// pin-bump wave completed, and counts as a defect from then on. The wave to
+// Atlas 1.24.0 ended when its last pull request merged, at the instant below
+// (measured from GitHub: 78 of 78 merged). A snapshot taken before it keeps
+// the finding at `info`, which the health score weighs at 0; one taken at or
+// after it files `low`. The switch is a date, not a boolean, so that
+// `npm run rebuild` still reproduces each earlier day's findings -- a flag
+// flipped in source would rewrite every pre-wave snapshot. A missing map and
+// a missing check counted from the start, and are unaffected by it.
+export const ATLAS_ENGINE_BEHIND_COUNTS_SINCE = '2026-09-30T21:44:11Z';
+
+/** Does an engine behind the fleet's count, for a snapshot taken at `takenAt`? Pure. */
+export function engineBehindCounts(takenAt, since = ATLAS_ENGINE_BEHIND_COUNTS_SINCE) {
+  const t = Date.parse(takenAt ?? ''), s = Date.parse(since);
+  return Number.isFinite(t) && Number.isFinite(s) && t >= s;
+}
 
 const ATLAS_RULE = 'rules/atlas-map.md';
 const isOlder = (v, fleet) => {
@@ -236,7 +244,7 @@ const isOlder = (v, fleet) => {
  */
 export function atlasMapFindings({
   hasMap, workflows = [], scripts = [], mapEngine = null, fleetVersion = null,
-  engineCounts = ATLAS_ENGINE_BEHIND_COUNTS,
+  engineCounts = false,
 }) {
   const out = [];
   // "Runs workflows" means at least one file under .github/workflows/.
@@ -280,7 +288,7 @@ export function atlasMapFindings({
       out.push({
         code: 'ATLAS_ENGINE_BEHIND', severity: engineCounts ? 'low' : 'info',
         message: `${parts.join(' and ')}; the fleet engine is ${fleetVersion}.`
-          + (engineCounts ? '' : ' Reported, not counted, until the first fleet pin-bump wave lands.'),
+          + (engineCounts ? '' : ' Reported, not counted: this snapshot predates the end of the first fleet pin-bump wave.'),
         evidence: `${ATLAS_RULE}: "made by the fleet's current engine version"; map engine ${mapEngine ?? 'not recorded (before 1.23.0)'}`,
       });
     }
@@ -486,6 +494,7 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
     q('SELECT * FROM atlas_map WHERE snapshot_id = ?').map(x => [x.repo, x]),
   );
   const fleetEngine = db.prepare('SELECT version FROM atlas_fleet WHERE snapshot_id = ?').get(sid)?.version ?? null;
+  const engineCounts = engineBehindCounts(db.prepare('SELECT taken_at FROM snapshot WHERE id = ?').get(sid)?.taken_at);
 
   // Where each red run broke, and the door it broke in. Keyed by run id and by
   // repo + workflow path; empty for a snapshot before collector 1.4.0, when the
@@ -944,6 +953,7 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
       scripts: myScripts.map(x => x.command ?? ''),
       mapEngine: atlasBy.get(name)?.engine ?? null,
       fleetVersion: fleetEngine,
+      engineCounts,
     })) {
       F(name, f.code, f.severity, 'atlas', f.message, f.evidence);
     }
