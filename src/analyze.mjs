@@ -25,6 +25,43 @@ export const RUN_IS_LIVE_MAINLINE_SIGNAL = `
          WHERE w.snapshot_id=wr.snapshot_id AND w.repo=wr.repo AND w.path=wr.path
            AND (','||w.on_triggers||',' LIKE '%,push,%'
              OR ','||w.on_triggers||',' LIKE '%,pull_request,%')))`;
+
+// The one definition of "the default branch head's checks are red", for the
+// same three readers: the analyzer decides (CI_FAILING, below) and the CLI,
+// the MCP server and the report ask whether it did, never the raw rollup.
+export const HEAD_CHECKS_RED = `EXISTS (SELECT 1 FROM finding f
+  WHERE f.snapshot_id=r.snapshot_id AND f.repo=r.name AND f.code='CI_FAILING')`;
+
+// Check-run states that mean a check ran and did not pass. CANCELLED is not
+// among them: `cancel-in-progress` cancels a superseded run as designed.
+const FAILED_STATES = new Set(['FAILURE', 'ERROR', 'TIMED_OUT', 'STARTUP_FAILURE', 'ACTION_REQUIRED']);
+
+/**
+ * Which checks on the default branch head actually fail. Pure.
+ *
+ * GitHub's rollup is FAILURE when any check run on the commit is, and it
+ * counts a CANCELLED run as a failure. The same commit pushed twice starts
+ * two runs; the concurrency rule cancels the first and the second passes,
+ * and the rollup still reads FAILURE forever (measured 2026-09-30 on two
+ * repos, every non-green check CANCELLED beside a SUCCESS of the same name).
+ * So a check fails here only when one of its runs is in a failed state and
+ * none of its runs on this commit succeeded. A check that was only ever
+ * cancelled is not a failure either: a failed run is not a cancelled one.
+ *
+ * `contexts` are check_context rows for the head ({ name, state }). Returns
+ * [{ name, states }] for the failing checks, or null when there are no rows
+ * -- not measured, so the caller falls back to the rollup.
+ */
+export function failingHeadChecks(contexts) {
+  if (!contexts?.length) return null;
+  const byName = new Map();
+  for (const c of contexts) {
+    if (!byName.has(c.name)) byName.set(c.name, []);
+    byName.get(c.name).push(c.state ?? 'RUNNING');
+  }
+  return [...byName].filter(([, states]) => !states.includes('SUCCESS') && states.some(s => FAILED_STATES.has(s)))
+    .map(([name, states]) => ({ name, states }));
+}
 // A checker declared in package.json but invoked by no script is a gate that
 // exists on paper and never runs. The case that earned the rule: a repo carried
 // `typescript` with no typecheck script -- build is tsup and tests are vitest,
@@ -710,10 +747,23 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
     }
 
     // ---- CI health -------------------------------------------------------
+    // The rollup is read through the head's own checks when the snapshot has
+    // them: a rollup red only with cancelled runs that a green run of the
+    // same check replaced is not a failing mainline (failingHeadChecks).
     if (r.ci_rollup === 'FAILURE' || r.ci_rollup === 'ERROR') {
-      F(name, 'CI_FAILING', 'high', 'ci',
-        `Default-branch check rollup is ${r.ci_rollup}.`,
-        `${r.default_branch}@${(r.head_oid ?? '').slice(0, 7)}`);
+      const head = (ctxBy.get(name) ?? []).filter(c => c.source === 'default');
+      const failing = failingHeadChecks(head);
+      const at = `${r.default_branch}@${(r.head_oid ?? '').slice(0, 7)}`;
+      // The collector reads the first 100 checks of a commit (most seen: 19).
+      // A red rollup whose failing check could lie past that page is read as
+      // the rollup says, never as clean.
+      if (failing === null || (failing.length === 0 && head.length >= 100)) {
+        F(name, 'CI_FAILING', 'high', 'ci', `Default-branch check rollup is ${r.ci_rollup}.`, at);
+      } else if (failing.length) {
+        F(name, 'CI_FAILING', 'high', 'ci',
+          `Default-branch checks failing: ${failing.map(c => `${c.name} (${[...new Set(c.states)].join(', ')})`).join('; ')}.`,
+          `${at}; rollup ${r.ci_rollup}`);
+      }
     }
     // A run only speaks for the mainline if its workflow could still be
     // triggered by a push today. Match the run back to the workflow file it

@@ -12,6 +12,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { EXIT, formatError, readOnlyQuery, structured, userError } from './errors.mjs';
 import { DATA_DIR, PACKAGE_ROOT } from './paths.mjs';
+import { HEAD_CHECKS_RED } from './analyze.mjs';
 
 const DB_FILE = process.env.HK_DB || join(DATA_DIR, 'housekeeping.db');
 const VERSION = JSON.parse(readFileSync(join(PACKAGE_ROOT, 'package.json'), 'utf8')).version;
@@ -115,7 +116,7 @@ const TOOLS = [
             WHERE wr.snapshot_id=r.snapshot_id AND wr.repo=r.name AND wr.is_latest_on_default=1
               AND wr.conclusion='failure' AND wr.event NOT IN ('dynamic','schedule')) failing
         FROM repo r WHERE r.snapshot_id=? AND r.is_archived=0
-          AND (r.ci_rollup IN ('FAILURE','ERROR') OR EXISTS (
+          AND (${HEAD_CHECKS_RED} OR EXISTS (
             SELECT 1 FROM workflow_run wr WHERE wr.snapshot_id=r.snapshot_id AND wr.repo=r.name
               AND wr.is_latest_on_default=1 AND wr.conclusion='failure'
               AND wr.event NOT IN ('dynamic','schedule')))

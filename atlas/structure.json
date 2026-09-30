@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "947d9d9e04e5b37d2e39c3da2cfe1a5d12e53ba909f1af256ba8898621d89141",
+          "hash": "5bdacb58cb64102e30b5e347a8b71528fcdaaa195911281b5920a06234056a5d",
           "path": "CHANGELOG.md"
         },
         {
@@ -200,7 +200,7 @@
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
-          "hash": "1c1e1009acd4adb3c8cf1eef4d8d15008230636dff61d39974d83d2c1284a1df",
+          "hash": "52959fb4e486bf19b08b01544bb475537deca0448c527f58d2c76aabf7ddfb69",
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
@@ -286,6 +286,7 @@
             "engineBehindCounts",
             "environmentAdmitsBranch",
             "failedStepNote",
+            "failingHeadChecks",
             "healthScores",
             "jobBaseName",
             "matrixWidths",
@@ -295,15 +296,15 @@
             {
               "in": "parse",
               "kind": "catch",
-              "line": 344
+              "line": 381
             },
             {
               "in": "analyze",
               "kind": "catch",
-              "line": 516
+              "line": 553
             }
           ],
-          "hash": "3ad3f765b513a2e4fb7fbab7c48be02c62baa371f4e766acd0cece00388f90e5",
+          "hash": "b13b1a01a2834002ba6d6e28e8996fe5751732729a67cc040cb1da12426d1d17",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -313,14 +314,14 @@
             {
               "calls": [
                 {
-                  "line": 232,
+                  "line": 269,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 233,
+                  "line": 270,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -335,14 +336,14 @@
             {
               "calls": [
                 {
-                  "line": 280,
+                  "line": 317,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 233,
+                  "line": 270,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -358,14 +359,14 @@
             {
               "calls": [
                 {
-                  "line": 338,
+                  "line": 375,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 341,
+                  "line": 378,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -380,12 +381,12 @@
             {
               "calls": [
                 {
-                  "line": 423,
+                  "line": 460,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 280,
+                  "line": 317,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -393,7 +394,7 @@
                   "via": "atlasMapFindings"
                 },
                 {
-                  "line": 233,
+                  "line": 270,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -401,14 +402,14 @@
                   "via": "isOlder"
                 },
                 {
-                  "line": 1153,
+                  "line": 1203,
                   "name": "rangeAdmits039",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 1281,
+                  "line": 1331,
                   "name": "prepare",
                   "target": null
                 }
@@ -421,7 +422,7 @@
             {
               "calls": [
                 {
-                  "line": 1286,
+                  "line": 1336,
                   "name": "prepare",
                   "target": null
                 }
@@ -496,7 +497,7 @@
               "line": 313
             }
           ],
-          "hash": "691bc4fea222c1b8c669387dfda9060884b13bcf0651520bbd9c674394b5db2c",
+          "hash": "2f2e999b18e494657bf0e1a902e26418696c5d72c12640c0ad73e8014920e5fa",
           "importsFiles": [
             "src/analyze.mjs",
             "src/collect.mjs",
@@ -2778,11 +2779,17 @@
           "failurePaths": [
             {
               "kind": "catch",
-              "line": 291
+              "line": 292
             }
           ],
-          "hash": "75f9708a655025d196a34a212c2e35350e60e5a128473ce9c29794b0df0fb848",
+          "hash": "1319c2e884ab6c526285b24621284290c76485c5a328ddccbf6d6be62016ea5d",
+          "importOrder": [
+            "src/errors.mjs",
+            "src/paths.mjs",
+            "src/analyze.mjs"
+          ],
           "importsFiles": [
+            "src/analyze.mjs",
             "src/errors.mjs",
             "src/paths.mjs"
           ],
@@ -2818,7 +2825,7 @@
               "line": 566
             }
           ],
-          "hash": "9c6fcb0530f01756f9959a25c7673f440473ebdb67a192b7d8db425559febd6d",
+          "hash": "efa5b4d95fe43cb60465b434593dfd8f16c5904d1104bd2b366d47747cd5e986",
           "importsFiles": [
             "src/analyze.mjs",
             "src/errors.mjs",
@@ -2989,7 +2996,7 @@
       "testRunners": [
         "node --test"
       ],
-      "testedBy": 23,
+      "testedBy": 24,
       "unresolvedSites": 0
     },
     {
@@ -3049,6 +3056,19 @@
             "src/analyze.mjs"
           ],
           "path": "test/checker-invoked.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
+          "hash": "94ecad779df165554f2337df33279e638a7ab3a8bd05b71fd3a551dfeffad828",
+          "importOrder": [
+            "src/load.mjs",
+            "src/analyze.mjs"
+          ],
+          "importsFiles": [
+            "src/analyze.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/ci-failing.test.mjs",
           "testFramework": "node --test"
         },
         {
@@ -3346,7 +3366,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 24
+          "files": 25
         },
         {
           "boundary": "src",
@@ -3383,7 +3403,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 24,
+          "files": 25,
           "job": "test",
           "runner": "node --test",
           "step": "3",
@@ -3695,7 +3715,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 24
+          "files": 25
         },
         {
           "boundary": "src",
@@ -3732,7 +3752,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 24,
+          "files": 25,
           "job": "publish",
           "runner": "node --test",
           "step": "5",
@@ -3815,7 +3835,7 @@
         {
           "boundary": "src",
           "depth": 0,
-          "files": 3
+          "files": 12
         }
       ],
       "readers": [],
@@ -3853,8 +3873,8 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "b003f4348aec1179d5620283ceca41c22544b25c",
-    "tracked": 83
+    "commit": "5b1ebf8467d0ef9c8d21b8f4926be0fecd60c551",
+    "tracked": 84
   },
   "landings": [
     {
@@ -4102,6 +4122,12 @@
           "fromTests": true
         },
         {
+          "by": "test/ci-failing.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
           "by": "test/config.test.mjs",
           "call": "readFileSync",
           "confidence": "ast",
@@ -4139,6 +4165,6 @@
   "overlaps": [],
   "submodules": [],
   "symlinks": [],
-  "testFiles": 24,
+  "testFiles": 25,
   "unassigned": []
 }

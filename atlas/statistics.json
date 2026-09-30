@@ -117,13 +117,18 @@
         "path": ".github/workflows/pages.yml"
       },
       {
+        "commits": 1,
+        "lines": 67,
+        "path": ".github/workflows/release.yml"
+      },
+      {
         "commits": 2,
         "lines": 18,
         "path": ".gitignore"
       },
       {
-        "commits": 7,
-        "lines": 92,
+        "commits": 8,
+        "lines": 105,
         "path": "CHANGELOG.md"
       },
       {
@@ -132,48 +137,48 @@
         "path": "LICENSE"
       },
       {
-        "commits": 1,
-        "lines": 181,
+        "commits": 2,
+        "lines": 301,
         "path": "README.es.md"
       },
       {
-        "commits": 1,
-        "lines": 202,
+        "commits": 2,
+        "lines": 313,
         "path": "README.fr.md"
       },
       {
-        "commits": 1,
-        "lines": 181,
+        "commits": 2,
+        "lines": 263,
         "path": "README.hi.md"
       },
       {
-        "commits": 1,
-        "lines": 181,
+        "commits": 2,
+        "lines": 287,
         "path": "README.it.md"
       },
       {
-        "commits": 1,
-        "lines": 185,
+        "commits": 2,
+        "lines": 279,
         "path": "README.ja.md"
       },
       {
-        "commits": 2,
-        "lines": 282,
+        "commits": 3,
+        "lines": 315,
         "path": "README.md"
       },
       {
-        "commits": 1,
-        "lines": 205,
+        "commits": 2,
+        "lines": 314,
         "path": "README.pt-BR.md"
       },
       {
-        "commits": 1,
-        "lines": 181,
+        "commits": 2,
+        "lines": 273,
         "path": "README.zh.md"
       },
       {
-        "commits": 2,
-        "lines": 75,
+        "commits": 3,
+        "lines": 77,
         "path": "SCORECARD.md"
       },
       {
@@ -182,13 +187,13 @@
         "path": "SECURITY.md"
       },
       {
-        "commits": 2,
-        "lines": 88,
+        "commits": 3,
+        "lines": 99,
         "path": "SHIP_GATE.md"
       },
       {
-        "commits": 4,
-        "lines": 125,
+        "commits": 5,
+        "lines": 167,
         "path": "atlas/README.md"
       },
       {
@@ -197,18 +202,18 @@
         "path": "atlas/boundaries.yaml"
       },
       {
-        "commits": 4,
-        "lines": 320,
+        "commits": 5,
+        "lines": 476,
         "path": "atlas/page.json"
       },
       {
-        "commits": 4,
-        "lines": 739,
+        "commits": 5,
+        "lines": 788,
         "path": "atlas/statistics.json"
       },
       {
-        "commits": 4,
-        "lines": 4230,
+        "commits": 5,
+        "lines": 5034,
         "path": "atlas/structure.json"
       },
       {
@@ -217,19 +222,19 @@
         "path": "housekeeping.config.example.json"
       },
       {
-        "commits": 3,
-        "lines": 1242,
+        "commits": 2,
+        "lines": 0,
+        "path": "logo.png"
+      },
+      {
+        "commits": 4,
+        "lines": 1246,
         "path": "package-lock.json"
       },
       {
-        "commits": 2,
-        "lines": 39,
+        "commits": 3,
+        "lines": 81,
         "path": "package.json"
-      },
-      {
-        "commits": 1,
-        "lines": 0,
-        "path": "readme.png"
       },
       {
         "commits": 2,
@@ -292,8 +297,8 @@
         "path": "site/src/content/docs/handbook/architecture.md"
       },
       {
-        "commits": 1,
-        "lines": 99,
+        "commits": 2,
+        "lines": 100,
         "path": "site/src/content/docs/handbook/configuration.md"
       },
       {
@@ -302,8 +307,8 @@
         "path": "site/src/content/docs/handbook/findings.md"
       },
       {
-        "commits": 1,
-        "lines": 96,
+        "commits": 2,
+        "lines": 116,
         "path": "site/src/content/docs/handbook/getting-started.md"
       },
       {
@@ -332,8 +337,8 @@
         "path": "site/src/pages/index.astro"
       },
       {
-        "commits": 1,
-        "lines": 125,
+        "commits": 2,
+        "lines": 129,
         "path": "site/src/site-config.ts"
       },
       {
@@ -362,13 +367,13 @@
         "path": "src/cli.mjs"
       },
       {
-        "commits": 4,
-        "lines": 1215,
+        "commits": 5,
+        "lines": 1230,
         "path": "src/collect.mjs"
       },
       {
-        "commits": 2,
-        "lines": 88,
+        "commits": 3,
+        "lines": 95,
         "path": "src/config.mjs"
       },
       {
@@ -387,8 +392,8 @@
         "path": "src/gh.mjs"
       },
       {
-        "commits": 4,
-        "lines": 936,
+        "commits": 5,
+        "lines": 945,
         "path": "src/load.mjs"
       },
       {
@@ -402,13 +407,18 @@
         "path": "src/log.mjs"
       },
       {
-        "commits": 2,
-        "lines": 322,
+        "commits": 3,
+        "lines": 331,
         "path": "src/mcp.mjs"
       },
       {
-        "commits": 4,
-        "lines": 597,
+        "commits": 1,
+        "lines": 31,
+        "path": "src/paths.mjs"
+      },
+      {
+        "commits": 5,
+        "lines": 606,
         "path": "src/report.mjs"
       },
       {
@@ -503,6 +513,11 @@
       },
       {
         "commits": 1,
+        "lines": 41,
+        "path": "test/paths.test.mjs"
+      },
+      {
+        "commits": 1,
         "lines": 125,
         "path": "test/pnpm-lockfile.test.mjs"
       },
@@ -542,13 +557,13 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-09-30T23:30:25.219Z",
+  "generatedAt": "2026-09-30T23:45:32.773Z",
   "generatedFrom": {
-    "commit": "b003f4348aec1179d5620283ceca41c22544b25c"
+    "commit": "5b1ebf8467d0ef9c8d21b8f4926be0fecd60c551"
   },
   "pairs": [],
   "parameters": {
-    "appliedChangesetLimit": 21,
+    "appliedChangesetLimit": 21.25,
     "changeset": 50,
     "changesetFraction": 0.25,
     "cohesionDrop": 0.2,
@@ -557,8 +572,8 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-09-30T18:55:37-04:00",
-    "inScopeFiles": 84,
+    "headDate": "2026-09-30T19:31:22-04:00",
+    "inScopeFiles": 85,
     "pinnedStart": null,
     "priorFloor": "fallen",
     "qualifyingCommits": 7,
@@ -566,7 +581,7 @@
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-03T22:55:37.000Z",
+    "since": "2026-04-03T23:31:22.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",

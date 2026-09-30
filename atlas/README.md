@@ -1,19 +1,17 @@
 # housekeeping: how it works
 
-Mapped at 2026-09-30 from commit b003f43 by Atlas 1.24.0.
+Mapped at 2026-09-30 from commit 5b1ebf8 by Atlas 1.24.0.
 
 ## What this is
 
 An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules. (written by a person)
 
-6 parts, mostly JavaScript (39 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
+6 parts, mostly JavaScript (40 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
 
-## What changed since 2026-09-30 (d2eb61a)
+## What changed since 2026-09-30 (b003f43)
 
-- Release (.github/workflows/release.yml) is a new door. It starts when a release is published; or by hand. It runs test/.
-- hk-mcp (package.json) is a new command. It runs src/mcp.mjs.
-- package.json is now also read by .github/workflows/release.yml and test/paths.test.mjs.
-- 3 files added, 1 moved and 21 changed content, across 5 parts.
+- src/schema.sql is now also read by test/ci-failing.test.mjs.
+- 1 file added and 6 changed content, across 4 parts.
 
 ## What comes in
 

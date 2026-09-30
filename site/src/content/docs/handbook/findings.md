@@ -101,7 +101,7 @@ never added. `ACTIONS_COST_BILLED_PRIVATE` is the one rule about money.
 | Code | Severity | Fires when |
 |---|---|---|
 | `CI_RUN_FAILING` | high | the newest default-branch run of a push-triggered workflow failed |
-| `CI_FAILING` | high | the default branch's check rollup is failing |
+| `CI_FAILING` | high | a check on the default branch head failed, and no run of the same check on that commit passed (a run cancelled and replaced by a green one is not a failure) |
 | `CI_REQUIRED_CHECK_STALE` | high | a required status check is reported by no job |
 | `CI_PAGES_NOT_ENABLED` | high | a workflow deploys to Pages and Pages is switched off |
 | `CI_ENVIRONMENT_EXCLUDES_DEFAULT` | high | a job's environment does not admit the default branch |

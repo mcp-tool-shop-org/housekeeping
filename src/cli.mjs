@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { openDb, loadSnapshot, latestSnapshotFile, DB_PATH } from './load.mjs';
-import { analyze, healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL } from './analyze.mjs';
+import { analyze, healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, HEAD_CHECKS_RED } from './analyze.mjs';
 import { collect, DRILL_BUDGET } from './collect.mjs';
 import { preflight } from './gh.mjs';
 import { resolveOrg } from './config.mjs';
@@ -61,7 +61,7 @@ const REPORTS = {
              WHERE wr.snapshot_id=r.snapshot_id AND wr.repo=r.name
                AND ${RUN_IS_LIVE_MAINLINE_SIGNAL}) failing
     FROM repo r WHERE r.snapshot_id=? AND r.is_archived=0
-      AND (r.ci_rollup IN ('FAILURE','ERROR') OR EXISTS (
+      AND (${HEAD_CHECKS_RED} OR EXISTS (
         SELECT 1 FROM workflow_run wr WHERE wr.snapshot_id=r.snapshot_id AND wr.repo=r.name
           AND ${RUN_IS_LIVE_MAINLINE_SIGNAL}))
     ORDER BY r.name`).all(sid)),

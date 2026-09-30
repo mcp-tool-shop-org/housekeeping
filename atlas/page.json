@@ -27,47 +27,30 @@
   ],
   "changes": {
     "fileCounts": {
-      "added": 3,
-      "changed": 21,
-      "moved": 1,
-      "parts": 5,
+      "added": 1,
+      "changed": 6,
+      "moved": 0,
+      "parts": 4,
       "removed": 0
     },
     "items": [
       {
-        "kind": "door",
-        "sentence": "Release (.github/workflows/release.yml) is a new door. It starts when a release is published; or by hand. It runs test/.",
-        "subjects": [
-          ".github/workflows/release.yml",
-          "test/"
-        ]
-      },
-      {
-        "kind": "door",
-        "sentence": "hk-mcp (package.json) is a new command. It runs src/mcp.mjs.",
-        "subjects": [
-          "package.json",
-          "src/mcp.mjs"
-        ]
-      },
-      {
         "kind": "landing",
-        "sentence": "package.json is now also read by .github/workflows/release.yml and test/paths.test.mjs.",
+        "sentence": "src/schema.sql is now also read by test/ci-failing.test.mjs.",
         "subjects": [
-          "package.json",
-          ".github/workflows/release.yml",
-          "test/paths.test.mjs"
+          "src/schema.sql",
+          "test/ci-failing.test.mjs"
         ]
       },
       {
         "kind": "counts",
-        "sentence": "3 files added, 1 moved and 21 changed content, across 5 parts.",
+        "sentence": "1 file added and 6 changed content, across 4 parts.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
-      "generatedAt": "2026-09-30T22:54:37.834Z"
+      "commit": "b003f4348aec1179d5620283ceca41c22544b25c",
+      "generatedAt": "2026-09-30T23:30:25.219Z"
     },
     "unchanged": false
   },
@@ -76,9 +59,9 @@
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "b003f4348aec1179d5620283ceca41c22544b25c",
+  "commit": "5b1ebf8467d0ef9c8d21b8f4926be0fecd60c551",
   "defaultBranch": "main",
-  "derived": "6 parts, mostly JavaScript (39 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
+  "derived": "6 parts, mostly JavaScript (40 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
     {
       "checks": [],
@@ -93,7 +76,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 24
+          "files": 25
         },
         {
           "boundary": "src",
@@ -127,7 +110,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 24
+          "files": 25
         },
         {
           "boundary": "src",
@@ -220,7 +203,7 @@
         {
           "boundary": "src",
           "depth": 0,
-          "files": 3
+          "files": 12
         }
       ],
       "runs": [
@@ -245,7 +228,7 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-09-30T23:30:25.219Z",
+  "generatedAt": "2026-09-30T23:45:32.773Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
     "1 write and 21 reads go to a path their caller passes, not to this repository.",
@@ -276,9 +259,9 @@
   "startReason": "This path follows hk (a command people run) from its entry, since CI runs only tests.",
   "summary": "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules.",
   "summaryFrom": "person",
-  "testFiles": 24,
+  "testFiles": 25,
   "testedBy": {
-    "src": 23
+    "src": 24
   },
   "unnamedWrites": 3,
   "unread": [],

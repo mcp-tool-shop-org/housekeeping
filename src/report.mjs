@@ -4,7 +4,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { openDb } from './load.mjs';
-import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, engineBehindCounts } from './analyze.mjs';
+import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, HEAD_CHECKS_RED, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, engineBehindCounts } from './analyze.mjs';
 import { exitCodeFor, formatError, userError } from './errors.mjs';
 import { REPORTS_DIR } from './paths.mjs';
 
@@ -77,7 +77,7 @@ export function buildReport(db, sid) {
           AND ${RUN_IS_LIVE_MAINLINE_SIGNAL}) failing_workflows
     FROM repo r
     WHERE r.snapshot_id=? AND r.is_archived=0
-      AND (r.ci_rollup IN ('FAILURE','ERROR') OR EXISTS (
+      AND (${HEAD_CHECKS_RED} OR EXISTS (
         SELECT 1 FROM workflow_run wr WHERE wr.snapshot_id=r.snapshot_id AND wr.repo=r.name
           AND ${RUN_IS_LIVE_MAINLINE_SIGNAL}))
     ORDER BY r.name`);

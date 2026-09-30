@@ -3,6 +3,16 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+
+- `CI_FAILING` no longer fires on a default branch whose only non-green checks
+  are cancelled runs replaced by a green run of the same check on the same
+  commit. GitHub's check rollup counts a cancelled run as a failure, so a
+  commit pushed twice read as red forever. `hk ci`, the MCP server and the
+  report read the same decision, and the finding now names the failing checks.
+
 ## [1.3.0] - 2026-09-30
 
 The first release on npm, as `@mcptoolshop/housekeeping`.
