@@ -1,9 +1,29 @@
-# housekeeping
+<p align="center">
+  <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+</p>
 
-An operational-health warehouse for a GitHub organization. One sweep collects
-every repository's CI status, open issues and pull requests, releases, version
-tags, workflow files, branch protection, security alerts, lockfiles and Actions
-billing into SQLite, then audits it all against written rules.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mcp-tool-shop-org/brand/main/logos/housekeeping/readme.png" alt="housekeeping" width="400" />
+</p>
+
+<h1 align="center">housekeeping</h1>
+
+<p align="center">
+  An operational-health warehouse for a GitHub organization.<br>
+  One sweep, one SQLite database, findings you can argue with.
+</p>
+
+<p align="center">
+  <a href="https://github.com/mcp-tool-shop-org/housekeeping/actions/workflows/ci.yml"><img src="https://github.com/mcp-tool-shop-org/housekeeping/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
+  <a href="https://mcp-tool-shop-org.github.io/housekeeping/"><img src="https://img.shields.io/badge/Landing_Page-live-blue" alt="Landing Page" /></a>
+  <a href="https://mcp-tool-shop-org.github.io/housekeeping/handbook/"><img src="https://img.shields.io/badge/Handbook-read-blue" alt="Handbook" /></a>
+</p>
+
+One sweep collects every repository's CI status, open issues and pull requests,
+releases, version tags, workflow files, branch protection, security alerts,
+lockfiles and Actions billing into SQLite, then audits it all against written
+rules.
 
 It answers, for the whole organization at once:
 
@@ -36,8 +56,10 @@ Snapshots are immutable and additive, so drift between two dates is a `JOIN`.
 - Node.js 22.5 or later.
 - The [GitHub CLI](https://cli.github.com/), signed in (`gh auth status`) as an
   account that can read the organization. Reading billing and security alerts
-  needs the matching scopes; a sweep without them records "not measured" and
-  carries on. It never records a missing scope as a clean result.
+  needs the matching access; a sweep without it records "not measured" and
+  carries on. It never records a missing permission as a clean result.
+- Windows or Linux. It is developed on Windows and its tests run on Linux in
+  CI. macOS should work and is not tested.
 
 ## Use
 
@@ -45,31 +67,37 @@ Snapshots are immutable and additive, so drift between two dates is a `JOIN`.
 git clone https://github.com/mcp-tool-shop-org/housekeeping.git
 cd housekeeping
 npm install
+npm link                 # puts `hk` on your path
 cp housekeeping.config.example.json housekeeping.config.json   # then set "org"
-npm run refresh          # collect, load, analyze, write reports/AUDIT-<date>.md
+hk refresh               # collect, load, analyze, write reports/AUDIT-<date>.md
 ```
 
 Then query it:
 
 ```bash
-node src/cli.mjs summary            # portfolio totals
-node src/cli.mjs ci                 # repositories whose default branch is red
-node src/cli.mjs findings           # findings grouped by severity and code
-node src/cli.mjs health             # per-repository health score, worst first
-node src/cli.mjs repo <name>        # one repository in full
-node src/cli.mjs prs                # every open pull request by age
-node src/cli.mjs versions           # package.json against git tag against npm
-node src/cli.mjs actions            # every workflow and its rule flags
-node src/cli.mjs cost               # Actions cost, gross and net side by side
-node src/cli.mjs sql "SELECT ..."   # read-only SQL
+hk summary               # portfolio totals
+hk ci                    # repositories whose default branch is red
+hk findings              # findings grouped by severity and code
+hk health                # per-repository health score, worst first
+hk repo <name>           # one repository in full
+hk prs                   # every open pull request by age
+hk versions              # package.json against git tag against npm
+hk actions               # every workflow and its rule flags
+hk cost                  # Actions cost, gross and net side by side
+hk sql "SELECT ..."      # one read-only statement
+hk help                  # every command and flag
 ```
 
-`npm link` makes the same commands available as `hk <command>`.
+Without `npm link`, each `hk <command>` is `node src/cli.mjs <command>`.
 
 `npm run rebuild` re-derives the database and the report from snapshots already
 on disk, with no network access.
 
 A full sweep makes a few hundred API calls. Do not run `refresh` in a loop.
+
+Results go to standard output; progress and errors go to standard error. Every
+error prints a code and a hint. Exit codes: 0 ok, 1 user error, 2 runtime
+error, 3 partial (the sweep finished, with gaps).
 
 ## Configuration
 
@@ -82,17 +110,19 @@ A full sweep makes a few hundred API calls. Do not run `refresh` in a loop.
 }
 ```
 
-- `org` is the organization to sweep. `node src/cli.mjs refresh <org>`
-  overrides it. With neither, a sweep refuses to start.
+- `org` is the organization to sweep. `hk refresh <org>` overrides it. With
+  neither, a sweep refuses to start.
 - `metaRepos` are repositories that hold organization defaults, assets or
-  tooling, not a shipped product. They are exempt from product-hygiene findings.
+  tooling, not a shipped product. They are exempt from the findings that only
+  make sense for a product: missing README, LICENSE and similar files, having
+  no workflows, and having no releases.
 
 A malformed file is an error, never a silent default: an unknown key, a wrong
 type or broken JSON stops the run.
 
-Environment: `HK_CONFIG` (config path), `HK_DB` (database path for the MCP
-server), `HK_COST_REPOS` and `HK_COST_BUDGET` (bounds on the per-job cost
-pass), `GH_PATH` (path to `gh`).
+Environment: `HK_CONFIG` (config path), `HK_DB` (database path), `HK_LOG`
+(`silent`, `normal`, `verbose` or `debug`), `HK_COST_REPOS` and
+`HK_COST_BUDGET` (bounds on the per-job cost pass), `GH_PATH` (path to `gh`).
 
 ## Keep the data private
 
@@ -125,7 +155,7 @@ questions without reading a multi-megabyte snapshot:
 ```
 
 `hk_sql` accepts a single `SELECT` or `WITH` statement and opens the database
-read-only.
+read-only. A failing call returns a structured error, never a stack trace.
 
 ## Findings
 
@@ -165,6 +195,9 @@ them produces noise:
 Severity drives a health score: critical 40, high 15, medium 6, low 2, info 0,
 deducted from 100. The score ranks attention, not quality.
 
+The [handbook](https://mcp-tool-shop-org.github.io/housekeeping/handbook/)
+lists every finding, command, error code and table.
+
 ## Security
 
 - **Read-only.** The collector issues GraphQL queries and REST `GET`s. It never
@@ -191,3 +224,7 @@ there is no database or no network.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+Built by <a href="https://mcp-tool-shop.github.io/">MCP Tool Shop</a>

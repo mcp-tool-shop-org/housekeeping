@@ -13,9 +13,10 @@ import {
 } from './workflow-risks.mjs';
 import { safeJson } from './collect.mjs';
 import { reconcileRepos } from './cost.mjs';
+import { HkError, userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const DB_PATH = join(ROOT, 'data', 'housekeeping.db');
+export const DB_PATH = process.env.HK_DB || join(ROOT, 'data', 'housekeeping.db');
 
 const DAY = 86400_000;
 const daysSince = iso => (iso ? Math.floor((Date.now() - Date.parse(iso)) / DAY) : null);
@@ -89,11 +90,9 @@ export function openDb(path = DB_PATH, { fresh = false } = {}) {
   if (!seen) {
     db.prepare("INSERT INTO meta VALUES ('schema_fingerprint', ?)").run(fingerprint);
   } else if (seen.value !== fingerprint) {
-    throw new Error(
-      'schema.sql changed since this database was built ' +
-      `(${seen.value} -> ${fingerprint}). The database is derived: ` +
-      'run `npm run rebuild` to re-create it from data/snapshots/.'
-    );
+    throw new HkError('SCHEMA_CHANGED',
+      `schema.sql changed since this database was built (${seen.value} -> ${fingerprint})`,
+      { hint: 'the database is derived: run `npm run rebuild` to re-create it from data/snapshots/' });
   }
   return db;
 }
@@ -820,8 +819,10 @@ function loadSnapshotInner(db, snap) {
 
 export function latestSnapshotFile() {
   const dir = join(ROOT, 'data', 'snapshots');
-  const files = readdirSync(dir).filter(f => f.endsWith('.json')).sort();
-  if (!files.length) throw new Error('no snapshots in data/snapshots - run `npm run collect` first');
+  let files = [];
+  try { files = readdirSync(dir).filter(f => f.endsWith('.json')).sort(); }
+  catch (e) { if (e.code !== 'ENOENT') throw e; }      // no directory yet is the same as no snapshots
+  if (!files.length) throw userError('NO_SNAPSHOT', 'no snapshots in data/snapshots', 'run `hk refresh` to take one');
   return join(dir, files.at(-1));
 }
 

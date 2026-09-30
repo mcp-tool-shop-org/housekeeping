@@ -8,6 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { graphql, rest, restPaged, restStatus, restWithStatus, pMap, whoami, looksTransient } from './gh.mjs';
 import { resolveOrg } from './config.mjs';
+import { exitCodeFor, formatError } from './errors.mjs';
+import { info, isDebug } from './log.mjs';
 import { packageMapFromLockfile, advisoriesFromBulk, countBySeverity, lockfilePathsFromTree, devOnlyPackages } from './lockfile.mjs';
 import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs';
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
@@ -115,7 +117,7 @@ query($owner:String!, $n:Int!, $cursor:String) {
   }
 }`;
 
-const log = (...a) => console.error('[collect]', ...a);
+const log = (...a) => info('[collect]', ...a);
 
 export function safeJson(t) {
   try { return t ? JSON.parse(t) : null; } catch { return null; }
@@ -1109,5 +1111,5 @@ const invokedDirectly = process.argv[1] &&
 
 if (invokedDirectly) {
   Promise.resolve().then(() => collect(resolveOrg(process.argv[2])))
-    .catch(e => { console.error('FATAL', e); process.exit(1); });
+    .catch(e => { console.error(formatError(e, { debug: isDebug() })); process.exit(exitCodeFor(e)); });
 }

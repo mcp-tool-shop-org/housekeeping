@@ -6,6 +6,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDb } from './load.mjs';
 import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL } from './analyze.mjs';
+import { exitCodeFor, formatError, userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -432,7 +433,8 @@ export function buildReport(db, sid) {
   const scheduled = q(`SELECT repo, path, on_triggers triggers FROM workflow
     WHERE snapshot_id=? AND on_triggers LIKE '%schedule%' ORDER BY repo`);
   push(md.h3(`Scheduled workflows — ${scheduled.length}`));
-  push(md.p('The rule permits cron only in the marketing repo; these are all in the tooling org.'));
+  push(md.p('`rules/github-actions.md` allows a scheduled workflow only when it does what a push cannot, '
+    + 'runs weekly or slower, is bounded, and opens a pull request. Each of these needs checking against that.'));
   push(md.table(scheduled));
 
   // ---------------------------------------------------------- hygiene -----
@@ -509,17 +511,28 @@ export function buildReport(db, sid) {
   return out.join('');
 }
 
-const invokedDirectly = process.argv[1] &&
-  import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, '/')}`).href;
-
-if (invokedDirectly) {
-  const db = openDb();
-  const sid = process.argv[2] ? Number(process.argv[2])
-    : db.prepare('SELECT MAX(id) AS id FROM snapshot').get().id;
+/** Write reports/AUDIT-<date>.md for a loaded snapshot. Returns the path written. */
+export function writeReport(db, sid) {
   const snap = db.prepare('SELECT taken_at FROM snapshot WHERE id=?').get(sid);
+  if (!snap) throw userError('NO_SNAPSHOT', `snapshot ${sid} is not loaded`, '`hk snapshots` lists the ones that are');
   const text = buildReport(db, sid);
   mkdirSync(join(ROOT, 'reports'), { recursive: true });
   const file = join(ROOT, 'reports', `AUDIT-${snap.taken_at.slice(0, 10)}.md`);
   writeFileSync(file, text);
-  console.error(`[report] wrote ${file} (${text.length} bytes)`);
+  return file;
+}
+
+const invokedDirectly = process.argv[1] &&
+  import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, '/')}`).href;
+
+if (invokedDirectly) {
+  try {
+    const db = openDb();
+    const latest = db.prepare('SELECT MAX(id) AS id FROM snapshot').get().id;
+    if (!process.argv[2] && !latest) throw userError('NO_SNAPSHOT', 'no snapshot is loaded', 'run `hk refresh` first');
+    console.error(`[report] wrote ${writeReport(db, process.argv[2] ? Number(process.argv[2]) : latest)}`);
+  } catch (e) {
+    console.error(formatError(e));
+    process.exit(exitCodeFor(e));
+  }
 }

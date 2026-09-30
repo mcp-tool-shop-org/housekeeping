@@ -39,3 +39,7 @@ jobs:
           node-version: 22
       - run: npm ci
       - run: npm test
+      # Blocking on purpose: a scanner that cannot fail its job shows the same
+      # green check as a clean one.
+      - name: Dependency audit
+        run: npm audit --audit-level=high

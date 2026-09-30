@@ -8,3 +8,11 @@ reports/
 
 # Names your organization and the repositories exempt from hygiene findings.
 housekeeping.config.json
+
+# The landing page and handbook.
+site/node_modules/
+site/dist/
+site/.astro/
+
+# Translation cache.
+.polyglot-cache.json

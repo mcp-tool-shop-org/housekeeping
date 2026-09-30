@@ -8,16 +8,18 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { ListToolsRequestSchema, CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { DatabaseSync } from 'node:sqlite';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { EXIT, formatError, readOnlyQuery, structured, userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DB_FILE = process.env.HK_DB ?? join(ROOT, 'data', 'housekeeping.db');
+const DB_FILE = process.env.HK_DB || join(ROOT, 'data', 'housekeeping.db');
+const VERSION = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version;
 
 if (!existsSync(DB_FILE)) {
-  console.error(`[hk-mcp] no database at ${DB_FILE} - run \`npm run refresh\` first`);
-  process.exit(1);
+  console.error(formatError(userError('NO_DATABASE', `no database at ${DB_FILE}`, 'run `hk refresh` first')));
+  process.exit(EXIT.USER);
 }
 const db = new DatabaseSync(DB_FILE, { readOnly: true });
 const sid = () => db.prepare('SELECT MAX(id) AS id FROM snapshot').get().id;
@@ -62,7 +64,7 @@ const TOOLS = [
       type: 'object',
       properties: {
         severity: str('critical | high | medium | low | info'),
-        category: str('ci | actions | hygiene | metadata | version | backlog | lifecycle | docs'),
+        category: str('ci | security | actions | version | hygiene | metadata | docs | backlog | lifecycle | atlas'),
         code: str('exact finding code, e.g. CI_RUN_FAILING'),
         repo: str('repo name'),
         limit: int('max rows, default 100'),
@@ -249,10 +251,7 @@ const TOOLS = [
       required: ['query'],
     },
     run: ({ query }) => {
-      const q = query.trim().replace(/;\s*$/, '');
-      if (!/^(select|with)\b/i.test(q)) return 'Refused: only SELECT/WITH queries are allowed.';
-      if (/;/.test(q)) return 'Refused: multiple statements are not allowed.';
-      return asTable(db.prepare(q).all());
+      return asTable(db.prepare(readOnlyQuery(query)).all());
     },
   },
   {
@@ -273,7 +272,7 @@ const TOOLS = [
 ];
 
 const server = new Server(
-  { name: 'housekeeping', version: '1.0.0' },
+  { name: 'housekeeping', version: VERSION },
   { capabilities: { tools: {} } },
 );
 
@@ -283,11 +282,15 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   const tool = TOOLS.find(t => t.name === req.params.name);
-  if (!tool) return { isError: true, content: [{ type: 'text', text: `Unknown tool ${req.params.name}` }] };
+  // Every failure is a structured result: { code, message, hint, retryable }.
+  // A bad argument or a failing query must never take the server down, and a
+  // stack trace is never sent to the caller.
+  const fail = e => ({ isError: true, content: [{ type: 'text', text: JSON.stringify(structured(e)) }] });
+  if (!tool) return fail(userError('UNKNOWN_TOOL', `unknown tool "${req.params.name}"`, `tools: ${TOOLS.map(t => t.name).join(', ')}`));
   try {
     return { content: [{ type: 'text', text: tool.run(req.params.arguments ?? {}) }] };
   } catch (e) {
-    return { isError: true, content: [{ type: 'text', text: `error: ${e.message}` }] };
+    return fail(e);
   }
 });
 

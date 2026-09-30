@@ -913,7 +913,8 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
       }
       if (triggers.includes('schedule')) {
         F(name, 'WF_SCHEDULED', 'medium', 'actions',
-          'Scheduled (cron) workflow in a tooling-org repo; rule allows these only in the marketing repo.',
+          'Scheduled (cron) workflow. rules/github-actions.md allows one only when it does what a push '
+          + 'cannot, runs weekly or slower, is bounded, and opens a pull request; check it against those.',
           at);
       }
     }

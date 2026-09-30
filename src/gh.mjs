@@ -6,6 +6,7 @@ import { promisify } from 'node:util';
 import { writeFileSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { verbose } from './log.mjs';
 
 const pexec = promisify(execFile);
 const TMP = mkdtempSync(join(tmpdir(), 'hk-'));
@@ -143,6 +144,9 @@ export async function preflight({ rest: needRest = 200, graphql: needGraphql = 2
  * (waiting could be an hour); secondary backs off and retries.
  */
 async function ghExec(args, { retries = 4, maxBuffer = MAX_BUF } = {}) {
+  // The subcommand and its target only. A GraphQL body lives in a temp file
+  // and is never echoed; `gh` holds the token, so no argument here can be one.
+  verbose('[gh]', args.slice(0, 2).join(' '));
   for (let attempt = 0; ; attempt++) {
     try {
       return await pexec(resolveGh(), args, { maxBuffer, windowsHide: true });

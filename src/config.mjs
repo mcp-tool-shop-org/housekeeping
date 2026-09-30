@@ -13,11 +13,14 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const CONFIG_PATH = process.env.HK_CONFIG ?? join(ROOT, 'housekeeping.config.json');
 
 const KEYS = ['org', 'metaRepos'];
+const invalid = message => userError('CONFIG_INVALID', message,
+  'fix housekeeping.config.json; housekeeping.config.example.json shows the shape');
 const DEFAULT_META = ['.github'];
 
 /**
@@ -29,21 +32,21 @@ const DEFAULT_META = ['.github'];
 export function parseConfig(text) {
   let raw;
   try { raw = JSON.parse(text); }
-  catch (e) { throw new Error(`housekeeping config is not valid JSON: ${e.message}`); }
+  catch (e) { throw invalid(`housekeeping config is not valid JSON: ${e.message}`); }
   if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) {
-    throw new Error('housekeeping config must be a JSON object');
+    throw invalid('housekeeping config must be a JSON object');
   }
   const unknown = Object.keys(raw).filter(k => !KEYS.includes(k));
   if (unknown.length) {
-    throw new Error(`housekeeping config has unknown key(s): ${unknown.join(', ')} (known: ${KEYS.join(', ')})`);
+    throw invalid(`housekeeping config has unknown key(s): ${unknown.join(', ')} (known: ${KEYS.join(', ')})`);
   }
   const org = raw.org ?? null;
   if (org !== null && (typeof org !== 'string' || !org.trim())) {
-    throw new Error('housekeeping config: "org" must be a non-empty string');
+    throw invalid('housekeeping config: "org" must be a non-empty string');
   }
   const meta = raw.metaRepos ?? DEFAULT_META;
   if (!Array.isArray(meta) || meta.some(m => typeof m !== 'string' || !m.trim())) {
-    throw new Error('housekeeping config: "metaRepos" must be an array of repo names');
+    throw invalid('housekeeping config: "metaRepos" must be an array of repo names');
   }
   return { org, metaRepos: [...meta] };
 }
@@ -66,7 +69,8 @@ export function loadConfig(path = CONFIG_PATH) {
 export function resolveOrg(arg, config = loadConfig()) {
   const org = arg ?? config.org;
   if (!org) {
-    throw new Error('no org given: pass one (hk refresh <org>) or set "org" in housekeeping.config.json');
+    throw userError('NO_ORG', 'no org given',
+      'pass one (hk refresh <org>) or set "org" in housekeeping.config.json');
   }
   return org;
 }
