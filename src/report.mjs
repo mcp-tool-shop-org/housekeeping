@@ -5,7 +5,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openDb } from './load.mjs';
-import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL } from './analyze.mjs';
+import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE } from './analyze.mjs';
 import { exitCodeFor, formatError, userError } from './errors.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -481,6 +481,37 @@ export function buildReport(db, sid) {
       JOIN repo r ON r.snapshot_id=w.snapshot_id AND r.name=w.repo
       WHERE w.snapshot_id=? AND r.is_archived=0 AND w.atlas_check <> ''
       GROUP BY w.atlas_check ORDER BY repos DESC, pin`)));
+
+    // Atlas's own door checks: D1, a toolchain a job pins that a package it
+    // runs refuses; D2, a lockfile missing the build for the job's platform.
+    // Reported as Atlas reports them, as notices, and counted only among maps
+    // made by an engine that records them.
+    push(md.h3('Door findings'));
+    const doors = doorFindingRows(
+      q('SELECT repo, engine, error FROM atlas_map WHERE snapshot_id=?'),
+      q('SELECT repo, file, findings, unresolved_checks FROM atlas_door WHERE snapshot_id=?'));
+    if (!doors.measured) {
+      push(md.p(`_Not measured — no map is made by Atlas ${ATLAS_DOOR_CHECKS_SINCE} or later, which is the first engine that records door checks._`));
+    } else {
+      push(md.p(`${doors.measured} of ${doors.mapped} readable maps are made by Atlas ${ATLAS_DOOR_CHECKS_SINCE} or later and record door checks; ` +
+        `the other ${doors.mapped - doors.measured} are not measured. ` +
+        (doors.rows.length ? `${doors.rows.length} finding(s):` : 'No door finding in any of them.')));
+      if (doors.rows.length) push(md.table(doors.rows));
+      if (doors.unresolved.length) {
+        push(md.p('Checks Atlas could not judge (not findings):'));
+        push(md.table(doors.unresolved));
+      }
+    }
+    // One fact, two readers: the environment a job deploys to. Where a map
+    // records it, it is the one the deploy rules use; a disagreement with the
+    // workflow's own reading is shown, not settled here.
+    const env = one(`SELECT SUM(source='atlas') fromMap,
+        SUM(source='atlas' AND parsed IS NOT NULL AND parsed <> environment) disagree
+      FROM workflow_environment WHERE snapshot_id=?`);
+    if (env?.fromMap) {
+      push(md.p(`Job environments taken from the map: ${env.fromMap}; ` +
+        `${env.disagree ? `**${env.disagree} disagree with the workflow's own reading**` : 'all agree with the workflow\'s own reading'}.`));
+    }
   }
 
   // ----------------------------------------------------------- health -----

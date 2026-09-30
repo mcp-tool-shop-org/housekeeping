@@ -15,6 +15,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - This repository keeps its own Atlas map in `atlas/`, made by
   `@dogfood-lab/atlas` 1.24.0 and checked in CI at the same version, as the
   rule in `rules/atlas-map.md` asks of every repository that runs workflows.
+- The report's Atlas section lists each map's door findings (D1: a toolchain a
+  package refuses; D2: a lockfile without the job's platform) and the checks
+  Atlas could not judge, counted only among maps made by Atlas 1.24.0 or later.
+- The deploy rules take a job's environment from the Atlas map where the map
+  records one, and keep the workflow's own reading beside it
+  (`workflow_environment.source`, `.parsed`); the report counts disagreements.
 
 ### Fixed
 

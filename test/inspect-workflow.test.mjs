@@ -276,7 +276,7 @@ test('records the deploy-pages job and its environment on the fleet pages shape'
     '    steps: [{ id: deployment, uses: actions/deploy-pages@v4 }]',
   ].join('\n'), '.github/workflows/pages.yml', 'main');
   assert.equal(w.pages_deploy_jobs, 'deploy');
-  assert.deepEqual(w.environments, [{ job: 'deploy', environment: 'github-pages', runs_on_default: 1 }]);
+  assert.deepEqual(w.environments, [{ job: 'deploy', environment: 'github-pages', runs_on_default: 1, source: 'workflow', parsed: 'github-pages' }]);
 });
 
 test('a release-only environment job is recorded as not running on the default branch', () => {
@@ -286,7 +286,7 @@ test('a release-only environment job is recorded as not running on the default b
     '  publish: { environment: pypi, runs-on: ubuntu-latest }',
   ].join('\n'), '.github/workflows/publish.yml', 'main');
   assert.equal(w.pages_deploy_jobs, '');
-  assert.deepEqual(w.environments, [{ job: 'publish', environment: 'pypi', runs_on_default: 0 }]);
+  assert.deepEqual(w.environments, [{ job: 'publish', environment: 'pypi', runs_on_default: 0, source: 'workflow', parsed: 'pypi' }]);
 });
 
 // ---- atlas check -----------------------------------------------------------

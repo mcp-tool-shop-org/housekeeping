@@ -101,8 +101,11 @@ export function openDb(path = DB_PATH, { fresh = false } = {}) {
 /**
  * Mechanically score one workflow YAML against rules/github-actions.md.
  * Regex would misread nested keys, so this parses the document properly.
+ *
+ * `atlasEnv` maps a job key to the `environment` the repository's Atlas map
+ * records for it (Atlas 1.24.0 and later), when the map has this file.
  */
-export function inspectWorkflow(text, path, defaultBranch = null) {
+export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = null) {
   const out = {
     path, name: path.split('/').pop(), state: 'unknown',
     has_paths_filter: 0, has_workflow_dispatch: 0, has_concurrency: 0,
@@ -193,12 +196,21 @@ export function inspectWorkflow(text, path, defaultBranch = null) {
 
   // The deploy doors, joined in analyze.mjs to the settings they depend on.
   out.pages_deploy_jobs = pagesDeployJobs(jobEntries).join('\n');
+  // The environment a job deploys to is a fact Atlas also records, so where
+  // the map names one it is preferred: one definition for both tools. This
+  // file's own reading is kept beside it, so a disagreement stays visible.
+  // Where the map has no name (it names none, or could not resolve one) the
+  // workflow's reading stands; both refuse `${{ }}` names.
   for (const [id, job] of jobEntries) {
-    const environment = jobEnvironment(job);
+    const parsed = jobEnvironment(job);
+    const recorded = atlasEnv?.get(id)?.name;
+    const fromMap = typeof recorded === 'string' && recorded.trim() ? recorded.trim() : null;
+    const environment = fromMap ?? parsed;
     if (environment) {
       out.environments.push({
         job: id, environment,
         runs_on_default: jobRunsOnDefaultBranch(doc, job, defaultBranch),
+        source: fromMap ? 'atlas' : 'workflow', parsed,
       });
     }
   }
@@ -672,8 +684,12 @@ function loadSnapshotInner(db, snap) {
         bool(rel.isLatest), bool(rel.isDraft), bool(rel.isPrerelease));
     }
 
+    // Job environments as the map records them, per workflow file.
+    const mapDoors = snap.atlas_maps?.repos?.[r.name]?.error ? [] : (snap.atlas_maps?.repos?.[r.name]?.doors ?? []);
+    const atlasEnvByFile = new Map(mapDoors.filter(d => Array.isArray(d.jobs)).map(d => [d.file,
+      new Map(d.jobs.filter(j => j && typeof j.name === 'string' && j.environment).map(j => [j.name, j.environment]))]));
     for (const f of wfFiles) {
-      const w = inspectWorkflow(f.text, f.path, r.defaultBranchRef?.name ?? null);
+      const w = inspectWorkflow(f.text, f.path, r.defaultBranchRef?.name ?? null, atlasEnvByFile.get(f.path) ?? null);
       stmts.wf.run(sid, r.name, w.path, w.name, w.state,
         w.has_paths_filter, w.has_workflow_dispatch, w.has_concurrency,
         w.runners, w.uses_macos, w.uses_windows,
@@ -682,7 +698,8 @@ function loadSnapshotInner(db, snap) {
         w.audit_steps_enforcing ?? 0, w.audit_steps_defanged ?? '',
         w.pages_deploy_jobs ?? '', w.atlas_check ?? '');
       for (const e of w.environments ?? []) {
-        stmts.wfEnv.run(sid, r.name, w.path, e.job, e.environment, e.runs_on_default);
+        stmts.wfEnv.run(sid, r.name, w.path, e.job, e.environment, e.runs_on_default,
+          e.source ?? 'workflow', e.parsed ?? null);
       }
     }
 

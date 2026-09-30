@@ -154,10 +154,13 @@ CREATE TABLE IF NOT EXISTS workflow (
 -- load. `runs_on_default` is 1 when a push to the default branch, a schedule
 -- or a workflow_run can start the job, 0 when none can (a tag-only release),
 -- NULL when the triggers or the job's `if:` are beyond what is evaluated. A
--- name written as an expression is not stored at all.
+-- name written as an expression is not stored at all. `environment` is the
+-- name the repository's Atlas map records for the job when it records one
+-- (`source` = 'atlas'), else the workflow's own (`source` = 'workflow');
+-- `parsed` is always the workflow's own reading, so the two can be compared.
 CREATE TABLE IF NOT EXISTS workflow_environment (
   snapshot_id INTEGER, repo TEXT, path TEXT, job TEXT,
-  environment TEXT, runs_on_default INTEGER
+  environment TEXT, runs_on_default INTEGER, source TEXT, parsed TEXT
 );
 
 -- The repository settings a deploy depends on, asked only of repos whose

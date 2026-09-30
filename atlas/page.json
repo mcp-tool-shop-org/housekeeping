@@ -18,16 +18,63 @@
     }
   ],
   "changes": {
-    "first": true
+    "fileCounts": {
+      "added": 1,
+      "changed": 7,
+      "moved": 0,
+      "parts": 3,
+      "removed": 0
+    },
+    "items": [
+      {
+        "kind": "landing",
+        "sentence": ".github/workflows/ci.yml is now also read by test/door-findings.test.mjs.",
+        "subjects": [
+          ".github/workflows/ci.yml",
+          "test/door-findings.test.mjs"
+        ]
+      },
+      {
+        "kind": "landing",
+        "sentence": ".github/workflows/pages.yml is now also read by test/door-findings.test.mjs.",
+        "subjects": [
+          ".github/workflows/pages.yml",
+          "test/door-findings.test.mjs"
+        ]
+      },
+      {
+        "kind": "landing",
+        "sentence": "site/package-lock.json is now also read by test/door-findings.test.mjs.",
+        "subjects": [
+          "site/package-lock.json",
+          "test/door-findings.test.mjs"
+        ]
+      },
+      {
+        "kind": "landing",
+        "sentence": "And 1 more new writer or reader of a place.",
+        "subjects": []
+      },
+      {
+        "kind": "counts",
+        "sentence": "1 file added and 7 changed content, across 3 parts.",
+        "subjects": []
+      }
+    ],
+    "since": {
+      "commit": "4c003f5f0b4351bf4df0c28c26a1ea36f249561b",
+      "generatedAt": "2026-09-30T19:04:56.660Z"
+    },
+    "unchanged": false
   },
   "changesTogether": [],
   "changesTogetherNote": [
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "4c003f5f0b4351bf4df0c28c26a1ea36f249561b",
+  "commit": "b4adbc9953fda132d41ef4194727ac7beee5100b",
   "defaultBranch": "main",
-  "derived": "6 parts, mostly JavaScript (35 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).",
+  "derived": "6 parts, mostly JavaScript (36 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).",
   "doors": [
     {
       "checks": [],
@@ -42,12 +89,12 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 21
+          "files": 22
         },
         {
           "boundary": "src",
           "depth": 1,
-          "files": 10
+          "files": 11
         }
       ],
       "runs": [
@@ -62,7 +109,7 @@
         "on a push to main touching 6 paths",
         "or by hand"
       ],
-      "untracked": "data/snapshots/, which is not tracked"
+      "untracked": "data/snapshots/ and reports/, which are not tracked"
     },
     {
       "checks": [],
@@ -132,7 +179,7 @@
   "edges": [],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-09-30T19:04:56.660Z",
+  "generatedAt": "2026-09-30T20:15:22.064Z",
   "limits": [
     "3 reads use paths built at run time and are not named here.",
     "2 writes go to places this repository does not track, so they are not listed as generated.",
@@ -140,7 +187,7 @@
     "2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.",
     "1 write goes to a temporary directory, not to this repository.",
     "5 commands are built at run time and not followed.",
-    "Statistics confidence is low: fewer than 30 qualifying commits in the window, and fewer than 20 source files reach 10 revisions."
+    "Statistics confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions."
   ],
   "mainDoor": ".github/workflows/ci.yml",
   "partLabels": {
@@ -164,9 +211,9 @@
   "startReason": "This path follows hk (a command of a private package, which nothing ships) from its entry, since CI runs only tests.",
   "summary": "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules.",
   "summaryFrom": "person",
-  "testFiles": 21,
+  "testFiles": 22,
   "testedBy": {
-    "src": 20
+    "src": 21
   },
   "unnamedWrites": 0,
   "unread": [],

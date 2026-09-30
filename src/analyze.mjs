@@ -211,10 +211,11 @@ export function environmentAdmitsBranch(env, settings, branch) {
 //
 // rules/atlas-map.md, "Transition (until the first fleet-wide pin bump
 // lands)": "made by the fleet's current engine version" is reported and not
-// counted as a defect until the first pin-bump wave completes (planned at
-// Atlas 1.25.0). This is the one switch that changes that: while it is false,
-// ATLAS_ENGINE_BEHIND is `info`, which the health score weighs at 0. Flip it
-// when the wave has landed, not before -- a missing map and a missing check
+// counted as a defect until the first pin-bump wave completes (the wave to
+// Atlas 1.24.0, published 2026-09-30). This is the one switch that changes
+// that: while it is false, ATLAS_ENGINE_BEHIND is `info`, which the health
+// score weighs at 0. Flip it when the Atlas side reports the wave ended, not
+// before -- a missing map and a missing check
 // count from today, and are unaffected by it.
 export const ATLAS_ENGINE_BEHIND_COUNTS = false;
 
@@ -297,14 +298,59 @@ export function atlasMapFindings({
 // different step of the same door is not cited: it may be real, but it is
 // not what broke this run.
 
+// Built from the facts a map records; Atlas's own sentences are built the same
+// way by its door-checks module, and the map holds facts only.
 const DOOR_RULES = {
-  D1: f => `${f.package ?? 'a package'} ${f.version ?? ''} requires Node ${f.requires ?? '(unstated)'}, and the job pins ${(f.pins ?? []).join(', ') || 'an older one'}`.replace(/ {2,}/g, ' '),
+  D1: f => (`${f.package ?? 'a package'} ${f.version ?? ''} requires Node ${f.requires ?? '(unstated)'}`
+    + `${f.refuses ? ' and refuses to start below it' : ''}, and the job pins ${(f.pins ?? []).join(', ') || 'an older one'}`
+    + `${f.engineStrict ? ` (${f.engineStrict} sets engine-strict, so the install itself refuses)` : ''}`).replace(/ {2,}/g, ' '),
   'D1-python': f => `${f.manifest ?? 'the project'} requires Python ${f.requires ?? '(unstated)'}, and the job pins ${(f.pins ?? []).join(', ') || 'an older one'}`,
   D2: f => {
     const pk = f.packages ?? [];
     return `${f.tool ?? 'the install'} runs on ${(f.platforms ?? []).join(', ') || 'a platform'} from ${f.lock ?? 'a lockfile'}, which lacks that platform's build of ${pk.slice(0, 3).join(', ')}${pk.length > 3 ? ` and ${pk.length - 3} more` : ''}`;
   },
 };
+
+/** One sentence for an Atlas door finding, or null for a rule this does not know. Pure. */
+export function doorFindingSentence(f) {
+  return f && DOOR_RULES[f.rule] ? DOOR_RULES[f.rule](f) : null;
+}
+
+/** The first release whose maps record door findings; an older map is not measured. */
+export const ATLAS_DOOR_CHECKS_SINCE = '1.24.0';
+
+/**
+ * The door-finding rows of a snapshot, for the report. Pure over the given
+ * rows: `maps` are atlas_map rows, `doors` atlas_door rows (findings and
+ * unresolved_checks as stored JSON). Returns the measured population as well
+ * as the rows, because a map made before 1.24.0 records no door checks and
+ * its silence is "not measured", never "clean".
+ */
+export function doorFindingRows(maps, doors) {
+  const since = parseSemver(ATLAS_DOOR_CHECKS_SINCE);
+  const measured = new Set(maps
+    // compareSemver sorts newest first: <= 0 means "this release or newer".
+    .filter(m => !m.error && m.engine && parseSemver(m.engine) && compareSemver(parseSemver(m.engine), since) <= 0)
+    .map(m => m.repo));
+  const rows = [], unresolved = new Map();
+  const parse = t => { try { return JSON.parse(t); } catch { return null; } };
+  for (const d of doors) {
+    if (!measured.has(d.repo)) continue;
+    for (const f of parse(d.findings) ?? []) {
+      rows.push({ repo: d.repo, file: d.file, rule: f.rule, where: `${f.job} / ${f.step}`,
+        says: doorFindingSentence(f) ?? `a ${f.rule} finding this version of housekeeping does not describe` });
+    }
+    for (const u of parse(d.unresolved_checks) ?? []) {
+      const k = `${u.rule}: ${u.why}`;
+      unresolved.set(k, (unresolved.get(k) ?? 0) + 1);
+    }
+  }
+  rows.sort((a, b) => a.rule.localeCompare(b.rule) || a.repo.localeCompare(b.repo) || a.file.localeCompare(b.file));
+  return {
+    measured: measured.size, mapped: maps.filter(m => !m.error).length, rows,
+    unresolved: [...unresolved].map(([why, count]) => ({ why, count })).sort((a, b) => b.count - a.count),
+  };
+}
 
 /**
  * One sentence on where a red run broke, for the CI finding's message. Pure.

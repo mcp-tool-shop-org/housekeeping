@@ -47,7 +47,7 @@ test('a trimmed door keeps its outline and drops the long lists', () => {
 });
 
 test('jobs and findings are kept whole when a door carries them', () => {
-  // Atlas 1.25.0 adds both; keeping them now is what spares the later slices
+  // Atlas 1.24.0 adds both; keeping them now is what spares the later slices
   // a collector change.
   const jobs = [{ id: 'deploy', runsOn: ['ubuntu-latest'], environment: 'github-pages' }];
   const findings = [{ rule: 'D1', job: 'deploy', step: '4', lines: [12, 14] }];

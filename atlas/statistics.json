@@ -107,8 +107,8 @@
     "definition": "commits is how many commits in the window touch the file, including merges and commits dropped from coupling. lines is added plus deleted in those commits.",
     "files": [
       {
-        "commits": 2,
-        "lines": 45,
+        "commits": 3,
+        "lines": 51,
         "path": ".github/workflows/ci.yml"
       },
       {
@@ -122,8 +122,8 @@
         "path": ".gitignore"
       },
       {
-        "commits": 3,
-        "lines": 69,
+        "commits": 4,
+        "lines": 72,
         "path": "CHANGELOG.md"
       },
       {
@@ -185,6 +185,31 @@
         "commits": 2,
         "lines": 88,
         "path": "SHIP_GATE.md"
+      },
+      {
+        "commits": 1,
+        "lines": 83,
+        "path": "atlas/README.md"
+      },
+      {
+        "commits": 1,
+        "lines": 26,
+        "path": "atlas/boundaries.yaml"
+      },
+      {
+        "commits": 1,
+        "lines": 178,
+        "path": "atlas/page.json"
+      },
+      {
+        "commits": 1,
+        "lines": 550,
+        "path": "atlas/statistics.json"
+      },
+      {
+        "commits": 1,
+        "lines": 3765,
+        "path": "atlas/structure.json"
       },
       {
         "commits": 1,
@@ -500,15 +525,15 @@
   },
   "confidence": {
     "level": "low",
-    "reason": "fewer than 30 qualifying commits in the window, and fewer than 20 source files reach 10 revisions"
+    "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-09-30T19:04:56.660Z",
+  "generatedAt": "2026-09-30T20:15:22.064Z",
   "generatedFrom": {
-    "commit": "4c003f5f0b4351bf4df0c28c26a1ea36f249561b"
+    "commit": "b4adbc9953fda132d41ef4194727ac7beee5100b"
   },
   "pairs": [],
   "parameters": {
-    "appliedChangesetLimit": 19.75,
+    "appliedChangesetLimit": 20,
     "changeset": 50,
     "changesetFraction": 0.25,
     "cohesionDrop": 0.2,
@@ -517,16 +542,16 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-09-30T14:29:18-04:00",
-    "inScopeFiles": 79,
+    "headDate": "2026-09-30T15:05:47-04:00",
+    "inScopeFiles": 80,
     "pinnedStart": null,
-    "priorFloor": null,
-    "qualifyingCommits": 3,
+    "priorFloor": "fallen",
+    "qualifyingCommits": 4,
     "qualifyingMinimum": 30,
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-03T18:29:18.000Z",
+    "since": "2026-04-03T19:05:47.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",
