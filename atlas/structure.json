@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "5bdacb58cb64102e30b5e347a8b71528fcdaaa195911281b5920a06234056a5d",
+          "hash": "a1886bbe5142fa9558d2600ce9969f78b7ac4c3af75ab462f1eae09ae37901dc",
           "path": "CHANGELOG.md"
         },
         {
@@ -92,7 +92,7 @@
           "path": "SECURITY.md"
         },
         {
-          "hash": "0141ea3ef8a9688caf0a1821c84020d3e723623df5a96ee2aeadb2ddbdf136c9",
+          "hash": "3ff7373a9f392e92f737fc7344f1491d929d8ae62c80c557cf3ae82b0f4259da",
           "path": "SHIP_GATE.md"
         },
         {
@@ -104,11 +104,11 @@
           "path": "logo.png"
         },
         {
-          "hash": "862dc081be8c6f7805a8ea6d52fc5368a61ebafb8076beacc05a27a419c4bc2a",
+          "hash": "4c0cdedd366abe04e5205ca777e61737fa804d629fe2a55e5d769673bc046c85",
           "path": "package-lock.json"
         },
         {
-          "hash": "c1deec9a2c453bf1cb405711f9ddd973084bbb209e9c38c06883f02caebe0dca",
+          "hash": "9e834709f44cc8e0a891e1cdfd2deb9d40d1675d3d70ed3c382bb408c24d5725",
           "path": "package.json"
         }
       ],
@@ -3873,7 +3873,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "5b1ebf8467d0ef9c8d21b8f4926be0fecd60c551",
+    "commit": "6fc7554e2d9661f1f0a22ed3a0465441f6412f5f",
     "tracked": 84
   },
   "landings": [
