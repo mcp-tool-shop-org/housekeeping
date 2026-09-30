@@ -40,7 +40,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "df1b8809a5817257ba804b4de7f748317b554e97a884fbdcb660ee0db76f9512",
+          "hash": "9d1a269a874d288881d21668a92a4106ad18b85f995e76e4f250f2e6990bd271",
           "path": "CHANGELOG.md"
         },
         {
@@ -102,6 +102,10 @@
         {
           "hash": "0c27b9d7a8d68844c69e8ae0833b20b1e198f19dcd1a9edc282150f967bcf3b3",
           "path": "package.json"
+        },
+        {
+          "hash": "2406d8518295844e1ab36ff3a9a264aea60a6574b38e5a9c94a8e01d837ee8f7",
+          "path": "readme.png"
         }
       ],
       "globs": [
@@ -171,16 +175,12 @@
           "path": "site/package.json"
         },
         {
-          "hash": "db3c76ae1d22efa9f6c9a1cf3d8b1f45a5e94210d34e4b518006018e7d3d097d",
+          "hash": "5904619076e91b390d9acab970bb6407cb76a2350be3cff8bc37811d10ce65fc",
           "path": "site/public/favicon.svg"
         },
         {
-          "hash": "37b14249a3acc5e23f86e219515399dccd1d3bc2d3415be1d783b4b3a38fb2f8",
+          "hash": "629d0c64ce1fbae241cfe6e6a4427a1799110ab0de92a82608deef1b347b0d09",
           "path": "site/src/assets/logo.png"
-        },
-        {
-          "hash": "50f2e71646407ea84c14bee3035e06823264cfecedd215cd173ec6b8346fc9d0",
-          "path": "site/src/assets/logo.svg"
         },
         {
           "constantOnly": true,
@@ -3576,7 +3576,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3",
+    "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
     "tracked": 80
   },
   "landings": [

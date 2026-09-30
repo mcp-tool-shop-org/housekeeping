@@ -20,38 +20,30 @@
   "changes": {
     "fileCounts": {
       "added": 1,
-      "changed": 9,
+      "changed": 3,
       "moved": 0,
-      "parts": 5,
-      "removed": 0
+      "parts": 2,
+      "removed": 1
     },
     "items": [
       {
-        "kind": "landing",
-        "sentence": "site/package-lock.json is now also read by test/pnpm-lockfile.test.mjs.",
-        "subjects": [
-          "site/package-lock.json",
-          "test/pnpm-lockfile.test.mjs"
-        ]
-      },
-      {
         "kind": "counts",
-        "sentence": "1 file added and 9 changed content, across 5 parts.",
+        "sentence": "Nothing structural changed since 2026-09-30; 1 file added, 1 removed and 3 changed content.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "b4adbc9953fda132d41ef4194727ac7beee5100b",
-      "generatedAt": "2026-09-30T20:15:22.064Z"
+      "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3",
+      "generatedAt": "2026-09-30T21:57:41.113Z"
     },
-    "unchanged": false
+    "unchanged": true
   },
   "changesTogether": [],
   "changesTogetherNote": [
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3",
+  "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691",
   "defaultBranch": "main",
   "derived": "6 parts, mostly JavaScript (37 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).",
   "doors": [
@@ -158,7 +150,7 @@
   "edges": [],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-09-30T21:57:41.113Z",
+  "generatedAt": "2026-09-30T22:54:37.834Z",
   "limits": [
     "3 reads use paths built at run time and are not named here.",
     "2 writes go to places this repository does not track, so they are not listed as generated.",

@@ -1,6 +1,6 @@
 # housekeeping: how it works
 
-Mapped at 2026-09-30 from commit 1fcf65c by Atlas 1.24.0.
+Mapped at 2026-09-30 from commit d2eb61a by Atlas 1.24.0.
 
 ## What this is
 
@@ -8,10 +8,9 @@ An operational-health warehouse for a GitHub organization: one sweep into SQLite
 
 6 parts, mostly JavaScript (37 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 3 doors; the busiest is CI, which reaches 2 parts. It deploys a site to GitHub Pages. hk is a command of a private package (nothing ships it).
 
-## What changed since 2026-09-30 (b4adbc9)
+## What changed since 2026-09-30 (1fcf65c)
 
-- site/package-lock.json is now also read by test/pnpm-lockfile.test.mjs.
-- 1 file added and 9 changed content, across 5 parts.
+Nothing structural changed since 2026-09-30; 1 file added, 1 removed and 3 changed content.
 
 ## What comes in
 

@@ -83,7 +83,7 @@
       "confidence": "low",
       "highWater": null,
       "name": "src",
-      "qualifyingSourceCommits": 2,
+      "qualifyingSourceCommits": 3,
       "rebaseline": null
     },
     {
@@ -99,7 +99,7 @@
       "confidence": "low",
       "highWater": null,
       "name": "test",
-      "qualifyingSourceCommits": 2,
+      "qualifyingSourceCommits": 3,
       "rebaseline": null
     }
   ],
@@ -122,8 +122,8 @@
         "path": ".gitignore"
       },
       {
-        "commits": 5,
-        "lines": 78,
+        "commits": 6,
+        "lines": 89,
         "path": "CHANGELOG.md"
       },
       {
@@ -187,8 +187,8 @@
         "path": "SHIP_GATE.md"
       },
       {
-        "commits": 2,
-        "lines": 103,
+        "commits": 3,
+        "lines": 118,
         "path": "atlas/README.md"
       },
       {
@@ -197,18 +197,18 @@
         "path": "atlas/boundaries.yaml"
       },
       {
-        "commits": 2,
-        "lines": 245,
+        "commits": 3,
+        "lines": 294,
         "path": "atlas/page.json"
       },
       {
-        "commits": 2,
-        "lines": 601,
+        "commits": 3,
+        "lines": 668,
         "path": "atlas/statistics.json"
       },
       {
-        "commits": 2,
-        "lines": 3999,
+        "commits": 3,
+        "lines": 4214,
         "path": "atlas/structure.json"
       },
       {
@@ -227,8 +227,8 @@
         "path": "package.json"
       },
       {
-        "commits": 1,
-        "lines": 28,
+        "commits": 2,
+        "lines": 38,
         "path": "rules/atlas-map.md"
       },
       {
@@ -282,8 +282,8 @@
         "path": "site/src/content.config.ts"
       },
       {
-        "commits": 1,
-        "lines": 114,
+        "commits": 2,
+        "lines": 116,
         "path": "site/src/content/docs/handbook/architecture.md"
       },
       {
@@ -292,8 +292,8 @@
         "path": "site/src/content/docs/handbook/configuration.md"
       },
       {
-        "commits": 2,
-        "lines": 206,
+        "commits": 3,
+        "lines": 216,
         "path": "site/src/content/docs/handbook/findings.md"
       },
       {
@@ -347,8 +347,8 @@
         "path": "site/tsconfig.json"
       },
       {
-        "commits": 4,
-        "lines": 1318,
+        "commits": 5,
+        "lines": 1350,
         "path": "src/analyze.mjs"
       },
       {
@@ -357,8 +357,8 @@
         "path": "src/cli.mjs"
       },
       {
-        "commits": 3,
-        "lines": 1208,
+        "commits": 4,
+        "lines": 1215,
         "path": "src/collect.mjs"
       },
       {
@@ -387,8 +387,8 @@
         "path": "src/load.mjs"
       },
       {
-        "commits": 1,
-        "lines": 159,
+        "commits": 2,
+        "lines": 284,
         "path": "src/lockfile.mjs"
       },
       {
@@ -402,8 +402,8 @@
         "path": "src/mcp.mjs"
       },
       {
-        "commits": 3,
-        "lines": 589,
+        "commits": 4,
+        "lines": 597,
         "path": "src/report.mjs"
       },
       {
@@ -427,8 +427,8 @@
         "path": "test/atlas-map.test.mjs"
       },
       {
-        "commits": 1,
-        "lines": 170,
+        "commits": 2,
+        "lines": 200,
         "path": "test/atlas-rules.test.mjs"
       },
       {
@@ -498,6 +498,11 @@
       },
       {
         "commits": 1,
+        "lines": 125,
+        "path": "test/pnpm-lockfile.test.mjs"
+      },
+      {
+        "commits": 1,
         "lines": 113,
         "path": "test/rate-limit.test.mjs"
       },
@@ -532,9 +537,9 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-09-30T21:57:41.113Z",
+  "generatedAt": "2026-09-30T22:54:37.834Z",
   "generatedFrom": {
-    "commit": "1fcf65c1337bf0bc8bc189c45148cb0fd4c2d1e3"
+    "commit": "d2eb61ad0557a8dee6b62b117fe7a7b24275c691"
   },
   "pairs": [],
   "parameters": {
@@ -547,16 +552,16 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-09-30T16:16:10-04:00",
+    "headDate": "2026-09-30T17:58:37-04:00",
     "inScopeFiles": 81,
     "pinnedStart": null,
     "priorFloor": "fallen",
-    "qualifyingCommits": 5,
+    "qualifyingCommits": 6,
     "qualifyingMinimum": 30,
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-03T20:16:10.000Z",
+    "since": "2026-04-03T21:58:37.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",

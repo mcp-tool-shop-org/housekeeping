@@ -32,6 +32,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   snapshot taken after the first fleet pin-bump wave ended; an earlier
   snapshot keeps it at `info`, so rebuilding it reproduces that day's
   findings. The rule's Transition section says the same.
+- A new logo: a broom and a magnifier over a database. The README header,
+  the handbook's header mark and the favicon all use it, and the lockup
+  also ships at the repository root as `readme.png`.
 
 ### Fixed
 
