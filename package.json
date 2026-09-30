@@ -1,0 +1,28 @@
+{
+  "name": "@mcptoolshop/housekeeping",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Operational-health warehouse for a GitHub organization: CI, issues, PRs, releases, Actions cost and repo hygiene, collected into SQLite and audited against written rules.",
+  "type": "module",
+  "bin": {
+    "hk": "./src/cli.mjs"
+  },
+  "scripts": {
+    "collect": "node src/collect.mjs",
+    "load": "node src/cli.mjs load",
+    "analyze": "node src/analyze.mjs",
+    "report": "node src/report.mjs",
+    "refresh": "node src/cli.mjs refresh && node src/report.mjs",
+    "rebuild": "node -e \"for (const x of ['','-wal','-shm']) require('fs').rmSync('data/housekeeping.db'+x,{force:true})\" && node src/cli.mjs load && node src/report.mjs",
+    "mcp": "node src/mcp.mjs",
+    "test": "node --test test/*.mjs",
+    "verify:findings": "node --test test/verify-findings.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "yaml": "^2.9.0"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

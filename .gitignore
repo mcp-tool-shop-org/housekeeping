@@ -1,0 +1,10 @@
+node_modules/
+
+# Everything a sweep writes. Snapshots record private repository names, open
+# security alerts and billing: keep their history in a PRIVATE repository,
+# never here. See "Keep the data private" in the README.
+data/
+reports/
+
+# Names your organization and the repositories exempt from hygiene findings.
+housekeeping.config.json

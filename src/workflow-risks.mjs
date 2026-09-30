@@ -1,0 +1,356 @@
+// Static detection of two GitHub Actions failures that a green CI run can never
+// surface, because both only fire on a schedule nobody is watching.
+//
+// Kept separate from load.mjs on purpose: these encode facts about the GitHub
+// platform (token capabilities, org settings), which change on GitHub's cadence,
+// not on ours. The rest of load.mjs encodes our storage layout.
+
+/**
+ * Steps flattened with their effective env (workflow < job < step).
+ *
+ * `name` and `continue-on-error` ride along because one rule below needs to
+ * know what a step is CALLED and whether it can actually fail the job -- a
+ * scanner that cannot fail is indistinguishable, in the Checks tab, from one
+ * that found nothing. Job-level continue-on-error is inherited; the step-level
+ * value wins where both are set, which is GitHub's own precedence.
+ */
+function flattenSteps(doc, jobs) {
+  const steps = [];
+  for (const job of jobs) {
+    if (!job || typeof job !== 'object') continue;
+    for (const st of Array.isArray(job.steps) ? job.steps : []) {
+      if (st && typeof st.run === 'string') {
+        steps.push({
+          run: st.run,
+          name: typeof st.name === 'string' ? st.name : '',
+          continueOnError: st['continue-on-error'] ?? job['continue-on-error'] ?? false,
+          env: { ...(doc?.env ?? {}), ...(job.env ?? {}), ...(st.env ?? {}) },
+        });
+      }
+    }
+  }
+  return steps;
+}
+
+// A write must be an actual write verb aimed at the path. Reading workflow files
+// is common and legitimate — an org guard lints them in a loop, and
+// `gh api .../contents` is a GET. An earlier version of this rule flagged an
+// org's `.github` repo for auditing its own workflows, which is the opposite
+// of the defect. Forward slash only: these run on Linux runners.
+const WF = '\\.github/workflows';
+const WRITE_TO_WORKFLOW = new RegExp([
+  `sed\\s+-i[^\\n]*${WF}`,
+  `(?:>|>>|\\|\\s*tee)\\s*[^\\n|]*${WF}`,
+  `(?:cp|mv)\\s+[^\\n]*\\s+${WF}`,
+  `gh\\s+api\\s+[^\\n]*-X\\s*(?:PUT|POST|PATCH)[^\\n]*${WF}`,
+].join('|'), 'i');
+
+const COMMITS = /git\s+(?:push|commit)|gh\s+api\s+[^\n]*-X\s*(?:PUT|POST|PATCH)/i;
+
+/**
+ * GITHUB_TOKEN cannot modify anything under .github/workflows/ under ANY
+ * permission setting — there is no `workflows: write` scope to grant. A job that
+ * rewrites a workflow file and then pushes is dead on arrival; it needs a PAT
+ * with `workflow` scope, or the data moved out of the workflow file entirely.
+ */
+export function editsWorkflowFiles(doc, jobs) {
+  const steps = flattenSteps(doc, jobs);
+  return steps.some(s => WRITE_TO_WORKFLOW.test(s.run))
+      && steps.some(s => COMMITS.test(s.run));
+}
+
+/**
+ * `gh pr create` with the default token fails unless the org enables "Allow
+ * GitHub Actions to create and approve pull requests", which is off by default.
+ *
+ * A `secrets.SOME_PAT || secrets.GITHUB_TOKEN` fallback is NOT this defect — it
+ * prefers a real PAT and degrades gracefully. Flag only when the default token
+ * is the only thing the expression can resolve to.
+ */
+export function prCreateWithDefaultToken(doc, jobs) {
+  const defaultOnly = (v) => {
+    if (typeof v !== 'string') return false;
+    if (!/secrets\.GITHUB_TOKEN|github\.token/.test(v)) return false;
+    const named = [...v.matchAll(/secrets\.([A-Za-z0-9_]+)/g)].map(m => m[1].toUpperCase());
+    return !named.some(n => n !== 'GITHUB_TOKEN');
+  };
+  return flattenSteps(doc, jobs).some(s =>
+    /gh\s+pr\s+create/.test(s.run) && Object.values(s.env).some(defaultOnly));
+}
+
+// ---------------------------------------------------------------------------
+// A dependency scanner that cannot fail the job.
+//
+// An npm/pnpm audit step that ends in `|| true` reports a green check named
+// something like "scan dependencies" while enforcing nothing. That is strictly
+// worse than a repo GitHub is not scanning at all, which at least has no check
+// to point at -- here the green check is the evidence someone cites.
+//
+// The defect is the UNDISCLOSED defang. A step named "npm audit (advisory --
+// does not fail the build)" is honest engineering: a human reading the Checks
+// tab is not misled, and some repos do exactly that deliberately. Flagging it
+// would manufacture noise, which is the failure mode this repo exists to
+// avoid: a finding that is confident, plausible and wrong.
+
+// A regex LITERAL, not new RegExp(['\\b…'].join('|')). The string form was the
+// first draft and it reported zero findings across all 89 audit steps in the
+// org, which read as "nothing to fix": '\b' inside a JS string is the BACKSPACE
+// character, so the pattern was hunting for a 0x08 byte. Same shape as the
+// heredoc `\b` that became a literal backspace on 2026-09-17 -- a wrong regex
+// does not throw, it just matches nothing, and nothing looks like clean.
+const AUDIT_CMD = /\b(?:npm|pnpm|yarn|bun)\s+audit\b|\bpip-audit\b|\bcargo\s+audit\b|\bosv-scanner\b|\bgovulncheck\b|\bsafety\s+(?:check|scan)\b|\bbundler?[\s-]audit\b|\btrivy\s+(?:fs|repo|image)\b/i;
+
+// `npm audit signatures` verifies registry provenance, not advisories. Different
+// control, different remediation; collapsing them would misname the finding.
+const NOT_AN_ADVISORY_SCAN = /\baudit\s+signatures\b/i;
+
+// Only the forms that unambiguously swallow a non-zero exit. `set +e` and
+// trap-based handling are deliberately NOT matched: they can be followed by a
+// real check, and guessing produces exactly the confident-but-wrong finding
+// this repo has been bitten by three times.
+const SWALLOWS_EXIT = /\|\|\s*(?:true|:|echo\b)|;\s*true\s*$/m;
+
+// Wording that tells a reader the step is informational. Checked against the
+// step name only -- a comment in the YAML is not visible in the Checks tab,
+// which is where the misreading happens.
+const DISCLOSES = /advisory|advisor|non[-\s]?blocking|informational|info only|report only|does not fail|doesn't fail|warn only|warning only|\bfyi\b/i;
+
+// Swallowing the exit is the NORMAL way to write a threshold gate: run the
+// scanner with `|| true` so the report is still written, then parse it and fail
+// on the tier you actually care about. A "pip-audit (CRITICAL floor)" step does
+// exactly that and ends in sys.exit(1). A step that can still fail is not
+// defanged, whatever its middle looks like.
+const CAN_STILL_FAIL = /\bexit\s+1\b|sys\.exit\(\s*1\s*\)|\breturn\s+1\b|::error::/;
+
+/**
+ * Split a workflow's dependency-scanner steps into the ones that can fail the
+ * job and the ones that cannot-and-do-not-say-so.
+ *
+ * Both halves are needed because they answer different questions. A defanged
+ * step is a hygiene problem; a repo whose ONLY audit step is defanged has no
+ * dependency gate at all while displaying a green check named like one, and
+ * those are not the same finding: a repo can carry a defanged step and keep a
+ * blocking scan alongside it.
+ *
+ * Verified against every audit step in a whole org before being trusted, which
+ * is how a threshold gate and a summary step were found to be false positives
+ * rather than shipped as findings.
+ */
+export function auditSteps(doc, jobs) {
+  const enforcing = [];
+  const defanged = [];
+  for (const s of flattenSteps(doc, jobs)) {
+    if (!AUDIT_CMD.test(s.run)) continue;
+    if (NOT_AN_ADVISORY_SCAN.test(s.run)) continue;
+
+    // Join backslash continuations so a wrapped invocation reads as one line,
+    // then judge each invocation separately: a step with one gated audit and one
+    // ungated one can still fail, so it is not defanged.
+    const lines = s.run.replace(/\\\r?\n\s*/g, ' ').split('\n');
+    const invocations = lines.filter((l) => {
+      const at = l.search(AUDIT_CMD);
+      if (at < 0) return false;
+      // An audit inside `$( )` is being READ, not run as a gate -- for example
+      // rendering `npm audit --json` into a job summary. Counting that as a
+      // failed gate would flag a repo whose real gate is a separate, blocking
+      // step three lines above.
+      return !l.slice(0, at).includes('$(');
+    });
+    if (!invocations.length) continue;
+
+    // Name the step the way the Checks tab does; fall back to the command when
+    // the step is unnamed, because "" would make the finding unactionable.
+    const label = s.name || s.run.trim().split('\n')[0].slice(0, 80);
+
+    const swallowed = s.continueOnError === true || invocations.every(l => SWALLOWS_EXIT.test(l));
+    if (!swallowed || CAN_STILL_FAIL.test(s.run)) { enforcing.push(label); continue; }
+    // A step that announces itself as advisory is honest engineering, not a
+    // defect: nobody reading the Checks tab is misled. Some repos do this
+    // deliberately. It still is not an enforcing gate, so it counts as neither.
+    if (DISCLOSES.test(s.name)) continue;
+    defanged.push(label);
+  }
+  return { enforcing, defanged };
+}
+
+// ---------------------------------------------------------------------------
+// Doors that deploy: which jobs publish to GitHub Pages, which name a
+// deployment environment, and whether that job can run on the default branch.
+//
+// These read the workflow as GitHub will run it, so they sit with the other
+// platform facts. They decide nothing about a defect: the settings a deploy
+// needs are collected from GitHub (collect.mjs), and the rules that join the
+// two live in analyze.mjs.
+
+const jobSteps = job => (job && typeof job === 'object' && Array.isArray(job.steps) ? job.steps : []);
+
+/** Job ids with a step that uses actions/deploy-pages, at any version. */
+export function pagesDeployJobs(jobEntries) {
+  return jobEntries
+    .filter(([, job]) => jobSteps(job).some(st =>
+      typeof st?.uses === 'string' && /^actions\/deploy-pages(?:@|$)/i.test(st.uses.trim())))
+    .map(([id]) => id);
+}
+
+/**
+ * The environment a job names, or null when it names none or names it with an
+ * expression. `environment:` is either a string or `{ name, url }`. A name built
+ * from `${{ }}` cannot be known from the file, so it is left out rather than
+ * stored half-resolved -- a wrong name would be joined to the wrong settings.
+ */
+export function jobEnvironment(job) {
+  if (!job || typeof job !== 'object') return null;
+  const env = job.environment;
+  const name = typeof env === 'string' ? env : (env && typeof env === 'object' ? env.name : null);
+  if (typeof name !== 'string' || !name.trim() || name.includes('${{')) return null;
+  return name.trim();
+}
+
+const reEscape = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * Does a workflow `branches:` / `branches-ignore:` pattern list match this
+ * branch? 1, 0, or null when a pattern uses syntax this does not evaluate.
+ *
+ * GitHub's filter syntax: `*` is any run of characters but `/`, `**` is any run
+ * at all. `?`, `+`, `[]` and `!` negation (whose meaning depends on order) are
+ * real syntax too, and are not evaluated here: a pattern this cannot read makes
+ * the answer unknown unless another pattern already matched outright.
+ */
+export function filterMatches(patterns, branch) {
+  const list = Array.isArray(patterns) ? patterns : [patterns];
+  let unknown = false;
+  for (const p of list) {
+    if (typeof p !== 'string') { unknown = true; continue; }
+    if (/[?+[\]!\\]/.test(p)) { unknown = true; continue; }
+    const re = new RegExp('^' + p.split('**').map(part =>
+      part.split('*').map(reEscape).join('[^/]*')).join('.*') + '$');
+    if (re.test(branch)) return 1;
+  }
+  return unknown ? null : 0;
+}
+
+/**
+ * Can a push to `branch` start this workflow? 1, 0 or null.
+ *
+ * Only `branches`/`branches-ignore` filter a branch push. A push trigger that
+ * declares only `tags`/`tags-ignore` runs for tags alone -- GitHub does not run
+ * a workflow for the kind of ref a filter leaves undefined -- so a
+ * `push: tags: [v*]` release never runs on the default branch.
+ */
+export function pushAdmitsBranch(push, branch) {
+  if (push == null || push === true || typeof push !== 'object' || Array.isArray(push)) return 1;
+  const hasBranches = 'branches' in push, hasIgnore = 'branches-ignore' in push;
+  if (!hasBranches && !hasIgnore) {
+    return ('tags' in push || 'tags-ignore' in push) ? 0 : 1;
+  }
+  if (hasBranches) return filterMatches(push.branches, branch);
+  const ignored = filterMatches(push['branches-ignore'], branch);
+  return ignored === null ? null : ignored === 1 ? 0 : 1;
+}
+
+// Where each event runs. A scheduled run, a workflow_run follow-up and a
+// repository_dispatch run on the default branch's latest commit whatever
+// started them. A pull request runs on its merge ref, a release on its tag, and
+// workflow_dispatch on whichever ref the person picks -- a release workflow
+// dispatched from a tag is not a job that runs on main, so it is not counted as
+// one. Every other event (workflow_call, pull_request_target, ...) is unknown.
+const ON_DEFAULT = new Set(['schedule', 'workflow_run', 'repository_dispatch']);
+const NOT_ON_DEFAULT = new Set(['pull_request', 'release', 'workflow_dispatch', 'merge_group']);
+const eventOnDefault = (e, on, branch) =>
+  e === 'push' ? pushAdmitsBranch(on && typeof on === 'object' && !Array.isArray(on) ? on.push : null, branch)
+  : ON_DEFAULT.has(e) ? 1 : NOT_ON_DEFAULT.has(e) ? 0 : null;
+
+// The job-level `if:` terms that are read. Anything else in an `if:` makes
+// that alternative unknown: an expression this does not evaluate must never be
+// guessed into "runs on main".
+const IF_EVENT_IS = /^github\.event_name\s*==\s*'([^']+)'$/;
+const IF_EVENT_NOT = /^github\.event_name\s*!=\s*'([^']+)'$/;
+const IF_REF = /^github\.ref\s*==\s*'refs\/heads\/([^']+)'$|^'refs\/heads\/([^']+)'\s*==\s*github\.ref$/;
+const unwrap = s => s.trim().replace(/^\((.*)\)$/, '$1').trim();
+
+/**
+ * Read one `&&`-joined alternative of a job's `if:`. Returns false when it can
+ * never hold on the default branch, null when it cannot be read, or the
+ * predicate over events it allows.
+ */
+function readAlternative(alt, branch) {
+  let allow = () => true;
+  for (const raw of alt.split('&&').map(unwrap)) {
+    let m;
+    if ((m = IF_EVENT_IS.exec(raw))) { const e = m[1], prev = allow; allow = x => prev(x) && x === e; continue; }
+    if ((m = IF_EVENT_NOT.exec(raw))) { const e = m[1], prev = allow; allow = x => prev(x) && x !== e; continue; }
+    if ((m = IF_REF.exec(raw))) { if ((m[1] ?? m[2]) !== branch) return false; continue; }
+    return null;
+  }
+  return allow;
+}
+
+/**
+ * Can this job run on the default branch? 1, 0 or null (cannot tell).
+ *
+ * The workflow's triggers say which events start it and whether each lands on
+ * the default branch; the job's `if:` then narrows which of those it runs for.
+ * Only plain `||` / `&&` over `github.event_name` and `github.ref` comparisons
+ * is read. A parenthesised mix, a function call or any other context makes the
+ * answer unknown, and unknown produces no finding.
+ */
+export function jobRunsOnDefaultBranch(doc, job, branch) {
+  if (!branch || !doc || typeof doc !== 'object') return null;
+  const on = doc.on ?? doc[true];
+  const names = typeof on === 'string' ? [on]
+    : Array.isArray(on) ? on
+    : on && typeof on === 'object' ? Object.keys(on) : [];
+  const events = names.map(e => [e, eventOnDefault(e, on, branch)]);
+  // No trigger lands on the default branch: nothing in an `if:` can change that.
+  if (events.every(([, v]) => v === 0)) return 0;
+
+  let alternatives = [() => true];
+  const cond = job && typeof job === 'object' ? job.if : undefined;
+  if (cond !== undefined && cond !== null) {
+    if (typeof cond !== 'string') return null;
+    const expr = cond.trim().replace(/^\$\{\{\s*([\s\S]*?)\s*\}\}$/, '$1').trim();
+    // An operator inside parentheses is grouping that a split on `||` and `&&`
+    // would misread, so the whole condition is unknown. A call such as
+    // startsWith(github.ref, 'x') has no operator inside and only makes its
+    // own alternative unknown.
+    let depth = 0;
+    for (let i = 0; i < expr.length; i++) {
+      const c = expr[i];
+      if (c === '(') depth++;
+      else if (c === ')') depth--;
+      else if (depth > 0 && (expr.startsWith('||', i) || expr.startsWith('&&', i))) return null;
+    }
+    alternatives = expr.split('||').map(unwrap).map(a => readAlternative(a, branch));
+  }
+
+  let unknown = false;
+  for (const allow of alternatives) {
+    if (allow === false) continue;
+    if (allow === null) { unknown = true; continue; }
+    for (const [e, v] of events) {
+      if (!allow(e)) continue;
+      if (v === 1) return 1;
+      if (v === null) unknown = true;
+    }
+  }
+  return unknown ? null : 0;
+}
+
+// ---------------------------------------------------------------------------
+// `atlas check` in CI (rules/atlas-map.md): "CI runs `npx --yes
+// @dogfood-lab/atlas@<version> check` as a step of an existing push-triggered
+// workflow." Read from `run:` steps only. A version is anything after the `@`
+// up to whitespace or a quote; a call with no `@<version>` is recorded as
+// `unpinned`, because the rule forbids a floating engine and a pinned one is
+// what the engine check compares.
+const ATLAS_CHECK = /@dogfood-lab\/atlas(?:@([^\s'"`]+))?\s+check\b/g;
+
+/** The pins of every `@dogfood-lab/atlas ... check` a run step issues, in order. */
+export function atlasCheckPins(doc, jobs) {
+  const pins = [];
+  for (const s of flattenSteps(doc, jobs)) {
+    for (const m of s.run.matchAll(ATLAS_CHECK)) pins.push(m[1] ?? 'unpinned');
+  }
+  return pins;
+}
