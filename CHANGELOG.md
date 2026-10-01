@@ -3,10 +3,12 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.4.0] - 2026-10-01
 
 ### Added
 
+- The README and handbook show how to run one AI agent over a whole organization
+  through `hk-mcp`, and how housekeeping and Atlas work together.
 - `homeOrgs` in the config: the organizations whose projects count as your
   own. Unset, it is the swept organization.
 
