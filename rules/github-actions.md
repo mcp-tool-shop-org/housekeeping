@@ -54,6 +54,6 @@ concurrency:
 
 A scheduled workflow is allowed when it does something a push trigger cannot
 (dependency or pin freshness, drift detection against an outside source), runs
-weekly or slower, is bounded (`ubuntu-latest`, an explicit `timeout-minutes`, a
-`concurrency` block), opens a pull request rather than pushing to a protected
-branch, and carries `workflow_dispatch`.
+weekly or slower (daily needs a stated reason), is bounded (`ubuntu-latest`, an
+explicit `timeout-minutes`, a `concurrency` block), opens a pull request rather
+than pushing to a protected branch, and carries `workflow_dispatch`.

@@ -7,6 +7,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
+- `ATLAS_ENGINE_BEHIND` measures maps and CI pins against the fleet's own pin
+  (the `atlas check` version most repositories pin), not npm's latest. A new
+  Atlas release on npm no longer makes every map "behind" before a pin-bump
+  wave moves the fleet to it. Snapshots taken before the first wave ended keep
+  the npm comparison they were reported with.
+- `WF_SCHEDULED` fires only when a scheduled workflow fails a condition of the
+  scheduled-workflow rule: weekly or slower, Linux runners, `timeout-minutes`, a
+  `concurrency` block, no push to the branch it checked out, and
+  `workflow_dispatch`. It used to fire on every schedule. A workflow that fails
+  only on cadence is `low`, since the rule allows a faster schedule with a stated
+  reason. New column `workflow.schedule_gaps`; rebuild the database.
 - `CI_REQUIRED_CHECK_GATED` no longer counts a conflicting pull request.
   GitHub runs no `pull_request` workflow on a PR with conflicts, so a
   required check missing from it says nothing about the paths filter, and the

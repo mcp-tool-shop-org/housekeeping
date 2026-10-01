@@ -264,6 +264,58 @@ export function engineBehindCounts(takenAt, since = ATLAS_ENGINE_BEHIND_COUNTS_S
   return Number.isFinite(t) && Number.isFinite(s) && t >= s;
 }
 
+/**
+ * The Atlas version the fleet carries: the `@dogfood-lab/atlas@<v> check` pin
+ * that the most repositories use in push-triggered CI. Pure.
+ *
+ * rules/atlas-map.md: "the whole fleet carries the same one. It moves by pull
+ * request." So the fleet's version is what the repositories pin, and it moves
+ * when a pin-bump wave lands -- not when npm publishes a newer engine. Each
+ * repository counts once per pin it uses; a tie goes to the higher version.
+ * `rows` are { repo, atlas_check, on_triggers } for non-archived repositories.
+ * Returns { version, repos, pinned } or null when no repository pins one.
+ */
+export function fleetPin(rows) {
+  const byPin = new Map();
+  const pinned = new Set();
+  for (const w of rows ?? []) {
+    const push = (w.on_triggers ?? '').split(',').some(t => t === 'push' || t === 'pull_request');
+    if (!push) continue;
+    for (const pin of (w.atlas_check ?? '').split('\n')) {
+      if (!pin || pin === 'unpinned' || !parseSemver(pin)) continue;
+      if (!byPin.has(pin)) byPin.set(pin, new Set());
+      byPin.get(pin).add(w.repo);
+      pinned.add(w.repo);
+    }
+  }
+  if (!byPin.size) return null;
+  // compareSemver sorts newest first, which is the tie-break wanted here.
+  const [version, repos] = [...byPin].sort(([a, ra], [b, rb]) =>
+    rb.size - ra.size || compareSemver(parseSemver(a), parseSemver(b)))[0];
+  return { version, repos: repos.size, pinned: pinned.size };
+}
+
+/**
+ * The version maps and pins are measured against, for one snapshot.
+ *
+ * From the end of the first pin-bump wave (ATLAS_ENGINE_BEHIND_COUNTS_SINCE)
+ * it is the fleet's own pin (fleetPin). Before it, it is npm's latest, which
+ * is what those snapshots were reported against; keeping it means a rebuild
+ * reproduces their findings. npm's latest is returned beside it either way.
+ */
+export function fleetEngineFor(db, sid) {
+  const npm = db.prepare('SELECT version, error FROM atlas_fleet WHERE snapshot_id = ?').get(sid) ?? null;
+  const takenAt = db.prepare('SELECT taken_at FROM snapshot WHERE id = ?').get(sid)?.taken_at;
+  if (!engineBehindCounts(takenAt)) {
+    return { version: npm?.version ?? null, source: 'npm-latest', npmLatest: npm?.version ?? null, npmError: npm?.error ?? null };
+  }
+  const pin = fleetPin(db.prepare(`SELECT w.repo, w.atlas_check, w.on_triggers FROM workflow w
+    JOIN repo r ON r.snapshot_id = w.snapshot_id AND r.name = w.repo
+    WHERE w.snapshot_id = ? AND r.is_archived = 0 AND w.atlas_check <> ''`).all(sid));
+  return { version: pin?.version ?? null, source: 'fleet-pin', repos: pin?.repos ?? 0, pinned: pin?.pinned ?? 0,
+    npmLatest: npm?.version ?? null, npmError: npm?.error ?? null };
+}
+
 const ATLAS_RULE = 'rules/atlas-map.md';
 const isOlder = (v, fleet) => {
   const a = parseSemver(v), b = parseSemver(fleet);
@@ -564,13 +616,13 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
   const envBy = byRepo(q('SELECT * FROM environment WHERE snapshot_id = ?'));
   const wfEnvBy = byRepo(q('SELECT * FROM workflow_environment WHERE snapshot_id = ?'));
 
-  // The committed maps and the engine version they are measured against. No
-  // fleet row (older snapshot, or the registry did not answer) leaves the
-  // engine check silent.
+  // The committed maps and the engine version they are measured against
+  // (fleetEngineFor: the fleet's own pin after the first wave, npm's latest
+  // before it). No version to measure against leaves the engine check silent.
   const atlasBy = new Map(
     q('SELECT * FROM atlas_map WHERE snapshot_id = ?').map(x => [x.repo, x]),
   );
-  const fleetEngine = db.prepare('SELECT version FROM atlas_fleet WHERE snapshot_id = ?').get(sid)?.version ?? null;
+  const fleetEngine = fleetEngineFor(db, sid).version;
   const engineCounts = engineBehindCounts(db.prepare('SELECT taken_at FROM snapshot WHERE id = ?').get(sid)?.taken_at);
 
   // Where each red run broke, and the door it broke in. Keyed by run id and by
@@ -1118,10 +1170,19 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
           + '(off by default). Push a branch and open an issue instead, or supply a PAT.',
           at);
       }
-      if (triggers.includes('schedule')) {
-        F(name, 'WF_SCHEDULED', 'medium', 'actions',
-          'Scheduled (cron) workflow. rules/github-actions.md allows one only when it does what a push '
-          + 'cannot, runs weekly or slower, is bounded, and opens a pull request; check it against those.',
+      // rules/github-actions.md, "Scheduled workflows" (amended 2026-09-08): a
+      // schedule is permitted in an org repo when it does what a push cannot, runs weekly or slower ("daily
+      // needs a stated reason"), is bounded, opens a PR rather than pushing, and
+      // carries workflow_dispatch. Only a condition shown to fail fires; the
+      // first is judgment and is never checked. A gap in cadence alone is `low`:
+      // the rule allows a faster schedule with a reason, and the reason lives in
+      // prose this cannot read. A NULL column is a snapshot loaded before the
+      // check existed, which says nothing either way.
+      const gaps = (w.schedule_gaps ?? '').split('\n').filter(Boolean);
+      if (triggers.includes('schedule') && gaps.length) {
+        const cadenceOnly = gaps.every(g => g.startsWith('runs more often than weekly'));
+        F(name, 'WF_SCHEDULED', cadenceOnly ? 'low' : 'medium', 'actions',
+          `Scheduled workflow outside rules/github-actions.md: ${gaps.join('; ')}.`,
           at);
       }
     }

@@ -9,7 +9,7 @@ import { parse as parseYaml } from 'yaml';
 import {
   editsWorkflowFiles, prCreateWithDefaultToken, auditSteps,
   pagesDeployJobs, jobEnvironment, jobRunsOnDefaultBranch, atlasCheckPins,
-  resolveFailedStep,
+  resolveFailedStep, scheduleGaps,
 } from './workflow-risks.mjs';
 import { safeJson } from './collect.mjs';
 import { reconcileRepos } from './cost.mjs';
@@ -112,7 +112,7 @@ export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = nul
     on_triggers: '', job_count: 0, has_matrix: 0, size_bytes: text.length, job_names: '',
     edits_workflow_files: 0, pr_create_default_token: 0,
     audit_steps_enforcing: 0, audit_steps_defanged: '',
-    pages_deploy_jobs: '', environments: [], atlas_check: '',
+    pages_deploy_jobs: '', environments: [], atlas_check: '', schedule_gaps: null,
   };
   let doc;
   try { doc = parseYaml(text, { logLevel: 'silent' }); } catch { out.state = 'parse_error'; return out; }
@@ -192,6 +192,9 @@ export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = nul
   out.audit_steps_defanged = audit.defanged.join('\n');
 
   out.atlas_check = atlasCheckPins(doc, jobs).join('\n');
+
+  const gaps = scheduleGaps(doc, jobEntries);
+  out.schedule_gaps = gaps ? gaps.join('\n') : null;
 
   // The deploy doors, joined in analyze.mjs to the settings they depend on.
   out.pages_deploy_jobs = pagesDeployJobs(jobEntries).join('\n');
@@ -695,7 +698,7 @@ function loadSnapshotInner(db, snap) {
         w.on_triggers, w.job_count, w.has_matrix, f.byteSize || w.size_bytes,
         w.edits_workflow_files, w.pr_create_default_token, w.job_names ?? '',
         w.audit_steps_enforcing ?? 0, w.audit_steps_defanged ?? '',
-        w.pages_deploy_jobs ?? '', w.atlas_check ?? '');
+        w.pages_deploy_jobs ?? '', w.atlas_check ?? '', w.schedule_gaps ?? null);
       for (const e of w.environments ?? []) {
         stmts.wfEnv.run(sid, r.name, w.path, e.job, e.environment, e.runs_on_default,
           e.source ?? 'workflow', e.parsed ?? null);

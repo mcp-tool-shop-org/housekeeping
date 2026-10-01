@@ -147,7 +147,11 @@ CREATE TABLE IF NOT EXISTS workflow (
   pages_deploy_jobs TEXT,
   -- The pin of each `@dogfood-lab/atlas@<version> check` a run step issues,
   -- newline-joined; `unpinned` for a call without a version. Empty: none.
-  atlas_check TEXT
+  atlas_check TEXT,
+  -- For a scheduled workflow, the conditions of rules/github-actions.md
+  -- ("Scheduled workflows") it is shown to fail, newline-joined (scheduleGaps).
+  -- Empty: none shown to fail. NULL: the workflow has no schedule.
+  schedule_gaps TEXT
 );
 
 -- One row per job that names a deployment environment, read from the YAML at

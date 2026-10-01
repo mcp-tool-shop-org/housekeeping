@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "5730b66685b7977fce4746eb16e8967264b42a5a04daff67e34583e95bdbfada",
+          "hash": "85538737646d6e84ae09d298394966b626f797f6a6d46bd72bd188b518ed84e7",
           "path": "CHANGELOG.md"
         },
         {
@@ -136,7 +136,7 @@
           "path": "rules/atlas-map.md"
         },
         {
-          "hash": "0423bfa9d1440fdb945c92fb84a7bc625a81167a09ccd41447fe285a4f284c95",
+          "hash": "33e5dc25cd75d7b85acdeb9c0ea271556138b9ca6609a785ba3ac29a7b02c830",
           "path": "rules/github-actions.md"
         },
         {
@@ -200,7 +200,7 @@
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
-          "hash": "52959fb4e486bf19b08b01544bb475537deca0448c527f58d2c76aabf7ddfb69",
+          "hash": "e195ff15052678bb9277ba45049857fe6b68bdb558ed9ae51569d25a6613e303",
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
@@ -287,6 +287,8 @@
             "environmentAdmitsBranch",
             "failedStepNote",
             "failingHeadChecks",
+            "fleetEngineFor",
+            "fleetPin",
             "gatedPrs",
             "healthScores",
             "jobBaseName",
@@ -297,15 +299,15 @@
             {
               "in": "parse",
               "kind": "catch",
-              "line": 381
+              "line": 433
             },
             {
               "in": "analyze",
               "kind": "catch",
-              "line": 593
+              "line": 645
             }
           ],
-          "hash": "d69091de940608b1f4dc909bf8b2ad95e962bb778a64b941e2ad1c230c9dd79b",
+          "hash": "45168a8c4b2b5fa9713acc85b234580ae351df0bdb9bf2becdaca15be186b5ab",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -315,14 +317,65 @@
             {
               "calls": [
                 {
-                  "line": 269,
+                  "line": 285,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 270,
+                  "line": 294,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "fleetPin"
+            },
+            {
+              "calls": [
+                {
+                  "line": 307,
+                  "name": "prepare",
+                  "target": null
+                },
+                {
+                  "line": 285,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "fleetPin"
+                },
+                {
+                  "line": 294,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "fleetPin"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "fleetEngineFor"
+            },
+            {
+              "calls": [
+                {
+                  "line": 321,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  }
+                },
+                {
+                  "line": 322,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -337,14 +390,14 @@
             {
               "calls": [
                 {
-                  "line": 317,
+                  "line": 369,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 270,
+                  "line": 322,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -360,14 +413,14 @@
             {
               "calls": [
                 {
-                  "line": 375,
+                  "line": 427,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 378,
+                  "line": 430,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -382,12 +435,33 @@
             {
               "calls": [
                 {
-                  "line": 500,
+                  "line": 552,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 317,
+                  "line": 285,
+                  "name": "parseSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "fleetPin"
+                },
+                {
+                  "line": 294,
+                  "name": "compareSemver",
+                  "target": {
+                    "file": "src/load.mjs"
+                  },
+                  "via": "fleetPin"
+                },
+                {
+                  "line": 626,
+                  "name": "prepare",
+                  "target": null
+                },
+                {
+                  "line": 369,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -395,7 +469,7 @@
                   "via": "atlasMapFindings"
                 },
                 {
-                  "line": 270,
+                  "line": 322,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -403,14 +477,14 @@
                   "via": "isOlder"
                 },
                 {
-                  "line": 1220,
+                  "line": 1281,
                   "name": "rangeAdmits039",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 1348,
+                  "line": 1409,
                   "name": "prepare",
                   "target": null
                 }
@@ -423,7 +497,7 @@
             {
               "calls": [
                 {
-                  "line": 1353,
+                  "line": 1414,
                   "name": "prepare",
                   "target": null
                 }
@@ -2262,35 +2336,35 @@
             {
               "in": "failedStepRows",
               "kind": "catch",
-              "line": 444
+              "line": 447
             },
             {
               "in": "loadSnapshot",
               "kind": "catch",
-              "line": 483
+              "line": 486
             },
             {
               "in": "loadSnapshot",
               "kind": "throw",
-              "line": 485
+              "line": 488
             },
             {
               "in": "latestSnapshotFile",
               "kind": "catch",
-              "line": 893
+              "line": 896
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
-              "line": 893
+              "line": 896
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
-              "line": 894
+              "line": 897
             }
           ],
-          "hash": "2437ae6932b264c01e59da217f6806c43cae7802e81d9703c8f56c85ee8cac05",
+          "hash": "0976ab26f6a1b3713ca183bde73521b85ca2aa92d0a9adc8896281fdfaf632d0",
           "importsFiles": [
             "src/collect.mjs",
             "src/cost.mjs",
@@ -2347,21 +2421,28 @@
                   }
                 },
                 {
-                  "line": 197,
+                  "line": 196,
+                  "name": "scheduleGaps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  }
+                },
+                {
+                  "line": 200,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 204,
+                  "line": 207,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 211,
+                  "line": 214,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2376,7 +2457,7 @@
             {
               "calls": [
                 {
-                  "line": 333,
+                  "line": 336,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2391,7 +2472,7 @@
             {
               "calls": [
                 {
-                  "line": 457,
+                  "line": 460,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2406,18 +2487,18 @@
             {
               "calls": [
                 {
-                  "line": 478,
+                  "line": 481,
                   "name": "exec",
                   "target": null
                 },
                 {
-                  "line": 490,
+                  "line": 493,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 551,
+                  "line": 554,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2457,7 +2538,15 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 197,
+                  "line": 196,
+                  "name": "scheduleGaps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 200,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2465,7 +2554,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 204,
+                  "line": 207,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2473,7 +2562,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 211,
+                  "line": 214,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2481,7 +2570,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 457,
+                  "line": 460,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2489,7 +2578,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 867,
+                  "line": 870,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2497,7 +2586,7 @@
                   "via": "loadSnapshotInner"
                 },
                 {
-                  "line": 481,
+                  "line": 484,
                   "name": "exec",
                   "target": null
                 }
@@ -2510,13 +2599,13 @@
             {
               "calls": [
                 {
-                  "line": 490,
+                  "line": 493,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 551,
+                  "line": 554,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2555,7 +2644,15 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 197,
+                  "line": 196,
+                  "name": "scheduleGaps",
+                  "target": {
+                    "file": "src/workflow-risks.mjs"
+                  },
+                  "via": "inspectWorkflow"
+                },
+                {
+                  "line": 200,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2563,7 +2660,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 204,
+                  "line": 207,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2571,7 +2668,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 211,
+                  "line": 214,
                   "name": "jobRunsOnDefaultBranch",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2579,7 +2676,7 @@
                   "via": "inspectWorkflow"
                 },
                 {
-                  "line": 457,
+                  "line": 460,
                   "name": "resolveFailedStep",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -2587,7 +2684,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 867,
+                  "line": 870,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2602,7 +2699,7 @@
             {
               "calls": [
                 {
-                  "line": 890,
+                  "line": 893,
                   "name": "DATA_DIR",
                   "passed": true,
                   "target": {
@@ -2611,7 +2708,7 @@
                 },
                 {
                   "branch": "!files.length",
-                  "line": 894,
+                  "line": 897,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2815,18 +2912,18 @@
             {
               "in": "writeReport",
               "kind": "throw",
-              "line": 549
+              "line": 553
             },
             {
               "kind": "throw",
-              "line": 564
+              "line": 568
             },
             {
               "kind": "catch",
-              "line": 566
+              "line": 570
             }
           ],
-          "hash": "efa5b4d95fe43cb60465b434593dfd8f16c5904d1104bd2b366d47747cd5e986",
+          "hash": "a50f5d8f143207388f775ebcd107f973b628f4af9cf9f81bcdb48f8424280e8f",
           "importsFiles": [
             "src/analyze.mjs",
             "src/errors.mjs",
@@ -2843,21 +2940,21 @@
                   "target": null
                 },
                 {
-                  "line": 473,
-                  "name": "engineBehindCounts",
+                  "line": 463,
+                  "name": "fleetEngineFor",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 491,
+                  "line": 495,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 524,
+                  "line": 528,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2872,13 +2969,13 @@
             {
               "calls": [
                 {
-                  "line": 548,
+                  "line": 552,
                   "name": "prepare",
                   "target": null
                 },
                 {
                   "branch": "!snap",
-                  "line": 549,
+                  "line": 553,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2891,15 +2988,15 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 473,
-                  "name": "engineBehindCounts",
+                  "line": 463,
+                  "name": "fleetEngineFor",
                   "target": {
                     "file": "src/analyze.mjs"
                   },
                   "via": "buildReport"
                 },
                 {
-                  "line": 491,
+                  "line": 495,
                   "name": "doorFindingRows",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2907,7 +3004,7 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 524,
+                  "line": 528,
                   "name": "healthScores",
                   "target": {
                     "file": "src/analyze.mjs"
@@ -2915,7 +3012,7 @@
                   "via": "buildReport"
                 },
                 {
-                  "line": 551,
+                  "line": 555,
                   "name": "REPORTS_DIR",
                   "passed": true,
                   "target": {
@@ -2931,13 +3028,14 @@
           ]
         },
         {
-          "hash": "88dd0bf75d966f7856f04ab22a546b99ff4e0b6fca51d2bb4384921889998935",
+          "hash": "86b53b330ca31c43dfaf77b269958463b7bfb2b4628a5f2ac9b42964a751a698",
           "path": "src/schema.sql"
         },
         {
           "exports": [
             "atlasCheckPins",
             "auditSteps",
+            "cronFiresPerYear",
             "editsWorkflowFiles",
             "filterMatches",
             "jobEnvironment",
@@ -2946,9 +3044,10 @@
             "prCreateWithDefaultToken",
             "pushAdmitsBranch",
             "resolveFailedStep",
+            "scheduleGaps",
             "stepDisplayName"
           ],
-          "hash": "e4f138cb96d538e28650da7c1afc65173a238c6016debf22260a5ae97d254826",
+          "hash": "625f55a66a6a1f0daa7de7480cd3ceb5cf9ada6d91807536ff5574bdae05a57d",
           "path": "src/workflow-risks.mjs"
         }
       ],
@@ -2963,7 +3062,7 @@
       "origin": "authored",
       "outsidePlaces": [
         {
-          "reads": 21,
+          "reads": 22,
           "where": [
             "caller"
           ],
@@ -2991,13 +3090,13 @@
           "writes": 1
         }
       ],
-      "outsideReads": 23,
+      "outsideReads": 24,
       "outsideWrites": 2,
       "role": "code",
       "testRunners": [
         "node --test"
       ],
-      "testedBy": 24,
+      "testedBy": 25,
       "unresolvedSites": 0
     },
     {
@@ -3031,7 +3130,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "0e0118bd06e0a6440fe9272e68df8b83be72fceb70726abd72cc1b0e0fd202fb",
+          "hash": "9d8894a2d8fdea08a9da698565ecd48dda055d09bfab8d6006f29919b1fbb461",
           "importOrder": [
             "src/load.mjs",
             "src/analyze.mjs"
@@ -3243,6 +3342,15 @@
           "testFramework": "node --test"
         },
         {
+          "hash": "ba6b29d3d37018a8e61f3f298369121a48a72da499c0485deb60cf2270a41aee",
+          "importsFiles": [
+            "src/load.mjs",
+            "src/workflow-risks.mjs"
+          ],
+          "path": "test/schedule-gaps.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
           "hash": "657470c1f250d53c1adec2392f6f0b29dfdfcea4d0e5f8cf7b72ae1912c2d1c5",
           "importsFiles": [
             "src/collect.mjs"
@@ -3367,7 +3475,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 25
+          "files": 26
         },
         {
           "boundary": "src",
@@ -3404,7 +3512,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 25,
+          "files": 26,
           "job": "test",
           "runner": "node --test",
           "step": "3",
@@ -3716,7 +3824,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 25
+          "files": 26
         },
         {
           "boundary": "src",
@@ -3753,7 +3861,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 25,
+          "files": 26,
           "job": "publish",
           "runner": "node --test",
           "step": "5",
@@ -3874,8 +3982,8 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "9001dab2cd9398be525f3be138a5c7377a115f09",
-    "tracked": 84
+    "commit": "c215584c238f461708002dbbd4780d12f632d40e",
+    "tracked": 85
   },
   "landings": [
     {
@@ -4166,6 +4274,6 @@
   "overlaps": [],
   "submodules": [],
   "symlinks": [],
-  "testFiles": 25,
+  "testFiles": 26,
   "unassigned": []
 }
