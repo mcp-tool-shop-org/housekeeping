@@ -680,7 +680,9 @@ export async function collectAtlasMaps(org, repos, { get = rest, fetchImpl = fet
   }
   const fleet = await atlasFleetVersion(fetchImpl);
   log(`atlas maps: ${targets.length} committed (${fetched} fetched, ${cached} from cache, ${errored} errors); ` +
-      `fleet engine ${fleet.version ?? `unknown (${fleet.error})`}`);
+      // npm's newest, not the fleet's version: the fleet carries what the repos
+      // pin (analyze.mjs fleetPin), which moves by a pin-bump wave.
+      `npm latest ${fleet.version ?? `unknown (${fleet.error})`}`);
   return { ok: true, fleet_version: fleet, fetched, cached, repos: out };
 }
 

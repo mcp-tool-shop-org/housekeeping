@@ -11,6 +11,10 @@ These are the rules the `actions` findings enforce.
 - Every workflow carries `workflow_dispatch` as a manual fallback.
 - Release, publish and container workflows trigger on `release: published`
   only, with no push trigger.
+- A workflow that emits a required status check takes no paths filter on its
+  `pull_request` trigger; its `push` trigger stays paths-gated. Otherwise a
+  pull request that touches none of the listed paths, such as a docs-only
+  change, never reports the check and can never merge.
 
 ## Runners
 

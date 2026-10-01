@@ -974,7 +974,8 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
           const worst = blocked.slice().sort((a, b) => b.absent.length - a.absent.length)[0];
           F(name, 'CI_REQUIRED_CHECK_GATED', 'medium', 'ci',
             `${blocked.length} of ${settled.length} open PRs without conflicts are BLOCKED by required `
-            + `checks that never ran on them: the job still exists, the PR's files just missed its paths filter.`,
+            + `checks that never ran on them: the job still exists, the PR's files just missed its paths filter. `
+            + `rules/github-actions.md: a workflow that emits a required check takes no paths filter on pull_request.`,
             `#${worst.p.number} is missing ${worst.absent.map(c => `"${c}"`).join(', ')}`
             + (blocked.length > 1 ? `; also #${blocked.filter(x => x !== worst).map(x => x.p.number).join(', #')}` : ''));
         }
