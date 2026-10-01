@@ -28,21 +28,21 @@
   "changes": {
     "fileCounts": {
       "added": 0,
-      "changed": 10,
+      "changed": 4,
       "moved": 0,
-      "parts": 2,
+      "parts": 1,
       "removed": 0
     },
     "items": [
       {
         "kind": "counts",
-        "sentence": "Nothing structural changed since 2026-10-01; 10 files changed content.",
+        "sentence": "Nothing structural changed since 2026-10-01; 4 files changed content.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "1ede3d91ff00fcb5c255ae84b5c8eec5ce6331bb",
-      "generatedAt": "2026-10-01T02:58:32.853Z"
+      "commit": "a4219c9f839f2ea6c7ddf098d51c0478aca24573",
+      "generatedAt": "2026-10-01T18:54:13.904Z"
     },
     "unchanged": true
   },
@@ -68,7 +68,7 @@
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "a4219c9f839f2ea6c7ddf098d51c0478aca24573",
+  "commit": "b8eb397f553459c375f47ea462091f4743a73f5e",
   "defaultBranch": "main",
   "derived": "6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
@@ -237,7 +237,7 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-10-01T18:54:13.904Z",
+  "generatedAt": "2026-10-01T19:01:44.681Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
     "1 write and 23 reads go to a path their caller passes, not to this repository.",
