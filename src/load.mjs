@@ -601,6 +601,7 @@ function loadSnapshotInner(db, snap) {
       sidebarShape(r.siteAstroCfg?.text),
       starlightRange(r.sitePkg?.text),
       hasAtlasMap(r),
+      r.isFork ? (r.parent?.owner?.login ?? null) : null,
     );
 
     // The trimmed map record, when the atlas pass read one for this repo.

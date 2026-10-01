@@ -1,6 +1,6 @@
 # housekeeping: how it works
 
-Mapped at 2026-10-01 from commit 2aa958e by Atlas 1.24.0.
+Mapped at 2026-10-01 from commit 1ede3d9 by Atlas 1.24.0.
 
 ## What this is
 
@@ -8,9 +8,9 @@ An operational-health warehouse for a GitHub organization: one sweep into SQLite
 
 6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
 
-## What changed since 2026-10-01 (982ae9d)
+## What changed since 2026-10-01 (2aa958e)
 
-Nothing structural changed since 2026-10-01; 5 files changed content.
+Nothing structural changed since 2026-10-01; 12 files changed content.
 
 ## What comes in
 
@@ -46,7 +46,7 @@ CI writes nothing this map can see.
 
 ## What tends to change together
 
-- **src/analyze.mjs** and **src/report.mjs** changed together in 5 of 7 commits, inside the src part.
+- **src/analyze.mjs** and **src/report.mjs** changed together in 5 of 8 commits, inside the src part.
 
 Confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions.
 
@@ -81,7 +81,7 @@ Read those in order to follow one run of hk end to end. This path follows hk (a 
 ## What this map cannot see
 
 - 3 writes and 2 reads use paths built at run time and are not named here.
-- 1 write and 22 reads go to a path their caller passes, not to this repository.
+- 1 write and 23 reads go to a path their caller passes, not to this repository.
 - 2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.
 - 1 write goes to a temporary directory, not to this repository.
 - 6 commands are built at run time and not followed, 1 of them in tests.

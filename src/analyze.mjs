@@ -258,6 +258,22 @@ export function environmentAdmitsBranch(env, settings, branch) {
 // a missing check counted from the start, and are unaffected by it.
 export const ATLAS_ENGINE_BEHIND_COUNTS_SINCE = '2026-09-30T21:44:11Z';
 
+/**
+ * Is this repository a fork of another organization's project? Pure.
+ *
+ * rules/atlas-map.md: "A fork of another organization's project is exempt."
+ * `repo` is a repo row (is_fork, fork_parent_owner); `homeOrgs` the
+ * organizations whose projects are the org's own, compared without case. A
+ * fork whose parent was not read (a snapshot before collector 1.5.0) is NOT
+ * exempt: not measured is never read as someone else's.
+ */
+export function forkOfAnotherOrg(repo, homeOrgs = []) {
+  if (repo?.is_fork !== 1) return false;
+  const owner = repo.fork_parent_owner;
+  if (typeof owner !== 'string' || !owner) return false;
+  return !homeOrgs.some(o => String(o).toLowerCase() === owner.toLowerCase());
+}
+
 /** Does an engine behind the fleet's count, for a snapshot taken at `takenAt`? Pure. */
 export function engineBehindCounts(takenAt, since = ATLAS_ENGINE_BEHIND_COUNTS_SINCE) {
   const t = Date.parse(takenAt ?? ''), s = Date.parse(since);
@@ -547,8 +563,16 @@ export function gatedPrs({ prs, live, observed }) {
  * are is a fact about the org, so it comes from the config file (config.mjs),
  * not from this file. Tests pass it explicitly.
  */
-export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
+export function analyze(db, sid, opts = {}) {
+  // The config file is read only when the caller passes nothing, so a caller
+  // that names its metaRepos (every test) never picks up a local config.
+  const cfg = opts.metaRepos === undefined ? loadConfig() : null;
+  const metaRepos = opts.metaRepos ?? cfg.metaRepos;
   const META_REPOS = new Set(metaRepos);
+  // The organizations whose projects are the org's own (rules/atlas-map.md:
+  // a fork of another organization's project is exempt). Unset: the swept org.
+  const homeOrgs = opts.homeOrgs ?? cfg?.homeOrgs
+    ?? [db.prepare('SELECT org FROM snapshot WHERE id = ?').get(sid)?.org].filter(Boolean);
   db.prepare('DELETE FROM finding WHERE snapshot_id = ?').run(sid);
   const add = db.prepare('INSERT INTO finding VALUES (?,?,?,?,?,?,?)');
   const F = (repo, code, severity, category, message, evidence = null) =>
@@ -1067,7 +1091,12 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
     // "Map older than the branch" is deliberately not a finding: a map needs
     // regenerating only when the structure changes, and `atlas check` in CI is
     // what enforces that.
-    for (const f of atlasMapFindings({
+    //
+    // A fork of another organization's project is exempt too (amended
+    // 2026-10-01): its workflows are the upstream's, and a map and a CI step
+    // would make it diverge from the project it tracks and conflict on every
+    // sync. forkOfAnotherOrg() decides; an unknown parent is not exempt.
+    if (!forkOfAnotherOrg(r, homeOrgs)) for (const f of atlasMapFindings({
       hasMap: r.has_atlas_map,
       workflows: myWfs,
       scripts: myScripts.map(x => x.command ?? ''),

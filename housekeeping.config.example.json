@@ -1,4 +1,5 @@
 {
   "org": "your-org",
-  "metaRepos": [".github"]
+  "metaRepos": [".github"],
+  "homeOrgs": ["your-org"]
 }
