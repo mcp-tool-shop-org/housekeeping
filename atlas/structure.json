@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "85538737646d6e84ae09d298394966b626f797f6a6d46bd72bd188b518ed84e7",
+          "hash": "aef3f7bc129861759e9f85d897c03a849608f40c30f28ad2f96bba22c430b646",
           "path": "CHANGELOG.md"
         },
         {
@@ -200,7 +200,7 @@
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
-          "hash": "e195ff15052678bb9277ba45049857fe6b68bdb558ed9ae51569d25a6613e303",
+          "hash": "a7b19ae4372fd8004df1a2ef453b7bb9772f28ccb70e4232f987664a014c4d23",
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
@@ -307,7 +307,7 @@
               "line": 645
             }
           ],
-          "hash": "45168a8c4b2b5fa9713acc85b234580ae351df0bdb9bf2becdaca15be186b5ab",
+          "hash": "9e9f58239b1d69a6e649a86487c8993617921482fd47a34ad844614728d1ace6",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -484,7 +484,7 @@
                   }
                 },
                 {
-                  "line": 1409,
+                  "line": 1408,
                   "name": "prepare",
                   "target": null
                 }
@@ -497,7 +497,7 @@
             {
               "calls": [
                 {
-                  "line": 1414,
+                  "line": 1413,
                   "name": "prepare",
                   "target": null
                 }
@@ -2923,7 +2923,7 @@
               "line": 570
             }
           ],
-          "hash": "a50f5d8f143207388f775ebcd107f973b628f4af9cf9f81bcdb48f8424280e8f",
+          "hash": "5573738761470cda420c96faf6e34f3c8427605bf179ac787a25f54cbc6b426d",
           "importsFiles": [
             "src/analyze.mjs",
             "src/errors.mjs",
@@ -3982,7 +3982,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "c215584c238f461708002dbbd4780d12f632d40e",
+    "commit": "982ae9d52b419f3195e3823655708dd69b302ad7",
     "tracked": 85
   },
   "landings": [
