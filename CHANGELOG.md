@@ -12,6 +12,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Atlas release on npm no longer makes every map "behind" before a pin-bump
   wave moves the fleet to it. Snapshots taken before the first wave ended keep
   the npm comparison they were reported with.
+- `PRE_1_0` is retired. It filed every package below 1.0.0 as a defect, but
+  1.0.0 is meant to say the product is 1.0, and unfinished work stays 0.x.
 - `WF_SCHEDULED` fires only when a scheduled workflow fails a condition of the
   scheduled-workflow rule: weekly or slower, Linux runners, `timeout-minutes`, a
   `concurrency` block, no push to the branch it checked out, and

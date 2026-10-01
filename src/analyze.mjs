@@ -1323,11 +1323,10 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
         `Workspace root package "${r.pkg_name}" v${pv}; per-package versions are not audited yet.`,
         `latest tag ${r.latest_tag ?? 'none'}`);
     } else {
-      if (pv && /^0\./.test(pv)) {
-        F(name, 'PRE_1_0', 'medium', 'version',
-          `package.json is v${pv}; standard requires promotion to 1.0.0 before shipping.`,
-          r.pkg_name ?? '');
-      }
+      // PRE_1_0 was retired on 2026-09-30. It filed every 0.x package as a
+      // defect, but the standard changed on 2026-09-09: 1.0.0 means the product
+      // is 1.0, and new or unfinished work stays 0.x. A finding against a
+      // version that follows the standard is not arguable against it.
       if (pv && tag && pv !== tag) {
         F(name, 'VERSION_TAG_DRIFT', 'high', 'version',
           `package.json v${pv} != latest release tag v${tag}.`,

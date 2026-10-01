@@ -159,7 +159,6 @@ reads only the root project, does not.
 | `NPM_DRIFT` | high | `package.json` and npm's latest disagree |
 | `RELEASE_MISSING` | medium | the newest tag has no GitHub Release |
 | `NEVER_TAGGED` | medium | a package has a version and no tag |
-| `PRE_1_0` | medium | a package is below version 1.0 |
 | `RELEASE_BACKFILL` | info | older tags have no Release; the newest does |
 | `NPM_UNPUBLISHED` | info | a public package is not on npm |
 | `NO_RELEASES` | info | a substantial repository has never released |

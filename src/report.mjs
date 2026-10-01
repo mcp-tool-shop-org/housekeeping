@@ -287,7 +287,7 @@ export function buildReport(db, sid) {
   push(md.table(relMissing));
 
   const unpub = q(`SELECT repo, message FROM finding
-    WHERE snapshot_id=? AND code IN ('NPM_UNPUBLISHED','PRE_1_0','MONOREPO_ROOT') ORDER BY code, repo`);
+    WHERE snapshot_id=? AND code IN ('NPM_UNPUBLISHED','MONOREPO_ROOT') ORDER BY code, repo`);
   push(md.h3('Other version observations'));
   push(md.table(unpub));
 
