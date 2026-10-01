@@ -4,7 +4,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { openDb } from './load.mjs';
-import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, HEAD_CHECKS_RED, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, engineBehindCounts } from './analyze.mjs';
+import { healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, HEAD_CHECKS_RED, doorFindingRows, ATLAS_DOOR_CHECKS_SINCE, fleetEngineFor } from './analyze.mjs';
 import { exitCodeFor, formatError, userError } from './errors.mjs';
 import { REPORTS_DIR } from './paths.mjs';
 
@@ -460,7 +460,7 @@ export function buildReport(db, sid) {
       SUM(CASE WHEN r.has_atlas_map IS NULL THEN 1 ELSE 0 END) unknown
     FROM repo r WHERE r.snapshot_id=?1 AND r.is_archived=0 AND r.is_empty=0
       AND EXISTS (SELECT 1 FROM workflow w WHERE w.snapshot_id=r.snapshot_id AND w.repo=r.name)`);
-  const fleet = one('SELECT version, error FROM atlas_fleet WHERE snapshot_id=?');
+  const fleet = fleetEngineFor(db, sid);
   if (!atlas?.running || atlas.unknown === atlas.running) {
     push(md.p('_Not measured — this snapshot predates the Atlas map pass (collector 1.3.0). Run `npm run refresh`._'));
   } else {
@@ -468,12 +468,16 @@ export function buildReport(db, sid) {
       '`atlas check` in CI (`rules/atlas-map.md`). ' +
       `${atlas.mapped} of ${atlas.running} such repos have \`atlas/structure.json\` on their default branch; ` +
       `${atlas.unmapped} do not` + (atlas.unknown ? `; ${atlas.unknown} could not be read` : '') + '. ' +
-      (fleet?.version
-        ? `The fleet engine is **${fleet.version}** (latest \`@dogfood-lab/atlas\` on npm). ` +
-          (engineBehindCounts(snap.taken_at)
-            ? 'An engine behind it counts as a defect (`low`): the first pin-bump wave ended on 2026-09-30.'
-            : 'This snapshot predates the end of the first pin-bump wave, so an older engine is reported here and not counted in the health score.')
-        : `The fleet engine version could not be read${fleet?.error ? ` (${fleet.error})` : ''}, so no engine is judged behind.`)));
+      (fleet.version
+        ? (fleet.source === 'fleet-pin'
+          ? `The fleet engine is **${fleet.version}**, the \`atlas check\` pin ${fleet.repos} of ${fleet.pinned} pinning repos carry` +
+            (fleet.npmLatest && fleet.npmLatest !== fleet.version ? ` (npm's newest is ${fleet.npmLatest}; the fleet moves to it by a pin-bump wave)` : '') + '. ' +
+            'An engine behind the fleet\'s counts as a defect (`low`): the first pin-bump wave ended on 2026-09-30.'
+          : `The fleet engine is **${fleet.version}** (latest \`@dogfood-lab/atlas\` on npm). ` +
+            'This snapshot predates the end of the first pin-bump wave, so an older engine is reported here and not counted in the health score.')
+        : (fleet.source === 'fleet-pin'
+          ? 'No repository pins an `atlas check` version, so no engine is judged behind.'
+          : `The fleet engine version could not be read${fleet.npmError ? ` (${fleet.npmError})` : ''}, so no engine is judged behind.`))));
     push(md.table(q(`SELECT repo, code, message FROM finding
       WHERE snapshot_id=? AND code IN ('ATLAS_MAP_MISSING','ATLAS_CHECK_NOT_IN_CI')
       ORDER BY code, repo`)));

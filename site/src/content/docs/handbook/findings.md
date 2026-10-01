@@ -143,7 +143,7 @@ reads only the root project, does not.
 | `WF_NO_PATHS_FILTER` | medium | a push-triggered workflow has no paths filter |
 | `WF_NO_CONCURRENCY` | medium | a workflow has no concurrency block |
 | `WF_FILE_COUNT` | medium | more than two push-triggered workflow files |
-| `WF_SCHEDULED` | medium | a workflow runs on a schedule |
+| `WF_SCHEDULED` | medium (low when only the cadence fails) | a scheduled workflow fails a condition of the scheduled-workflow rule: weekly or slower, Linux, `timeout-minutes`, `concurrency`, no push to the checked-out branch, `workflow_dispatch` |
 | `WF_PR_CREATE_DEFAULT_TOKEN` | medium | `gh pr create` runs with the default token |
 | `WF_PARSE_ERROR` | medium | a workflow file is not valid YAML |
 | `ACTIONS_COST_FAILURE_WASTE` | medium | at least 30% of measured compute, and 120 minutes, went to failed runs |
@@ -199,7 +199,7 @@ reads only the root project, does not.
 |---|---|---|
 | `ATLAS_MAP_MISSING` | medium | the repository runs workflows and commits no map |
 | `ATLAS_CHECK_NOT_IN_CI` | medium | a map is committed and no workflow checks it |
-| `ATLAS_ENGINE_BEHIND` | low | the map or its check is pinned behind the current engine (`info` in a snapshot taken before the first fleet pin-bump wave ended) |
+| `ATLAS_ENGINE_BEHIND` | low | the map or its check is behind the fleet's engine: the `atlas check` version most repositories pin, which moves by a pin-bump wave, not when npm publishes (`info`, measured against npm's latest, in a snapshot taken before the first wave ended) |
 
 ## When a finding looks wrong
 

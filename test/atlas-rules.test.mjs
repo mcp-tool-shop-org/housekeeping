@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadSnapshot } from '../src/load.mjs';
-import { analyze, healthScores, atlasMapFindings, engineBehindCounts, ATLAS_ENGINE_BEHIND_COUNTS_SINCE } from '../src/analyze.mjs';
+import { analyze, healthScores, atlasMapFindings, engineBehindCounts, ATLAS_ENGINE_BEHIND_COUNTS_SINCE, fleetPin } from '../src/analyze.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SCHEMA = readFileSync(join(ROOT, 'src', 'schema.sql'), 'utf8');
@@ -170,11 +170,32 @@ test('the transition ends at the instant the wave ended: before it info, from it
 });
 
 test('end to end: a snapshot taken after the wave files engine-behind as low and it costs health', () => {
-  const before = run({ files: [CI_WITH_CHECK('1.20.0')], engine: null });
-  const after = run({ files: [CI_WITH_CHECK('1.20.0')], engine: null, takenAt: '2026-10-01T00:00:00Z' });
+  // After the wave the fleet's version is the pin the fleet carries (here the
+  // one repository's 1.23.5), so a map made by an older engine is behind it.
+  const before = run({ files: [CI_WITH_CHECK('1.23.5')], engine: '1.20.0' });
+  const after = run({ files: [CI_WITH_CHECK('1.23.5')], engine: '1.20.0', takenAt: '2026-10-01T00:00:00Z' });
   assert.equal(before.f[0].severity, 'info');
   assert.equal(after.f[0].severity, 'low');
+  assert.match(after.f[0].message, /the map was made by 1\.20\.0; the fleet engine is 1\.23\.5/);
   assert.equal(healthScores(after.db, after.sid)[0].score, healthScores(before.db, before.sid)[0].score - 2);
+});
+
+test('after the wave, npm publishing a newer engine makes nothing behind: the fleet moves by a wave', () => {
+  // The defect this guards: the fleet's version was read from npm's latest, so
+  // publishing 1.25.0 would have filed every map made by 1.24.0 as behind.
+  const r = run({ files: [CI_WITH_CHECK('1.24.0')], engine: '1.24.0', takenAt: '2026-10-01T00:00:00Z',
+    fleet: { version: '1.25.0', source: 'npm dist-tags latest' } });
+  assert.deepEqual(codes(r), []);
+});
+
+test('the fleet pin is the version most repositories pin in push-triggered CI', () => {
+  const row = (repo, pin, on = 'push,pull_request') => ({ repo, atlas_check: pin, on_triggers: on });
+  assert.deepEqual(fleetPin([row('repo-a', '1.24.0'), row('repo-b', '1.24.0'), row('repo-c', '1.22.0')]),
+    { version: '1.24.0', repos: 2, pinned: 3 });
+  assert.equal(fleetPin([row('repo-a', '1.24.0'), row('repo-b', '1.25.0')]).version, '1.25.0', 'a tie goes to the higher version');
+  assert.equal(fleetPin([row('repo-a', '1.24.0', 'schedule'), row('repo-b', 'unpinned')]), null,
+    'a pin that no push runs, and an unpinned check, are not the fleet\'s');
+  assert.equal(fleetPin([row('repo-a', '1.24.0\n1.24.0'), row('repo-a', '1.24.0')]).repos, 1, 'a repository counts once');
 });
 
 test('atlasMapFindings: an unknown map state yields nothing at all', () => {

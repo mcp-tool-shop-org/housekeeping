@@ -453,3 +453,128 @@ export function resolveFailedStep(doc, jobName, stepName, stepNumber = null) {
   const st = steps[index];
   return { job: jobId, step: typeof st.name === 'string' && st.name.trim() ? st.name : String(index), index, phase };
 }
+
+// ---------------------------------------------------------------------------
+// A scheduled workflow against rules/github-actions.md, "Scheduled workflows"
+// (the org rule was amended 2026-09-08).
+//
+// The rule permits a schedule in an org repo when ALL of these hold: it does
+// something a push cannot; it runs weekly or slower (daily needs a stated
+// reason); it is bounded (ubuntu-latest, an explicit timeout-minutes, a
+// concurrency block); it opens a PR and never pushes to a protected branch; and
+// it carries workflow_dispatch. The first is judgment and is not checked here.
+// Everything below is read from the file alone, and every unknown reads as
+// "not shown to fail": an expression we cannot resolve is not a violation.
+
+const FIELD_RANGES = [[0, 59], [0, 23], [1, 31], [1, 12], [0, 6]];
+const NAMES = {
+  3: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+  4: ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+};
+
+/** Number of values a cron field admits, or null when it cannot be read. */
+function cronFieldSize(text, i) {
+  const [lo, hi] = FIELD_RANGES[i];
+  const values = new Set();
+  const num = s => {
+    const k = NAMES[i]?.indexOf(s.toLowerCase());
+    if (k != null && k >= 0) return i === 3 ? k + 1 : k;
+    return /^\d+$/.test(s) ? +s : NaN;
+  };
+  for (const part of text.split(',')) {
+    const [range, stepText] = part.split('/');
+    const step = stepText == null ? 1 : +stepText;
+    let a, b;
+    if (range === '*') [a, b] = [lo, hi];
+    else if (range.includes('-')) [a, b] = range.split('-').map(num);
+    else { a = num(range); b = stepText == null ? a : hi; }
+    if (![a, b, step].every(Number.isFinite) || step < 1) return null;
+    for (let v = a; v <= b; v += step) values.add(i === 4 ? v % 7 : v);
+  }
+  return values.size;
+}
+
+/**
+ * How many times a year a five-field cron fires, approximately. Day-of-month
+ * and day-of-week are ORed by cron when both are restricted, so both count.
+ */
+export function cronFiresPerYear(expr) {
+  const f = String(expr ?? '').trim().split(/\s+/);
+  if (f.length !== 5) return null;
+  const n = f.map(cronFieldSize);
+  if (n.some(x => x == null)) return null;
+  const domAll = f[2] === '*', dowAll = f[4] === '*';
+  const daysPerYear = domAll && dowAll ? 365
+    : dowAll ? n[2] * 12
+    : domAll ? n[4] * 52
+    : n[2] * 12 + n[4] * 52;
+  return n[0] * n[1] * daysPerYear * (n[3] / 12);
+}
+
+const PUSH = /\bgit\s+push\b/;
+const NEW_BRANCH = /\bgit\s+(?:checkout\s+-[bB]|switch\s+-[cC])\s/;
+const AUTO_COMMIT = /^(?:stefanzweifel\/git-auto-commit-action|EndBug\/add-and-commit|ad-m\/github-push-action)@/;
+
+/** Does this job push to the branch it checked out (the default, on a cron)? */
+function pushesCheckedOutBranch(job) {
+  const steps = Array.isArray(job?.steps) ? job.steps : [];
+  let branched = false;
+  for (const st of steps) {
+    if (!st || typeof st !== 'object') continue;
+    if (typeof st.uses === 'string' && AUTO_COMMIT.test(st.uses)) {
+      const w = st.with ?? {};
+      if (!w.branch && !w.create_branch && !w.new_branch) return true;
+    }
+    if (typeof st.run !== 'string') continue;
+    if (NEW_BRANCH.test(st.run)) branched = true;
+    if (PUSH.test(st.run) && !branched) return true;
+  }
+  return false;
+}
+
+/**
+ * The rule's mechanical conditions that a scheduled workflow fails, as short
+ * phrases. Empty: none shown to fail. null: the workflow has no schedule.
+ */
+export function scheduleGaps(doc, jobEntries) {
+  const on = doc?.on ?? doc?.[true];
+  const schedule = on && typeof on === 'object' && !Array.isArray(on) ? on.schedule : null;
+  if (!Array.isArray(schedule)) return null;
+  const gaps = [];
+
+  const fires = schedule.map(s => cronFiresPerYear(s?.cron)).filter(x => x != null);
+  const perYear = fires.reduce((a, b) => a + b, 0);
+  if (perYear > 53) {
+    const days = 365 / perYear;
+    const every = Math.abs(days - 1) < 0.05 ? 'daily'
+      : days >= 1 ? `every ${+days.toFixed(1)} days` : `${+(perYear / 365).toFixed(1)} times a day`;
+    gaps.push(`runs more often than weekly (${every}, which needs a stated reason)`);
+  }
+
+  const offLinux = new Set();
+  const noTimeout = [], noConcurrency = [], pushers = [];
+  for (const [id, job] of jobEntries) {
+    if (!job || typeof job !== 'object') continue;
+    const reusable = typeof job.uses === 'string';
+    const ro = job['runs-on'];
+    const labels = (Array.isArray(ro) ? ro : [ro]).filter(r => typeof r === 'string');
+    const os = job.strategy?.matrix?.os;
+    for (const r of labels) {
+      if (r.includes('${{')) {
+        if (/matrix\.os/.test(r) && Array.isArray(os)) {
+          os.filter(o => typeof o === 'string' && !/^ubuntu-/.test(o)).forEach(o => offLinux.add(o));
+        }
+      } else if (!/^ubuntu-/.test(r)) offLinux.add(r);
+    }
+    // A job that calls a reusable workflow cannot carry timeout-minutes.
+    if (!reusable && job['timeout-minutes'] == null) noTimeout.push(id);
+    if (!job.concurrency) noConcurrency.push(id);
+    if (pushesCheckedOutBranch(job)) pushers.push(id);
+  }
+  if (offLinux.size) gaps.push(`runs off Linux (${[...offLinux].join(', ')})`);
+  if (noTimeout.length) gaps.push(`no timeout-minutes on ${noTimeout.join(', ')}`);
+  if (!doc.concurrency && noConcurrency.length) gaps.push('no concurrency block');
+  if (pushers.length) gaps.push(`pushes to the branch it checked out instead of opening a PR (${pushers.join(', ')})`);
+  if (!('workflow_dispatch' in on)) gaps.push('no workflow_dispatch');
+  return gaps;
+}
