@@ -91,15 +91,35 @@ network. Use it after pulling a change to the schema, or after the database
 is deleted: the database is derived, and the snapshots are the source of
 truth.
 
-## From an assistant
+## From an agent
 
 ```bash
-npm run mcp
+hk-mcp            # installed package; in a clone, npm run mcp
 ```
 
-Serves the warehouse over stdio as an MCP server, so an assistant can ask a
+Serves the warehouse over stdio as an MCP server, so an AI agent can ask a
 question and get a small table back instead of reading a multi-megabyte
 snapshot. The tools are listed in the [Reference](../reference/).
+
+With it, one agent can coordinate the whole organization: sweep, triage what
+is red or blocked, find every repository with the same defect in one `hk_sql`
+query, open the fixes with its own tools, and sweep again to confirm.
+housekeeping itself never writes.
+
+Give the same agent [Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas)
+as a second server (`atlas mcp`) for the inside of one repository: which
+workflow runs a file and what a change reaches. housekeeping already reads
+every repository's Atlas map, so a red mainline's finding names the job, the
+step and the command that broke.
+
+```json
+{
+  "mcpServers": {
+    "housekeeping": { "command": "hk-mcp", "env": { "HK_HOME": "/path/to/warehouse" } },
+    "atlas": { "command": "atlas", "args": ["mcp"] }
+  }
+}
+```
 
 ## How much it says
 
