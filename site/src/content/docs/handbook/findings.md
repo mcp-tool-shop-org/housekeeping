@@ -69,7 +69,9 @@ with the reason rather than guessed.
   Every pull request is blocked. **Repair: drop or rename the requirement.**
 - `CI_REQUIRED_CHECK_GATED`: the job exists and passes, but a paths filter
   kept its workflow from running on this pull request. **Repair: fix the
-  trigger.** Dropping the requirement would retire a working gate.
+  trigger:** a workflow that emits a required check takes no paths filter on
+  `pull_request`, while `push` stays gated. Dropping the requirement would
+  retire a working gate.
 
 The two repairs contradict each other, which is why they are two codes.
 

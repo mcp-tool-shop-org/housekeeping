@@ -12,6 +12,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Atlas release on npm no longer makes every map "behind" before a pin-bump
   wave moves the fleet to it. Snapshots taken before the first wave ended keep
   the npm comparison they were reported with.
+- `CI_REQUIRED_CHECK_GATED` names the repair: a workflow that emits a required
+  check takes no paths filter on `pull_request`; `push` stays gated.
 - `PRE_1_0` is retired. It filed every package below 1.0.0 as a defect, but
   1.0.0 is meant to say the product is 1.0, and unfinished work stays 0.x.
 - `WF_SCHEDULED` fires only when a scheduled workflow fails a condition of the

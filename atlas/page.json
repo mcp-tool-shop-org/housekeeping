@@ -28,30 +28,47 @@
   "changes": {
     "fileCounts": {
       "added": 0,
-      "changed": 4,
+      "changed": 5,
       "moved": 0,
-      "parts": 3,
+      "parts": 4,
       "removed": 0
     },
     "items": [
       {
         "kind": "counts",
-        "sentence": "Nothing structural changed since 2026-10-01; 4 files changed content.",
+        "sentence": "Nothing structural changed since 2026-10-01; 5 files changed content.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "c215584c238f461708002dbbd4780d12f632d40e",
-      "generatedAt": "2026-10-01T01:27:10.283Z"
+      "commit": "982ae9d52b419f3195e3823655708dd69b302ad7",
+      "generatedAt": "2026-10-01T01:38:14.358Z"
     },
     "unchanged": true
   },
-  "changesTogether": [],
+  "changesTogether": [
+    {
+      "a": "src/analyze.mjs",
+      "b": "src/report.mjs",
+      "either": 7,
+      "partLabels": [
+        "src",
+        "src"
+      ],
+      "parts": [
+        "src",
+        "src"
+      ],
+      "relation": "inside",
+      "shared": 5
+    }
+  ],
   "changesTogetherNote": [
+    "Confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions.",
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "982ae9d52b419f3195e3823655708dd69b302ad7",
+  "commit": "2aa958e55e5e5af7d10abfc0e21d3e73846e895e",
   "defaultBranch": "main",
   "derived": "6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
@@ -220,7 +237,7 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-10-01T01:38:14.358Z",
+  "generatedAt": "2026-10-01T02:46:40.915Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
     "1 write and 22 reads go to a path their caller passes, not to this repository.",
