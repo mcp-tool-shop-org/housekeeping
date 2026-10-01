@@ -21,6 +21,7 @@ about your organization that the rules cannot work out for themselves.
 |---|---|---|
 | `org` | The organization to sweep. | none: a sweep refuses to start without one |
 | `metaRepos` | Repositories that are not shipped products. | `[".github"]` |
+| `homeOrgs` | The organizations whose projects count as your own. A fork of a project outside them is exempt from the Atlas map rule. | the swept organization |
 
 `hk refresh <org>` overrides `org` for one run.
 

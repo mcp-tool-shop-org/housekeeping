@@ -17,11 +17,11 @@ import { analyze } from '../src/analyze.mjs';
 
 test('a full config is read as written', () => {
   const c = parseConfig('{ "org": "example-org", "metaRepos": [".github", "design-assets"] }');
-  assert.deepEqual(c, { org: 'example-org', metaRepos: ['.github', 'design-assets'] });
+  assert.deepEqual(c, { org: 'example-org', metaRepos: ['.github', 'design-assets'], homeOrgs: null });
 });
 
 test('an empty object is the defaults: no org, only .github exempt', () => {
-  assert.deepEqual(parseConfig('{}'), { org: null, metaRepos: ['.github'] });
+  assert.deepEqual(parseConfig('{}'), { org: null, metaRepos: ['.github'], homeOrgs: null });
 });
 
 test('an explicitly empty metaRepos exempts nothing -- that is a choice, not a typo', () => {
@@ -30,14 +30,14 @@ test('an explicitly empty metaRepos exempts nothing -- that is a choice, not a t
 
 test('a missing file is the defaults; it is not an error', () => {
   const dir = mkdtempSync(join(tmpdir(), 'hk-config-'));
-  assert.deepEqual(loadConfig(join(dir, 'absent.json')), { org: null, metaRepos: ['.github'] });
+  assert.deepEqual(loadConfig(join(dir, 'absent.json')), { org: null, metaRepos: ['.github'], homeOrgs: null });
 });
 
 test('a file that exists is parsed, not defaulted', () => {
   const dir = mkdtempSync(join(tmpdir(), 'hk-config-'));
   const p = join(dir, 'housekeeping.config.json');
   writeFileSync(p, '{ "org": "example-org" }');
-  assert.deepEqual(loadConfig(p), { org: 'example-org', metaRepos: ['.github'] });
+  assert.deepEqual(loadConfig(p), { org: 'example-org', metaRepos: ['.github'], homeOrgs: null });
 });
 
 test('every malformed shape throws rather than falling back', () => {
@@ -97,4 +97,11 @@ test('a repo named in metaRepos is exempt from hygiene findings; its neighbour i
 
 test('with nothing exempt, the same repo is a finding', () => {
   assert.deepEqual(noReadme([]), ['org-defaults', 'product']);
+});
+
+test('homeOrgs is read when given, and a malformed one is an error, never a silent default', () => {
+  assert.deepEqual(parseConfig('{ "org": "org-a", "homeOrgs": ["org-a", "org-b"] }').homeOrgs, ['org-a', 'org-b']);
+  for (const bad of ['"org-a"', '[]', '[""]', '[1]']) {
+    assert.throws(() => parseConfig(`{ "homeOrgs": ${bad} }`), /"homeOrgs" must be a non-empty array/, bad);
+  }
 });

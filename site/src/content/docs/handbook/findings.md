@@ -198,7 +198,7 @@ reads only the root project, does not.
 
 | Code | Severity | Fires when |
 |---|---|---|
-| `ATLAS_MAP_MISSING` | medium | the repository runs workflows and commits no map |
+| `ATLAS_MAP_MISSING` | medium | the repository runs workflows and commits no map (archived repositories and forks of another organization's project are exempt) |
 | `ATLAS_CHECK_NOT_IN_CI` | medium | a map is committed and no workflow checks it |
 | `ATLAS_ENGINE_BEHIND` | low | the map or its check is behind the fleet's engine: the `atlas check` version most repositories pin, which moves by a pin-bump wave, not when npm publishes (`info`, measured against npm's latest, in a snapshot taken before the first wave ended) |
 

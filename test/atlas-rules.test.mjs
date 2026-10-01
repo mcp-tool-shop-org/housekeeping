@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadSnapshot } from '../src/load.mjs';
-import { analyze, healthScores, atlasMapFindings, engineBehindCounts, ATLAS_ENGINE_BEHIND_COUNTS_SINCE, fleetPin } from '../src/analyze.mjs';
+import { analyze, healthScores, atlasMapFindings, engineBehindCounts, ATLAS_ENGINE_BEHIND_COUNTS_SINCE, fleetPin, forkOfAnotherOrg } from '../src/analyze.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SCHEMA = readFileSync(join(ROOT, 'src', 'schema.sql'), 'utf8');
@@ -35,7 +35,7 @@ const MAP = { oid: 'b10b', byteSize: 1000 };
 
 /** One repo through loadSnapshot and analyze; returns the atlas findings. */
 function run({ files = [CI_WITH_CHECK('1.23.5')], atlasMap = MAP, engine = '1.23.5', fleet = FLEET,
-  archived = false, scripts, noAtlasPass = false, takenAt = '2026-09-30T00:00:00Z' }) {
+  archived = false, scripts, noAtlasPass = false, takenAt = '2026-09-30T00:00:00Z', fork, homeOrgs }) {
   const db = new DatabaseSync(':memory:');
   db.exec(SCHEMA);
   const repo = {
@@ -46,6 +46,8 @@ function run({ files = [CI_WITH_CHECK('1.23.5')], atlasMap = MAP, engine = '1.23
     ...(scripts ? { pkg: { text: JSON.stringify({ name: 'repo-a', version: '1.0.0', scripts }) } } : {}),
   };
   if (atlasMap !== 'never-collected') repo.atlasMap = atlasMap;
+  // fork: undefined (not a fork), { parent: 'owner' } (read), or { unread: true }.
+  if (fork) { repo.isFork = true; if (!fork.unread) repo.parent = fork.parent ? { owner: { login: fork.parent } } : null; }
   const snap = {
     taken_at: takenAt, org: 'org', collector_version: 'test', repo_count: 1, duration_ms: 1,
     repos: [repo],
@@ -59,7 +61,7 @@ function run({ files = [CI_WITH_CHECK('1.23.5')], atlasMap = MAP, engine = '1.23
     };
   }
   const sid = loadSnapshot(db, snap);
-  analyze(db, sid);
+  analyze(db, sid, { metaRepos: [], ...(homeOrgs ? { homeOrgs } : {}) });
   return {
     f: db.prepare("SELECT code, severity, category, message, evidence FROM finding WHERE code LIKE 'ATLAS_%' ORDER BY code").all(),
     db, sid,
@@ -202,4 +204,32 @@ test('atlasMapFindings: an unknown map state yields nothing at all', () => {
   const wf = [{ path: 'ci.yml', on_triggers: 'push', atlas_check: '' }];
   assert.deepEqual(atlasMapFindings({ hasMap: null, workflows: wf, fleetVersion: '1.23.5' }), []);
   assert.deepEqual(atlasMapFindings({ hasMap: undefined, workflows: wf }), []);
+});
+
+// ------------------------------------------------- forks of another org ----
+
+test("a fork of another organization's project is exempt from the map rule", () => {
+  // rules/atlas-map.md, amended 2026-10-01. The snapshot's org is "org".
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], atlasMap: null, fork: { parent: 'upstream-org' } })), []);
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], fork: { parent: 'upstream-org' } })), [], 'nor is a missing check filed');
+});
+
+test('a fork of one of the home organizations keeps the rule', () => {
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], atlasMap: null, fork: { parent: 'org' } })), ['ATLAS_MAP_MISSING'],
+    'unset homeOrgs is the swept org');
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], atlasMap: null, fork: { parent: 'Sister-Org' }, homeOrgs: ['org', 'sister-org'] })),
+    ['ATLAS_MAP_MISSING'], 'every listed home org counts, without case');
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], atlasMap: null, fork: { parent: 'org' }, homeOrgs: ['sister-org'] })), [],
+    'an org left out of homeOrgs is "another organization"');
+});
+
+test('a fork whose parent was not read keeps the rule: not measured is not exempt', () => {
+  assert.deepEqual(codes(run({ files: [CI_PLAIN], atlasMap: null, fork: { unread: true } })), ['ATLAS_MAP_MISSING']);
+});
+
+test('forkOfAnotherOrg reads only a fork with a known parent outside the home orgs', () => {
+  assert.equal(forkOfAnotherOrg({ is_fork: 1, fork_parent_owner: 'upstream-org' }, ['org']), true);
+  assert.equal(forkOfAnotherOrg({ is_fork: 1, fork_parent_owner: 'ORG' }, ['org']), false);
+  assert.equal(forkOfAnotherOrg({ is_fork: 1, fork_parent_owner: null }, ['org']), false);
+  assert.equal(forkOfAnotherOrg({ is_fork: 0, fork_parent_owner: 'upstream-org' }, ['org']), false);
 });

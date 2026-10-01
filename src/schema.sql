@@ -46,6 +46,10 @@ CREATE TABLE IF NOT EXISTS repo (
   -- 1 = atlas/structure.json is on the default branch, 0 = it is not, NULL =
   -- not collected (a snapshot before collector 1.3.0). See rules/atlas-map.md.
   has_atlas_map INTEGER,
+  -- The owner of the repository a fork was made from. NULL for a repo that is
+  -- not a fork, and for any repo in a snapshot before collector 1.5.0, which
+  -- did not read it: an unknown parent is never read as "someone else's".
+  fork_parent_owner TEXT,
   PRIMARY KEY (snapshot_id, name)
 );
 

@@ -14,11 +14,12 @@ import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs'
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
 import { DATA_DIR } from './paths.mjs';
 
-export const COLLECTOR_VERSION = '1.4.0';
+export const COLLECTOR_VERSION = '1.5.0';
 
 const REPO_FIELDS = `
   id name description url homepageUrl
   isPrivate isArchived isFork isTemplate isEmpty
+  parent { owner { login } }
   createdAt updatedAt pushedAt diskUsage
   stargazerCount forkCount
   watchers { totalCount }

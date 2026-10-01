@@ -7,7 +7,12 @@
 // treated as a non-product.
 //
 //   housekeeping.config.json
-//   { "org": "your-org", "metaRepos": [".github", "design-assets"] }
+//   { "org": "your-org", "metaRepos": [".github", "design-assets"],
+//     "homeOrgs": ["your-org", "your-other-org"] }
+//
+// `homeOrgs` names the organizations whose projects count as the org's own.
+// A fork of a project outside them is exempt from the map rule. Unset, it is
+// the swept org alone.
 //
 // No network and no database here, so every branch is unit-testable.
 import { readFileSync } from 'node:fs';
@@ -17,7 +22,7 @@ import { WORK_DIR } from './paths.mjs';
 
 export const CONFIG_PATH = process.env.HK_CONFIG ?? join(WORK_DIR, 'housekeeping.config.json');
 
-const KEYS = ['org', 'metaRepos'];
+const KEYS = ['org', 'metaRepos', 'homeOrgs'];
 const invalid = message => userError('CONFIG_INVALID', message,
   'fix housekeeping.config.json; housekeeping.config.example.json shows the shape');
 const DEFAULT_META = ['.github'];
@@ -47,7 +52,11 @@ export function parseConfig(text) {
   if (!Array.isArray(meta) || meta.some(m => typeof m !== 'string' || !m.trim())) {
     throw invalid('housekeeping config: "metaRepos" must be an array of repo names');
   }
-  return { org, metaRepos: [...meta] };
+  const home = raw.homeOrgs ?? null;
+  if (home !== null && (!Array.isArray(home) || !home.length || home.some(o => typeof o !== 'string' || !o.trim()))) {
+    throw invalid('housekeeping config: "homeOrgs" must be a non-empty array of organization names');
+  }
+  return { org, metaRepos: [...meta], homeOrgs: home ? [...home] : null };
 }
 
 /** Read the config file. A missing file is the defaults; an unreadable or malformed one throws. */
@@ -55,7 +64,7 @@ export function loadConfig(path = CONFIG_PATH) {
   let text;
   try { text = readFileSync(path, 'utf8'); }
   catch (e) {
-    if (e.code === 'ENOENT') return { org: null, metaRepos: [...DEFAULT_META] };
+    if (e.code === 'ENOENT') return { org: null, metaRepos: [...DEFAULT_META], homeOrgs: null };
     throw e;
   }
   return parseConfig(text);

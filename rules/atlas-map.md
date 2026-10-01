@@ -2,7 +2,8 @@
 
 Every repository that runs workflows keeps a committed Atlas map on its
 default branch, made by the fleet's current engine version, and runs
-`atlas check` in CI. Archived repositories are exempt.
+`atlas check` in CI. Archived repositories, and forks of another
+organization's project, are exempt.
 
 ## What it means in a repository
 
@@ -15,6 +16,10 @@ default branch, made by the fleet's current engine version, and runs
 - The version is pinned, never floating, and the whole fleet carries the same
   one. It moves by pull request: the pin and the regenerated map in the same
   change.
+- A fork of another organization's project is exempt. Its workflows are the
+  upstream's, and a map and a CI step would make the fork diverge from the
+  project it tracks and conflict on every sync. "Fork" means GitHub records it
+  as a fork whose parent belongs to an organization outside your own.
 
 ## Transition (ended)
 

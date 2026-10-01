@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "5a0bccd3bb096f413fa7f06e71b63a6b4b7b5195f74d2ac2675be3e18191d00a",
+          "hash": "cc9885ee32c723530b27d30eabd1b5a917302535e6585fb1ae389ec49cf0ec4d",
           "path": "CHANGELOG.md"
         },
         {
@@ -96,7 +96,7 @@
           "path": "SHIP_GATE.md"
         },
         {
-          "hash": "3e74554fe48406e2eca13b46a708533b15bd9c6930f8cf989f8fc43e362a821d",
+          "hash": "7014f70214b3c34ab849efacac1b0a849074bf9b6f78925c2c04e0c87787e0d6",
           "path": "housekeeping.config.example.json"
         },
         {
@@ -132,7 +132,7 @@
       "externals": 0,
       "files": [
         {
-          "hash": "c8cd2f72fd9972beb961d7c0234cf52d97a09473b958a949766daed17b1f6b46",
+          "hash": "f4fb9956abb3b4337425451f51adf275f3504ec87b34c67ab59e2715350b639d",
           "path": "rules/atlas-map.md"
         },
         {
@@ -196,11 +196,11 @@
           "path": "site/src/content/docs/handbook/architecture.md"
         },
         {
-          "hash": "c721f907eca351a6849e8c95ccf5899d4bc01aa401e4a28a24eb4628fca2432c",
+          "hash": "018dded19824adf2ea26da47fce35332a0e7e8f59fcd12291c4ad6df3fdec7e2",
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
-          "hash": "2094936c70dbcce6cd34937f9e5b7f2c87b3d0551ad8f5ec4fe610ad38778d06",
+          "hash": "090c9165a93df695a1c30b5fcf24e97af65e4a622924b6c45800ff7fa76a76a6",
           "path": "site/src/content/docs/handbook/findings.md"
         },
         {
@@ -289,6 +289,7 @@
             "failingHeadChecks",
             "fleetEngineFor",
             "fleetPin",
+            "forkOfAnotherOrg",
             "gatedPrs",
             "healthScores",
             "jobBaseName",
@@ -299,15 +300,15 @@
             {
               "in": "parse",
               "kind": "catch",
-              "line": 433
+              "line": 449
             },
             {
               "in": "analyze",
               "kind": "catch",
-              "line": 645
+              "line": 669
             }
           ],
-          "hash": "7224fbadda6b790d9256bce6266a7e32479373748bc1f99b0a3cac59b1f6d5ea",
+          "hash": "9b93e0575533a890c49021a048f7cc23a56590ba3ac2ed3e8994b39eaaffbb6c",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -317,14 +318,14 @@
             {
               "calls": [
                 {
-                  "line": 285,
+                  "line": 301,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 294,
+                  "line": 310,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -339,12 +340,12 @@
             {
               "calls": [
                 {
-                  "line": 307,
+                  "line": 323,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 285,
+                  "line": 301,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -352,7 +353,7 @@
                   "via": "fleetPin"
                 },
                 {
-                  "line": 294,
+                  "line": 310,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -368,14 +369,14 @@
             {
               "calls": [
                 {
-                  "line": 321,
+                  "line": 337,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 322,
+                  "line": 338,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -390,14 +391,14 @@
             {
               "calls": [
                 {
-                  "line": 369,
+                  "line": 385,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 322,
+                  "line": 338,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -413,14 +414,14 @@
             {
               "calls": [
                 {
-                  "line": 427,
+                  "line": 443,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 430,
+                  "line": 446,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -435,12 +436,19 @@
             {
               "calls": [
                 {
-                  "line": 552,
+                  "line": 569,
+                  "name": "loadConfig",
+                  "target": {
+                    "file": "src/config.mjs"
+                  }
+                },
+                {
+                  "line": 575,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 285,
+                  "line": 301,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -448,7 +456,7 @@
                   "via": "fleetPin"
                 },
                 {
-                  "line": 294,
+                  "line": 310,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -456,12 +464,12 @@
                   "via": "fleetPin"
                 },
                 {
-                  "line": 626,
+                  "line": 650,
                   "name": "prepare",
                   "target": null
                 },
                 {
-                  "line": 369,
+                  "line": 385,
                   "name": "parseSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -469,7 +477,7 @@
                   "via": "atlasMapFindings"
                 },
                 {
-                  "line": 322,
+                  "line": 338,
                   "name": "compareSemver",
                   "target": {
                     "file": "src/load.mjs"
@@ -477,14 +485,14 @@
                   "via": "isOlder"
                 },
                 {
-                  "line": 1282,
+                  "line": 1311,
                   "name": "rangeAdmits039",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 1409,
+                  "line": 1438,
                   "name": "prepare",
                   "target": null
                 }
@@ -497,7 +505,7 @@
             {
               "calls": [
                 {
-                  "line": 1414,
+                  "line": 1443,
                   "name": "prepare",
                   "target": null
                 }
@@ -910,135 +918,135 @@
             {
               "in": "safeJson",
               "kind": "catch",
-              "line": 122
+              "line": 123
             },
             {
               "in": "latestSnapshotOnDisk",
               "kind": "catch",
-              "line": 175
+              "line": 176
             },
             {
               "in": "recordSweep",
               "kind": "catch",
-              "line": 185
+              "line": 186
             },
             {
               "in": "recordingFailure",
               "kind": "catch",
-              "line": 207
+              "line": 208
             },
             {
               "in": "recordingFailure",
               "kind": "throw",
-              "line": 213
+              "line": 214
             },
             {
               "in": "collectRepos",
               "kind": "catch",
-              "line": 230
-            },
-            {
-              "in": "collectRepos",
-              "kind": "throw",
               "line": 231
             },
             {
               "in": "collectRepos",
               "kind": "throw",
-              "line": 237
+              "line": 232
+            },
+            {
+              "in": "collectRepos",
+              "kind": "throw",
+              "line": 238
             },
             {
               "in": "backfillDefaultBranchRuns",
               "kind": "catch",
-              "line": 322
+              "line": 323
             },
             {
               "in": "deployNeeds",
               "kind": "catch",
-              "line": 424
+              "line": 425
             },
             {
               "in": "readAtlasCache",
               "kind": "catch",
-              "line": 613
+              "line": 614
             },
             {
               "in": "atlasFleetVersion",
               "kind": "catch",
-              "line": 630
+              "line": 631
             },
             {
               "in": "collectAtlasMaps",
               "kind": "catch",
-              "line": 672
+              "line": 673
             },
             {
               "in": "collectAtlasMaps",
               "kind": "catch",
-              "line": 679
+              "line": 680
             },
             {
               "in": "refreshMergeable",
               "kind": "catch",
-              "line": 748
+              "line": 749
             },
             {
               "in": "collectSecurity",
               "kind": "catch",
-              "line": 793
+              "line": 794
             },
             {
               "in": "collectSecurity",
               "kind": "catch",
-              "line": 810
+              "line": 811
             },
             {
               "in": "readPackageMapCache",
               "kind": "catch",
-              "line": 835
+              "line": 836
             },
             {
               "in": "auditPackageMap",
               "kind": "throw",
-              "line": 844
+              "line": 845
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 858
+              "line": 859
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 888
+              "line": 889
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 898
+              "line": 899
             },
             {
               "in": "collectBilling",
               "kind": "catch",
-              "line": 932
+              "line": 933
             },
             {
               "in": "readRunCostCache",
               "kind": "catch",
-              "line": 952
+              "line": 953
             },
             {
               "in": "collectRunCosts",
               "kind": "catch",
-              "line": 1061
+              "line": 1062
             },
             {
               "in": "sweep",
               "kind": "catch",
-              "line": 1155
+              "line": 1156
             }
           ],
-          "hash": "f4b009ecb0f65ea08bcd5c046a241522a3903f7149728fd75e00c04c88d05bac",
+          "hash": "9aceb36ebb271d36ddf5649e086641b5125597417c14d21b3d708d01eaf48d8d",
           "importsFiles": [
             "src/config.mjs",
             "src/cost.mjs",
@@ -1054,7 +1062,7 @@
             {
               "calls": [
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1069,7 +1077,7 @@
             {
               "calls": [
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1085,21 +1093,21 @@
             {
               "calls": [
                 {
-                  "line": 229,
+                  "line": 230,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 231,
+                  "line": 232,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1115,14 +1123,14 @@
             {
               "calls": [
                 {
-                  "line": 269,
+                  "line": 270,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1138,7 +1146,7 @@
             {
               "calls": [
                 {
-                  "line": 317,
+                  "line": 318,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1153,21 +1161,21 @@
             {
               "calls": [
                 {
-                  "line": 330,
+                  "line": 331,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 331,
+                  "line": 332,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1183,14 +1191,14 @@
             {
               "calls": [
                 {
-                  "line": 399,
+                  "line": 400,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1206,14 +1214,14 @@
             {
               "calls": [
                 {
-                  "line": 428,
+                  "line": 429,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
                   }
                 },
                 {
-                  "line": 430,
+                  "line": 431,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1228,7 +1236,7 @@
             {
               "calls": [
                 {
-                  "line": 428,
+                  "line": 429,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1236,7 +1244,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 430,
+                  "line": 431,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1244,14 +1252,14 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 473,
+                  "line": 474,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1267,14 +1275,14 @@
             {
               "calls": [
                 {
-                  "line": 655,
+                  "line": 656,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1290,14 +1298,14 @@
             {
               "calls": [
                 {
-                  "line": 695,
+                  "line": 696,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1313,7 +1321,7 @@
             {
               "calls": [
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1321,7 +1329,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 747,
+                  "line": 748,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1336,14 +1344,14 @@
             {
               "calls": [
                 {
-                  "line": 777,
+                  "line": 778,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1351,21 +1359,21 @@
                   "via": "log"
                 },
                 {
-                  "line": 800,
+                  "line": 801,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 805,
+                  "line": 806,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 808,
+                  "line": 809,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1380,56 +1388,56 @@
             {
               "calls": [
                 {
-                  "line": 854,
+                  "line": 855,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 857,
+                  "line": 858,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 862,
+                  "line": 863,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 869,
+                  "line": 870,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 873,
+                  "line": 874,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 880,
+                  "line": 881,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 885,
+                  "line": 886,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1445,24 +1453,24 @@
             {
               "calls": [
                 {
-                  "line": 917,
+                  "line": 918,
                   "name": "getUTCFullYear",
                   "target": null
                 },
                 {
-                  "line": 917,
+                  "line": 918,
                   "name": "getUTCMonth",
                   "target": null
                 },
                 {
-                  "line": 919,
+                  "line": 920,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1479,7 +1487,7 @@
               "calls": [
                 {
                   "branch": "!billing.ok",
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1487,42 +1495,42 @@
                   "via": "log"
                 },
                 {
-                  "line": 979,
+                  "line": 980,
                   "name": "ratesFromUsage",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 980,
+                  "line": 981,
                   "name": "withFallback",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1001,
+                  "line": 1002,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1004,
+                  "line": 1005,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1036,
+                  "line": 1037,
                   "name": "priceRun",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1049,
+                  "line": 1050,
                   "name": "runnerClass",
                   "target": {
                     "file": "src/cost.mjs"
@@ -1537,7 +1545,7 @@
             {
               "calls": [
                 {
-                  "line": 1088,
+                  "line": 1089,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1545,7 +1553,7 @@
                   "via": "sweep"
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1553,7 +1561,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 229,
+                  "line": 230,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1561,7 +1569,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 231,
+                  "line": 232,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1569,7 +1577,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 747,
+                  "line": 748,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1577,7 +1585,7 @@
                   "via": "refreshMergeable"
                 },
                 {
-                  "line": 330,
+                  "line": 331,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1585,7 +1593,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 331,
+                  "line": 332,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1593,7 +1601,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 399,
+                  "line": 400,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1601,7 +1609,7 @@
                   "via": "collectFailedSteps"
                 },
                 {
-                  "line": 428,
+                  "line": 429,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1609,7 +1617,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 430,
+                  "line": 431,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1617,7 +1625,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 473,
+                  "line": 474,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1625,7 +1633,7 @@
                   "via": "collectDeploySettings"
                 },
                 {
-                  "line": 777,
+                  "line": 778,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1633,7 +1641,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 800,
+                  "line": 801,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1641,7 +1649,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 805,
+                  "line": 806,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1649,7 +1657,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 808,
+                  "line": 809,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1657,7 +1665,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 854,
+                  "line": 855,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1665,7 +1673,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 857,
+                  "line": 858,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1673,7 +1681,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 862,
+                  "line": 863,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1681,7 +1689,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 869,
+                  "line": 870,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1689,7 +1697,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 873,
+                  "line": 874,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1697,7 +1705,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 880,
+                  "line": 881,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1705,7 +1713,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 885,
+                  "line": 886,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1713,7 +1721,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 655,
+                  "line": 656,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1721,7 +1729,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 917,
+                  "line": 918,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1736,14 +1744,14 @@
             {
               "calls": [
                 {
-                  "line": 1088,
+                  "line": 1089,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 119,
+                  "line": 120,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -1751,7 +1759,7 @@
                   "via": "log"
                 },
                 {
-                  "line": 229,
+                  "line": 230,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1759,7 +1767,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 231,
+                  "line": 232,
                   "name": "looksTransient",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1767,7 +1775,7 @@
                   "via": "collectRepos"
                 },
                 {
-                  "line": 747,
+                  "line": 748,
                   "name": "graphql",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1775,7 +1783,7 @@
                   "via": "refreshMergeable"
                 },
                 {
-                  "line": 330,
+                  "line": 331,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1783,7 +1791,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 331,
+                  "line": 332,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1791,7 +1799,7 @@
                   "via": "collectRuns"
                 },
                 {
-                  "line": 399,
+                  "line": 400,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1799,7 +1807,7 @@
                   "via": "collectFailedSteps"
                 },
                 {
-                  "line": 428,
+                  "line": 429,
                   "name": "pagesDeployJobs",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1807,7 +1815,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 430,
+                  "line": 431,
                   "name": "jobEnvironment",
                   "target": {
                     "file": "src/workflow-risks.mjs"
@@ -1815,7 +1823,7 @@
                   "via": "deployNeeds"
                 },
                 {
-                  "line": 473,
+                  "line": 474,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1823,7 +1831,7 @@
                   "via": "collectDeploySettings"
                 },
                 {
-                  "line": 777,
+                  "line": 778,
                   "name": "restPaged",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1831,7 +1839,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 800,
+                  "line": 801,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1839,7 +1847,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 805,
+                  "line": 806,
                   "name": "restStatus",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1847,7 +1855,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 808,
+                  "line": 809,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1855,7 +1863,7 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 854,
+                  "line": 855,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1863,7 +1871,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 857,
+                  "line": 858,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1871,7 +1879,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 862,
+                  "line": 863,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1879,7 +1887,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 869,
+                  "line": 870,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1887,7 +1895,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 873,
+                  "line": 874,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1895,7 +1903,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 880,
+                  "line": 881,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1903,7 +1911,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 885,
+                  "line": 886,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1911,7 +1919,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 655,
+                  "line": 656,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1919,7 +1927,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 917,
+                  "line": 918,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1945,50 +1953,55 @@
             {
               "in": "parseConfig",
               "kind": "catch",
-              "line": 34
+              "line": 39
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 34
+              "line": 39
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 36
+              "line": 41
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 40
+              "line": 45
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 44
+              "line": 49
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 48
+              "line": 53
             },
             {
-              "in": "loadConfig",
-              "kind": "catch",
+              "in": "parseConfig",
+              "kind": "throw",
               "line": 57
             },
             {
               "in": "loadConfig",
+              "kind": "catch",
+              "line": 66
+            },
+            {
+              "in": "loadConfig",
               "kind": "throw",
-              "line": 59
+              "line": 68
             },
             {
               "in": "resolveOrg",
               "kind": "throw",
-              "line": 71
+              "line": 80
             }
           ],
-          "hash": "36a8b209b1ec057741c2e52eabf0b30279728a80db388c8fca1b282a9ca92b76",
+          "hash": "b38255050296878e110dc5c4ad88d410eecf4cf536cda5b5ac3c17e95eae032c",
           "importsFiles": [
             "src/errors.mjs",
             "src/paths.mjs"
@@ -1998,7 +2011,7 @@
             {
               "calls": [
                 {
-                  "line": 21,
+                  "line": 26,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2013,7 +2026,7 @@
             {
               "calls": [
                 {
-                  "line": 21,
+                  "line": 26,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2029,7 +2042,7 @@
             {
               "calls": [
                 {
-                  "line": 21,
+                  "line": 26,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2046,7 +2059,7 @@
               "calls": [
                 {
                   "branch": "!org",
-                  "line": 71,
+                  "line": 80,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2351,20 +2364,20 @@
             {
               "in": "latestSnapshotFile",
               "kind": "catch",
-              "line": 896
-            },
-            {
-              "in": "latestSnapshotFile",
-              "kind": "throw",
-              "line": 896
+              "line": 897
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
               "line": 897
+            },
+            {
+              "in": "latestSnapshotFile",
+              "kind": "throw",
+              "line": 898
             }
           ],
-          "hash": "0976ab26f6a1b3713ca183bde73521b85ca2aa92d0a9adc8896281fdfaf632d0",
+          "hash": "813a1145aab05fc7ec416b45c714e36335b9296c5560b71ca7dcfbb8b85dab71",
           "importsFiles": [
             "src/collect.mjs",
             "src/cost.mjs",
@@ -2578,7 +2591,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 870,
+                  "line": 871,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2684,7 +2697,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 870,
+                  "line": 871,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2699,7 +2712,7 @@
             {
               "calls": [
                 {
-                  "line": 893,
+                  "line": 894,
                   "name": "DATA_DIR",
                   "passed": true,
                   "target": {
@@ -2708,7 +2721,7 @@
                 },
                 {
                   "branch": "!files.length",
-                  "line": 897,
+                  "line": 898,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -3028,7 +3041,7 @@
           ]
         },
         {
-          "hash": "86b53b330ca31c43dfaf77b269958463b7bfb2b4628a5f2ac9b42964a751a698",
+          "hash": "02277b5aa14d013a22c3d2129969a508263d797a902c30375a8a50d5c4c656cf",
           "path": "src/schema.sql"
         },
         {
@@ -3062,7 +3075,7 @@
       "origin": "authored",
       "outsidePlaces": [
         {
-          "reads": 22,
+          "reads": 23,
           "where": [
             "caller"
           ],
@@ -3090,7 +3103,7 @@
           "writes": 1
         }
       ],
-      "outsideReads": 24,
+      "outsideReads": 25,
       "outsideWrites": 2,
       "role": "code",
       "testRunners": [
@@ -3130,7 +3143,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "9d8894a2d8fdea08a9da698565ecd48dda055d09bfab8d6006f29919b1fbb461",
+          "hash": "908bd2382d53ffdbb1134695e8488ee849668e54c7a333e2ccc4b394290edd80",
           "importOrder": [
             "src/load.mjs",
             "src/analyze.mjs"
@@ -3180,7 +3193,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "cc5c27b99417dfc1819d8aa70098c24a7d65ac8dcc8c765d06a5712da64a5a69",
+          "hash": "004abec84b302a1381469baec812b6628a7fc60e14564ffe974019fe8b2306f7",
           "importOrder": [
             "src/config.mjs",
             "src/load.mjs",
@@ -3982,7 +3995,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "2aa958e55e5e5af7d10abfc0e21d3e73846e895e",
+    "commit": "1ede3d91ff00fcb5c255ae84b5c8eec5ce6331bb",
     "tracked": 85
   },
   "landings": [

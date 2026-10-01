@@ -5,6 +5,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `homeOrgs` in the config: the organizations whose projects count as your
+  own. Unset, it is the swept organization.
+
+### Changed
+
+- A fork of another organization's project is exempt from `ATLAS_MAP_MISSING`
+  and `ATLAS_CHECK_NOT_IN_CI`, as the rule now says: its workflows are the
+  upstream's. The collector reads each fork's parent owner (collector 1.5.0);
+  a fork whose parent was not read keeps the rule.
+
 ### Fixed
 
 - `ATLAS_ENGINE_BEHIND` measures maps and CI pins against the fleet's own pin
