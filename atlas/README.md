@@ -1,6 +1,6 @@
 # housekeeping: how it works
 
-Mapped at 2026-10-01 from commit 1ede3d9 by Atlas 1.24.0.
+Mapped at 2026-10-01 from commit a4219c9 by Atlas 1.24.0.
 
 ## What this is
 
@@ -8,9 +8,9 @@ An operational-health warehouse for a GitHub organization: one sweep into SQLite
 
 6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
 
-## What changed since 2026-10-01 (2aa958e)
+## What changed since 2026-10-01 (1ede3d9)
 
-Nothing structural changed since 2026-10-01; 12 files changed content.
+Nothing structural changed since 2026-10-01; 10 files changed content.
 
 ## What comes in
 
@@ -46,7 +46,7 @@ CI writes nothing this map can see.
 
 ## What tends to change together
 
-- **src/analyze.mjs** and **src/report.mjs** changed together in 5 of 8 commits, inside the src part.
+- **src/analyze.mjs** and **src/report.mjs** changed together in 5 of 9 commits, inside the src part.
 
 Confidence is low: fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions.
 

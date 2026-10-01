@@ -10,7 +10,8 @@
 
 <p align="center">
   An operational-health warehouse for a GitHub organization.<br>
-  One sweep, one SQLite database, findings you can argue with.
+  One sweep, one SQLite database, findings you can argue with,<br>
+  and the whole-organization view an AI agent needs to coordinate every repository.
 </p>
 
 <p align="center">
@@ -35,6 +36,90 @@ It answers, for the whole organization at once:
 - Which repositories carry advisories that GitHub's own alert count misses?
 
 It is an audit instrument, not a fixer. It reads GitHub and changes nothing.
+
+## An agent over every repository
+
+An organization with dozens of repositories has no single place where its
+state lives. housekeeping is that place, and its MCP server, `hk-mcp`, hands
+it to an AI agent. With it, one agent can act as the coordinator for the whole
+organization:
+
+1. **Sweep.** `hk refresh` takes one snapshot of every repository.
+2. **Triage.** The agent asks what is red, what is blocked and what got worse,
+   and gets answers that already tell a broken mainline from stale history, and
+   a stuck pull request from a conflicted one.
+3. **Plan a wave.** One `hk_sql` query finds every repository with the same
+   shape, so a fix becomes one pull request per repository instead of a hunt.
+4. **Do the work.** housekeeping never writes. The agent opens pull requests
+   with its own tools, under its own permissions and your review.
+5. **Verify.** Sweep again. The finding is gone or it is not, and the change
+   between two snapshots is a query.
+
+Questions an agent answers in a call or two:
+
+- Which default branches are red, and which job and step broke?
+- Which pull requests can never merge, and is the trigger or a conflict to blame?
+- Which repositories carry a production advisory that GitHub shows no alert for?
+- Which scheduled workflows break the rules for schedules, and how?
+- What did Actions cost, and which job spent it?
+- What changed since the last sweep?
+
+| Tool | What it answers |
+|---|---|
+| `hk_summary` | Totals for the newest sweep: repositories, issues, pull requests, workflows, findings. |
+| `hk_findings` | Findings by code, severity, category or repository; counts by code when unfiltered. A red mainline's finding names the job and step that broke. |
+| `hk_ci` | Repositories whose default branch is red and the workflows that failed; also failing schedules, failing pull-request branches, and repositories with no CI. |
+| `hk_repo` | One repository in full: findings, workflows, open pull requests and issues. |
+| `hk_backlog` | Open pull requests or issues across the organization, oldest first. |
+| `hk_health` | A health score per repository, worst first. |
+| `hk_cost` | Actions spend by repository, workflow or job, gross and net apart. |
+| `hk_sql` | One read-only `SELECT` or `WITH` statement against the warehouse. |
+| `hk_schema` | The tables and columns, for writing `hk_sql` queries. |
+
+Every answer comes from the newest snapshot, opened read-only. A failing call
+returns a structured error, never a stack trace.
+
+### Connect it
+
+```json
+{
+  "mcpServers": {
+    "housekeeping": { "command": "hk-mcp", "env": { "HK_HOME": "/path/to/warehouse" } },
+    "atlas": { "command": "atlas", "args": ["mcp"] }
+  }
+}
+```
+
+`HK_HOME` is the directory you sweep from. From a clone, use
+`"command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"]`. The second
+server is [Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas),
+which answers the same agent about one repository at a time (see below). On
+Windows, start a globally installed command through `cmd /c`.
+
+## housekeeping and Atlas
+
+[Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas)
+(`@dogfood-lab/atlas`) maps one repository: its parts, and its doors, meaning
+every workflow with what it runs, publishes and deploys. The map is committed
+as `atlas/` and checked in CI. housekeeping is the organization view. The two
+are built to work together.
+
+- **Every map, swept.** A sweep reads each repository's committed map along
+  with everything else, and reports which repositories have none, which never
+  run `atlas check`, and which carry an engine behind the one the rest of the
+  organization pins.
+- **Where a red run broke.** When a default branch is red, the finding names
+  the job and step that failed and, through the map, the command that step
+  runs, so the repair starts in the right file.
+- **Deploy facts from the map.** The environment a job deploys to is taken from
+  the map where it records one, so both tools read a workflow the same way.
+- **Warnings across the fleet.** Atlas flags a workflow step that will break
+  before it runs, such as a tool that needs a newer runtime than the job
+  installs. The report lists these for every repository at once.
+
+An agent with both servers moves from "these twelve repositories are blocked"
+(housekeeping) to "this is the workflow, the job and the files a change will
+reach" (Atlas), without opening each repository by hand.
 
 ## Why it is shaped this way
 
@@ -154,28 +239,6 @@ This repository's `.gitignore` excludes `data/`, `reports/` and
 `housekeeping.config.json`. To keep history, which is the point of snapshots,
 run the tool from a **private** repository of your own and commit them there.
 
-## MCP server
-
-`hk-mcp` (or `npm run mcp` in a clone) serves the warehouse over stdio, so an
-assistant can ask questions without reading a multi-megabyte snapshot:
-
-`hk_summary` · `hk_findings` · `hk_ci` · `hk_repo` · `hk_backlog` ·
-`hk_health` · `hk_cost` · `hk_sql` · `hk_schema`
-
-```json
-{
-  "mcpServers": {
-    "housekeeping": { "command": "hk-mcp", "env": { "HK_HOME": "/path/to/warehouse" } }
-  }
-}
-```
-
-`HK_HOME` is the directory you sweep from. From a clone, use
-`"command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"]` instead.
-
-`hk_sql` accepts a single `SELECT` or `WITH` statement and opens the database
-read-only. A failing call returns a structured error, never a stack trace.
-
 ## Findings
 
 Rules live in `src/analyze.mjs`. Each one cites the written rule it enforces,
@@ -202,6 +265,9 @@ them produces noise:
 - **A required check nothing can emit is not a check that did not run here.**
   One says drop the requirement; the other says fix the trigger. The repairs
   contradict each other.
+- **A pull request the trigger skipped is not a conflicted one.** GitHub runs
+  no pull-request workflow on a pull request with conflicts, so its missing
+  check says nothing about the trigger. That one needs a rebase.
 - **A failed run is not a cancelled one.** `cancel-in-progress` exists to kill
   superseded runs, so cancelled minutes are usually the concurrency rule working.
 - **Gross cost is not net cost.** GitHub meters public repositories at full

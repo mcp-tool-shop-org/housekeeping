@@ -18,7 +18,8 @@ export const config: SiteConfig = {
     headlineAccent: 'every repo, one question.',
     description:
       'One sweep collects CI, pull requests, releases, security alerts, lockfiles and Actions billing for a whole GitHub organization into SQLite, ' +
-      'then audits it against written rules. <strong>Read-only.</strong> It changes nothing on GitHub.',
+      'then audits it against written rules. An AI agent reads it over MCP and coordinates work across every repository. ' +
+      '<strong>Read-only.</strong> It changes nothing on GitHub.',
     primaryCta: { href: '#usage', label: 'Get started' },
     secondaryCta: { href: 'handbook/', label: 'Read the Handbook' },
     previews: [
@@ -57,7 +58,31 @@ export const config: SiteConfig = {
         },
         {
           title: 'Which advisories GitHub is not counting',
-          desc: 'Every committed npm lockfile is read directly and checked against the advisory registry, because an unparsed manifest reports zero alerts.',
+          desc: 'Every committed npm and pnpm lockfile is read directly and checked against the advisory registry, because an unparsed manifest reports zero alerts.',
+        },
+      ],
+    },
+    {
+      kind: 'features',
+      id: 'agent',
+      title: 'An agent over every repository',
+      subtitle: 'The MCP server hands the whole organization to one AI agent, which can then coordinate the work.',
+      features: [
+        {
+          title: 'Triage in one call',
+          desc: 'What is red, what is blocked, what got worse since the last sweep, with stale history and conflicted pull requests already told apart from real breakage.',
+        },
+        {
+          title: 'One fix, every repository',
+          desc: 'A read-only SQL query finds every repository with the same shape, so a fix becomes one pull request per repository instead of a hunt.',
+        },
+        {
+          title: 'Verified by the next sweep',
+          desc: 'housekeeping never writes. The agent does the work with its own tools and permissions, and the next sweep shows whether the finding is gone.',
+        },
+        {
+          title: 'Paired with Atlas',
+          desc: 'Atlas maps one repository: its workflows, what they run and what a change reaches. housekeeping reads every map, says where a red run broke, and flags repositories with no map or an old one.',
         },
       ],
     },
@@ -104,8 +129,8 @@ export const config: SiteConfig = {
           code: 'hk ci          # red mainlines\nhk findings    # by severity\nhk health      # worst first\nhk cost        # gross and net',
         },
         {
-          title: 'Serve it to an assistant',
-          code: 'npm run mcp\n# hk_ci, hk_findings, hk_repo,\n# hk_cost, hk_sql and more',
+          title: 'Hand it to an agent',
+          code: 'hk-mcp\n# hk_ci, hk_findings, hk_repo,\n# hk_cost, hk_sql and more',
         },
       ],
     },
