@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "a1886bbe5142fa9558d2600ce9969f78b7ac4c3af75ab462f1eae09ae37901dc",
+          "hash": "5730b66685b7977fce4746eb16e8967264b42a5a04daff67e34583e95bdbfada",
           "path": "CHANGELOG.md"
         },
         {
@@ -287,6 +287,7 @@
             "environmentAdmitsBranch",
             "failedStepNote",
             "failingHeadChecks",
+            "gatedPrs",
             "healthScores",
             "jobBaseName",
             "matrixWidths",
@@ -301,10 +302,10 @@
             {
               "in": "analyze",
               "kind": "catch",
-              "line": 553
+              "line": 593
             }
           ],
-          "hash": "b13b1a01a2834002ba6d6e28e8996fe5751732729a67cc040cb1da12426d1d17",
+          "hash": "d69091de940608b1f4dc909bf8b2ad95e962bb778a64b941e2ad1c230c9dd79b",
           "importsFiles": [
             "src/config.mjs",
             "src/load.mjs"
@@ -381,7 +382,7 @@
             {
               "calls": [
                 {
-                  "line": 460,
+                  "line": 500,
                   "name": "prepare",
                   "target": null
                 },
@@ -402,14 +403,14 @@
                   "via": "isOlder"
                 },
                 {
-                  "line": 1203,
+                  "line": 1220,
                   "name": "rangeAdmits039",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 1331,
+                  "line": 1348,
                   "name": "prepare",
                   "target": null
                 }
@@ -422,7 +423,7 @@
             {
               "calls": [
                 {
-                  "line": 1336,
+                  "line": 1353,
                   "name": "prepare",
                   "target": null
                 }
@@ -3234,7 +3235,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "93571f5c23a388f62a372c7d48778ab212ef2cb2b2e8eac7356e20b58cce74d4",
+          "hash": "fa02b6deecea6fed102d6d88723acb815da01078c95b93d2b9021b01fe3901cb",
           "importsFiles": [
             "src/analyze.mjs"
           ],
@@ -3873,7 +3874,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "6fc7554e2d9661f1f0a22ed3a0465441f6412f5f",
+    "commit": "9001dab2cd9398be525f3be138a5c7377a115f09",
     "tracked": 84
   },
   "landings": [

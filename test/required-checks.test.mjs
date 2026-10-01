@@ -147,3 +147,47 @@ test('nested parentheses in a cell value do not confuse the base name', () => {
   });
   assert.deepEqual(stale, ['test (20, macos-latest)']);
 });
+
+// gatedPrs — which PRs a live required check never reached. Measured
+// 2026-09-30: eight repos carried CI_REQUIRED_CHECK_GATED although every
+// blocked PR in them was conflicting, so no pull_request workflow had run.
+import { gatedPrs } from '../src/analyze.mjs';
+
+const pr = (number, mergeable, extra = {}) =>
+  ({ number, mergeable, is_draft: 0, age_days: 13, ...extra });
+
+test('a mergeable PR that never reported a live required check is gated', () => {
+  const { blocked } = gatedPrs({
+    prs: [pr(1, 'MERGEABLE')],
+    live: ['validate-ledger'],
+    observed: [{ source: 'pr', pr_number: 1, name: 'build' }],
+  });
+  assert.deepEqual(blocked.map(x => x.p.number), [1]);
+  assert.deepEqual(blocked[0].absent, ['validate-ledger']);
+});
+
+test('FALSE POSITIVE #4: a conflicting PR is not gated, whatever it reported', () => {
+  // GitHub builds no merge ref for a conflicting PR, so pull_request workflows
+  // never start. The missing check says nothing about paths.
+  const { settled, blocked } = gatedPrs({
+    prs: [pr(1, 'CONFLICTING'), pr(2, 'CONFLICTING')],
+    live: ['Check Org Standards'],
+    observed: [{ source: 'pr', pr_number: 2, name: 'build-and-test (20)' }],
+  });
+  assert.deepEqual(blocked, []);
+  assert.equal(settled.length, 0);
+});
+
+test('a PR whose mergeability GitHub has not computed yet still counts', () => {
+  const { blocked } = gatedPrs({ prs: [pr(1, 'UNKNOWN')], live: ['test (3.12)'], observed: [] });
+  assert.deepEqual(blocked.map(x => x.p.number), [1]);
+});
+
+test('drafts and PRs under a day old are not judged', () => {
+  const { blocked } = gatedPrs({
+    prs: [pr(1, 'MERGEABLE', { is_draft: 1 }), pr(2, 'MERGEABLE', { age_days: 0 })],
+    live: ['test'],
+    observed: [],
+  });
+  assert.deepEqual(blocked, []);
+});

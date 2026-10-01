@@ -450,6 +450,46 @@ export function classifyRequiredChecks({ required, observedNames, declaredJobs }
 }
 
 /**
+ * Which open PRs are missing a live required check because their files missed
+ * the workflow's paths filter. `live` comes from classifyRequiredChecks;
+ * `observed` is the repo's check_context rows.
+ */
+export function gatedPrs({ prs, live, observed }) {
+  const seenByPr = new Map();
+  for (const c of observed) {
+    if (c.source !== 'pr' || c.pr_number == null) continue;
+    if (!seenByPr.has(c.pr_number)) seenByPr.set(c.pr_number, new Set());
+    seenByPr.get(c.pr_number).add(c.name);
+  }
+  // Drafts are not trying to merge, and a PR opened moments ago may have
+  // checks still being created. The window is measured off `created_at`,
+  // NOT `updated_at`: updated_at moves for comments, labels and rebases,
+  // none of which say anything about whether CI ran, so a long-open PR
+  // that someone commented on today would read as "too fresh to judge".
+  // created_at never moves.
+  //
+  // This deliberately holds fire for a day. Dependabot PRs opened 90
+  // minutes before a snapshot can have zero checks and never get any
+  // (site-only changes against a paths-gated ci.yml), but at that age
+  // "no checks yet" and "no checks ever" are genuinely indistinguishable.
+  // They surface on the next run.
+  // Residual gap: a week-old PR force-pushed seconds before a snapshot.
+  // Rare, self-heals, and the cheap direction to be wrong in.
+  //
+  // A conflicting PR is left out. GitHub builds no merge ref for it, so no
+  // pull_request workflow runs at all, and a check missing from it says
+  // nothing about paths; the repair is a rebase, which PR_CONFLICTED already
+  // asks for. Counting them called eight repos' trigger broken when every
+  // blocked PR there was simply conflicted. The cost: a conflicted PR that
+  // ALSO misses the paths filter is only reported once it is rebased.
+  const settled = prs.filter(p => !p.is_draft && (p.age_days ?? 0) >= 1 && p.mergeable !== 'CONFLICTING');
+  const blocked = settled
+    .map(p => ({ p, absent: live.filter(c => !(seenByPr.get(p.number)?.has(c))) }))
+    .filter(x => x.absent.length);
+  return { settled, blocked };
+}
+
+/**
  * `metaRepos` are exempt from product-hygiene rules: repos that hold org
  * defaults, assets or tooling rather than a shipped product. Which repos those
  * are is a fact about the org, so it comes from the config file (config.mjs),
@@ -877,35 +917,12 @@ export function analyze(db, sid, { metaRepos = loadConfig().metaRepos } = {}) {
           + stale.map(c => `"${c}"`).join(', '));
       }
       if (live.length) {
-        const seenByPr = new Map();
-        for (const c of observed) {
-          if (c.source !== 'pr' || c.pr_number == null) continue;
-          if (!seenByPr.has(c.pr_number)) seenByPr.set(c.pr_number, new Set());
-          seenByPr.get(c.pr_number).add(c.name);
-        }
-        // Drafts are not trying to merge, and a PR opened moments ago may have
-        // checks still being created. The window is measured off `created_at`,
-        // NOT `updated_at`: updated_at moves for comments, labels and rebases,
-        // none of which say anything about whether CI ran, so a long-open PR
-        // that someone commented on today would read as "too fresh to judge".
-        // created_at never moves.
-        //
-        // This deliberately holds fire for a day. Dependabot PRs opened 90
-        // minutes before a snapshot can have zero checks and never get any
-        // (site-only changes against a paths-gated ci.yml), but at that age
-        // "no checks yet" and "no checks ever" are genuinely indistinguishable.
-        // They surface on the next run.
-        // Residual gap: a week-old PR force-pushed seconds before a snapshot.
-        // Rare, self-heals, and the cheap direction to be wrong in.
-        const settled = myPrs.filter(p => !p.is_draft && (p.age_days ?? 0) >= 1);
-        const blocked = settled
-          .map(p => ({ p, absent: live.filter(c => !(seenByPr.get(p.number)?.has(c))) }))
-          .filter(x => x.absent.length);
+        const { settled, blocked } = gatedPrs({ prs: myPrs, live, observed });
         if (blocked.length) {
           const worst = blocked.slice().sort((a, b) => b.absent.length - a.absent.length)[0];
           F(name, 'CI_REQUIRED_CHECK_GATED', 'medium', 'ci',
-            `${blocked.length} of ${settled.length} open PRs are BLOCKED by required checks that `
-            + `never ran on them: the job still exists, the PR's files just missed its paths filter.`,
+            `${blocked.length} of ${settled.length} open PRs without conflicts are BLOCKED by required `
+            + `checks that never ran on them: the job still exists, the PR's files just missed its paths filter.`,
             `#${worst.p.number} is missing ${worst.absent.map(c => `"${c}"`).join(', ')}`
             + (blocked.length > 1 ? `; also #${blocked.filter(x => x !== worst).map(x => x.p.number).join(', #')}` : ''));
         }

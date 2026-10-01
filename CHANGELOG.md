@@ -3,6 +3,16 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+
+- `CI_REQUIRED_CHECK_GATED` no longer counts a conflicting pull request.
+  GitHub runs no `pull_request` workflow on a PR with conflicts, so a
+  required check missing from it says nothing about the paths filter, and the
+  repair is a rebase (which `PR_CONFLICTED` reports), not a trigger change. A
+  conflicted PR that also misses the paths filter is reported once rebased.
+
 ## [1.3.1] - 2026-09-30
 
 ### Fixed
