@@ -184,12 +184,45 @@ export function auditSteps(doc, jobs) {
 
 const jobSteps = job => (job && typeof job === 'object' && Array.isArray(job.steps) ? job.steps : []);
 
-/** Job ids with a step that uses actions/deploy-pages, at any version. */
-export function pagesDeployJobs(jobEntries) {
+/**
+ * Job ids with a step that uses actions/deploy-pages, at any version.
+ *
+ * In a private repository a job that skips itself there is left out: Pages on
+ * a private repo is a plan feature, and a deploy gated on
+ * `!github.event.repository.private` is how a workflow says "only when public".
+ * That job never reaches deploy-pages, so Pages being off refuses nothing.
+ */
+export function pagesDeployJobs(jobEntries, { isPrivate = false } = {}) {
+  const byId = new Map(jobEntries);
   return jobEntries
     .filter(([, job]) => jobSteps(job).some(st =>
       typeof st?.uses === 'string' && /^actions\/deploy-pages(?:@|$)/i.test(st.uses.trim())))
+    .filter(([id]) => !(isPrivate && skipsWhenPrivate(byId, id)))
     .map(([id]) => id);
+}
+
+// A term that is false exactly when the repository is private.
+const PUBLIC_ONLY = /^(?:!\s*github\.event\.repository\.private|github\.event\.repository\.private\s*==\s*false|github\.event\.repository\.private\s*!=\s*true|github\.event\.repository\.visibility\s*==\s*'public')$/;
+
+/**
+ * True when the job cannot run in a private repository: its own `if:` is a
+ * conjunction with a public-only term, or it has no `if:` of its own (so
+ * GitHub's implicit success() applies) and a job it needs cannot run. Any
+ * `||`, or anything else this cannot read, is false: unknown never excuses.
+ */
+export function skipsWhenPrivate(byId, id, seen = new Set()) {
+  if (seen.has(id)) return false;
+  seen.add(id);
+  const job = byId.get(id);
+  if (!job || typeof job !== 'object') return false;
+  if (job.if !== undefined) {
+    if (typeof job.if !== 'string') return false;
+    const expr = job.if.trim().replace(/^\$\{\{\s*([\s\S]*?)\s*\}\}$/, '$1');
+    if (expr.includes('||')) return false;
+    return expr.split('&&').some(t => PUBLIC_ONLY.test(t.trim().replace(/^\((.*)\)$/, '$1').trim()));
+  }
+  const needs = typeof job.needs === 'string' ? [job.needs] : (Array.isArray(job.needs) ? job.needs : []);
+  return needs.some(n => skipsWhenPrivate(byId, n, seen));
 }
 
 /**

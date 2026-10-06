@@ -28,23 +28,31 @@
   "changes": {
     "fileCounts": {
       "added": 0,
-      "changed": 4,
+      "changed": 1,
       "moved": 0,
       "parts": 1,
       "removed": 0
     },
     "items": [
       {
+        "kind": "landing",
+        "sentence": "src/mcp.mjs is now read by package-lock.json.",
+        "subjects": [
+          "src/mcp.mjs",
+          "package-lock.json"
+        ]
+      },
+      {
         "kind": "counts",
-        "sentence": "Nothing structural changed since 2026-10-01; 4 files changed content.",
+        "sentence": "1 file changed content, across 1 part.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "a4219c9f839f2ea6c7ddf098d51c0478aca24573",
-      "generatedAt": "2026-10-01T18:54:13.904Z"
+      "commit": "1dae276609ced5e85f67968c1328dbf4dcaf1898",
+      "generatedAt": "2026-10-06T17:14:37.038Z"
     },
-    "unchanged": true
+    "unchanged": false
   },
   "changesTogether": [
     {
@@ -68,7 +76,7 @@
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "b8eb397f553459c375f47ea462091f4743a73f5e",
+  "commit": "6b96ef31d8dd3e2ab6248cee3e2420b9503e9bd9",
   "defaultBranch": "main",
   "derived": "6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
@@ -237,10 +245,10 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-10-01T19:01:44.681Z",
+  "generatedAt": "2026-10-06T17:17:57.892Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
-    "1 write and 23 reads go to a path their caller passes, not to this repository.",
+    "1 write and 24 reads go to a path their caller passes, not to this repository.",
     "2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.",
     "1 write goes to a temporary directory, not to this repository.",
     "6 commands are built at run time and not followed, 1 of them in tests.",

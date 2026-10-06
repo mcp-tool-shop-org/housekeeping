@@ -1,6 +1,6 @@
 # housekeeping: how it works
 
-Mapped at 2026-10-01 from commit b8eb397 by Atlas 1.24.0.
+Mapped at 2026-10-06 from commit 6b96ef3 by Atlas 1.24.0.
 
 ## What this is
 
@@ -8,9 +8,10 @@ An operational-health warehouse for a GitHub organization: one sweep into SQLite
 
 6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.
 
-## What changed since 2026-10-01 (a4219c9)
+## What changed since 2026-10-06 (1dae276)
 
-Nothing structural changed since 2026-10-01; 4 files changed content.
+- src/mcp.mjs is now read by package-lock.json.
+- 1 file changed content, across 1 part.
 
 ## What comes in
 
@@ -81,7 +82,7 @@ Read those in order to follow one run of hk end to end. This path follows hk (a 
 ## What this map cannot see
 
 - 3 writes and 2 reads use paths built at run time and are not named here.
-- 1 write and 23 reads go to a path their caller passes, not to this repository.
+- 1 write and 24 reads go to a path their caller passes, not to this repository.
 - 2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.
 - 1 write goes to a temporary directory, not to this repository.
 - 6 commands are built at run time and not followed, 1 of them in tests.

@@ -92,6 +92,33 @@ test('pagesDeployJobs ignores a mention of deploy-pages outside a uses: key', ()
   assert.deepEqual(pagesDeployJobs(entries(t)), []);
 });
 
+const gate = (cond, on = 'deploy') => PAGES.replace(`  ${on}:\n`, `  ${on}:\n    if: ${cond}\n`);
+
+test('pagesDeployJobs drops a deploy gated to public repos, only when the repo is private', () => {
+  const t = gate('${{ !github.event.repository.private }}');
+  assert.deepEqual(pagesDeployJobs(entries(t), { isPrivate: true }), []);
+  assert.deepEqual(pagesDeployJobs(entries(t), { isPrivate: false }), ['deploy']);
+  assert.deepEqual(pagesDeployJobs(entries(t)), ['deploy']);
+  assert.deepEqual(pagesDeployJobs(entries(gate("github.event.repository.visibility == 'public' && github.ref == 'refs/heads/main'")),
+    { isPrivate: true }), []);
+});
+
+test('pagesDeployJobs follows needs: a gated build skips the deploy that has no if of its own', () => {
+  assert.deepEqual(pagesDeployJobs(entries(gate('${{ !github.event.repository.private }}', 'build')),
+    { isPrivate: true }), []);
+});
+
+test('pagesDeployJobs keeps a deploy whose gate it cannot read as public-only', () => {
+  for (const cond of [
+    '${{ !github.event.repository.private || github.event_name == \'workflow_dispatch\' }}',
+    "github.ref == 'refs/heads/main'",
+    '${{ always() }}',
+  ]) assert.deepEqual(pagesDeployJobs(entries(gate(cond)), { isPrivate: true }), ['deploy'], cond);
+  // the deploy's own if replaces the implicit success(): a gated build does not excuse it
+  const both = gate('${{ always() }}', 'deploy').replace('  build:\n', '  build:\n    if: ${{ !github.event.repository.private }}\n');
+  assert.deepEqual(pagesDeployJobs(entries(both), { isPrivate: true }), ['deploy']);
+});
+
 test('jobEnvironment reads both spellings and refuses an expression', () => {
   assert.equal(jobEnvironment({ environment: 'pypi' }), 'pypi');
   assert.equal(jobEnvironment({ environment: { name: 'github-pages', url: 'x' } }), 'github-pages');
