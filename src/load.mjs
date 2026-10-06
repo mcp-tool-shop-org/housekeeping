@@ -103,8 +103,10 @@ export function openDb(path = DB_PATH, { fresh = false } = {}) {
  *
  * `atlasEnv` maps a job key to the `environment` the repository's Atlas map
  * records for it (Atlas 1.24.0 and later), when the map has this file.
+ * `isPrivate` is the repository's visibility, which decides whether a job
+ * gated to public repositories can run at all.
  */
-export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = null) {
+export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = null, isPrivate = false) {
   const out = {
     path, name: path.split('/').pop(), state: 'unknown',
     has_paths_filter: 0, has_workflow_dispatch: 0, has_concurrency: 0,
@@ -197,7 +199,7 @@ export function inspectWorkflow(text, path, defaultBranch = null, atlasEnv = nul
   out.schedule_gaps = gaps ? gaps.join('\n') : null;
 
   // The deploy doors, joined in analyze.mjs to the settings they depend on.
-  out.pages_deploy_jobs = pagesDeployJobs(jobEntries).join('\n');
+  out.pages_deploy_jobs = pagesDeployJobs(jobEntries, { isPrivate }).join('\n');
   // The environment a job deploys to is a fact Atlas also records, so where
   // the map names one it is preferred: one definition for both tools. This
   // file's own reading is kept beside it, so a disagreement stays visible.
@@ -692,7 +694,7 @@ function loadSnapshotInner(db, snap) {
     const atlasEnvByFile = new Map(mapDoors.filter(d => Array.isArray(d.jobs)).map(d => [d.file,
       new Map(d.jobs.filter(j => j && typeof j.name === 'string' && j.environment).map(j => [j.name, j.environment]))]));
     for (const f of wfFiles) {
-      const w = inspectWorkflow(f.text, f.path, r.defaultBranchRef?.name ?? null, atlasEnvByFile.get(f.path) ?? null);
+      const w = inspectWorkflow(f.text, f.path, r.defaultBranchRef?.name ?? null, atlasEnvByFile.get(f.path) ?? null, !!r.isPrivate);
       stmts.wf.run(sid, r.name, w.path, w.name, w.state,
         w.has_paths_filter, w.has_workflow_dispatch, w.has_concurrency,
         w.runners, w.uses_macos, w.uses_windows,

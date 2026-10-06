@@ -3,6 +3,15 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+
+- `CI_PAGES_NOT_ENABLED` no longer fires on a private repository whose deploy
+  job is gated to public repositories (`if: !github.event.repository.private`,
+  or a job it needs is). That job is skipped, so Pages being off refuses
+  nothing. A gate joined with `||`, or one it cannot read, still counts.
+
 ## [1.4.0] - 2026-10-01
 
 ### Added

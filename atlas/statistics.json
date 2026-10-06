@@ -127,8 +127,8 @@
         "path": ".gitignore"
       },
       {
-        "commits": 20,
-        "lines": 191,
+        "commits": 22,
+        "lines": 199,
         "path": "CHANGELOG.md"
       },
       {
@@ -187,13 +187,13 @@
         "path": "SECURITY.md"
       },
       {
-        "commits": 4,
-        "lines": 101,
+        "commits": 6,
+        "lines": 105,
         "path": "SHIP_GATE.md"
       },
       {
-        "commits": 19,
-        "lines": 286,
+        "commits": 21,
+        "lines": 298,
         "path": "atlas/README.md"
       },
       {
@@ -202,18 +202,18 @@
         "path": "atlas/boundaries.yaml"
       },
       {
-        "commits": 19,
-        "lines": 805,
+        "commits": 21,
+        "lines": 833,
         "path": "atlas/page.json"
       },
       {
-        "commits": 19,
-        "lines": 2889,
+        "commits": 21,
+        "lines": 3193,
         "path": "atlas/statistics.json"
       },
       {
-        "commits": 19,
-        "lines": 6790,
+        "commits": 21,
+        "lines": 6810,
         "path": "atlas/structure.json"
       },
       {
@@ -227,13 +227,13 @@
         "path": "logo.png"
       },
       {
-        "commits": 5,
-        "lines": 1250,
+        "commits": 7,
+        "lines": 1258,
         "path": "package-lock.json"
       },
       {
-        "commits": 4,
-        "lines": 83,
+        "commits": 6,
+        "lines": 87,
         "path": "package.json"
       },
       {
@@ -567,122 +567,122 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-10-01T19:01:44.681Z",
+  "generatedAt": "2026-10-06T17:14:37.038Z",
   "generatedFrom": {
-    "commit": "b8eb397f553459c375f47ea462091f4743a73f5e"
+    "commit": "1dae276609ced5e85f67968c1328dbf4dcaf1898"
   },
   "pairs": [
     {
       "a": "CHANGELOG.md",
       "b": "atlas/README.md",
-      "either": 13,
-      "shared": 11,
-      "strength": 0.846154
+      "either": 14,
+      "shared": 12,
+      "strength": 0.857143
     },
     {
       "a": "CHANGELOG.md",
       "b": "atlas/page.json",
-      "either": 13,
-      "shared": 11,
-      "strength": 0.846154
+      "either": 14,
+      "shared": 12,
+      "strength": 0.857143
     },
     {
       "a": "CHANGELOG.md",
       "b": "atlas/statistics.json",
-      "either": 13,
-      "shared": 11,
-      "strength": 0.846154
+      "either": 14,
+      "shared": 12,
+      "strength": 0.857143
     },
     {
       "a": "CHANGELOG.md",
       "b": "atlas/structure.json",
-      "either": 13,
-      "shared": 11,
-      "strength": 0.846154
+      "either": 14,
+      "shared": 12,
+      "strength": 0.857143
     },
     {
       "a": "CHANGELOG.md",
       "b": "site/src/content/docs/handbook/findings.md",
-      "either": 12,
+      "either": 13,
       "shared": 7,
-      "strength": 0.583333
+      "strength": 0.538462
     },
     {
       "a": "CHANGELOG.md",
       "b": "src/analyze.mjs",
-      "either": 12,
+      "either": 13,
       "shared": 9,
-      "strength": 0.75
+      "strength": 0.692308
     },
     {
       "a": "atlas/README.md",
       "b": "atlas/page.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/README.md",
       "b": "atlas/statistics.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/README.md",
       "b": "atlas/structure.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/README.md",
       "b": "src/analyze.mjs",
-      "either": 13,
+      "either": 14,
       "shared": 8,
-      "strength": 0.615385
+      "strength": 0.571429
     },
     {
       "a": "atlas/page.json",
       "b": "atlas/statistics.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/page.json",
       "b": "atlas/structure.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/page.json",
       "b": "src/analyze.mjs",
-      "either": 13,
+      "either": 14,
       "shared": 8,
-      "strength": 0.615385
+      "strength": 0.571429
     },
     {
       "a": "atlas/statistics.json",
       "b": "atlas/structure.json",
-      "either": 12,
-      "shared": 12,
+      "either": 13,
+      "shared": 13,
       "strength": 1
     },
     {
       "a": "atlas/statistics.json",
       "b": "src/analyze.mjs",
-      "either": 13,
+      "either": 14,
       "shared": 8,
-      "strength": 0.615385
+      "strength": 0.571429
     },
     {
       "a": "atlas/structure.json",
       "b": "src/analyze.mjs",
-      "either": 13,
+      "either": 14,
       "shared": 8,
-      "strength": 0.615385
+      "strength": 0.571429
     },
     {
       "a": "site/src/content/docs/handbook/findings.md",
@@ -716,16 +716,16 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-10-01T11:55:53-07:00",
+    "headDate": "2026-10-01T12:03:15-07:00",
     "inScopeFiles": 86,
     "pinnedStart": null,
     "priorFloor": "fallen",
-    "qualifyingCommits": 15,
+    "qualifyingCommits": 16,
     "qualifyingMinimum": 30,
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-04-04T18:55:53.000Z",
+    "since": "2026-04-04T19:03:15.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",
