@@ -104,7 +104,7 @@
           "path": "logo.png"
         },
         {
-          "hash": "ada12e1c8001494e62155d811cb632f07ccb06cfe7861fdf392b69e9eb4c96a4",
+          "hash": "a4a9558aebe06e3a4ed11eee66f0a478b97b95b30af8a35ea016bf34582d99ea",
           "path": "package-lock.json"
         },
         {
@@ -3996,7 +3996,7 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "1dae276609ced5e85f67968c1328dbf4dcaf1898",
+    "commit": "6b96ef31d8dd3e2ab6248cee3e2420b9503e9bd9",
     "tracked": 85
   },
   "landings": [
@@ -4223,6 +4223,17 @@
         }
       ],
       "target": "src/cli.mjs",
+      "writers": []
+    },
+    {
+      "readers": [
+        {
+          "by": "package-lock.json",
+          "call": "literal",
+          "confidence": "text"
+        }
+      ],
+      "target": "src/mcp.mjs",
       "writers": []
     },
     {
