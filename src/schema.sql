@@ -371,6 +371,31 @@ CREATE TABLE IF NOT EXISTS cost_reconciliation (
   ratio REAL, trustworthy INTEGER, reason TEXT
 );
 
+-- One row per non-default branch (collect.mjs collectBranches). `state` is
+-- decided at load time (load.mjs branchRows), first match wins:
+--   open_pr       the head of an open pull request
+--   open_base     the base of an open pull request (a stacked PR targets it)
+--   merged        its PR merged and the tip IS the merged head: restorable
+--                 from the PR page, so deleting it loses nothing
+--   merged_moved  its PR merged, but the tip moved after: those commits exist
+--                 only on this branch
+--   closed        only closed, unmerged pull requests
+--   no_pr         never the head of a pull request
+-- Data, not findings: no org rule names stale branches. No rows for a repo
+-- means not measured (archived, empty, unreadable, or an older snapshot).
+CREATE TABLE IF NOT EXISTS branch (
+  snapshot_id INTEGER, repo TEXT, name TEXT, state TEXT,
+  head_oid TEXT, committed_at TEXT, age_days INTEGER,
+  pr_number INTEGER                 -- the PR the state was decided by, if any
+);
+
+-- Per-repo branch settings, one row per repo the branch pass read.
+CREATE TABLE IF NOT EXISTS repo_branches (
+  snapshot_id INTEGER, repo TEXT,
+  delete_on_merge INTEGER,          -- "Automatically delete head branches": 1 on, 0 off
+  branch_count INTEGER              -- every branch, the default included
+);
+
 CREATE TABLE IF NOT EXISTS finding (
   snapshot_id INTEGER, repo TEXT, code TEXT, severity TEXT,
   category TEXT, message TEXT, evidence TEXT
@@ -387,6 +412,7 @@ CREATE INDEX IF NOT EXISTS idx_wf_snap      ON workflow(snapshot_id, repo);
 CREATE INDEX IF NOT EXISTS idx_wfrun_snap   ON workflow_run(snapshot_id, repo);
 CREATE INDEX IF NOT EXISTS idx_finding_snap ON finding(snapshot_id, severity, code);
 CREATE INDEX IF NOT EXISTS idx_bprot_snap   ON branch_protection(snapshot_id, repo);
+CREATE INDEX IF NOT EXISTS idx_branch_snap  ON branch(snapshot_id, repo);
 CREATE INDEX IF NOT EXISTS idx_ctx_snap     ON check_context(snapshot_id, repo);
 CREATE INDEX IF NOT EXISTS idx_bill_snap    ON billing_usage(snapshot_id, repo);
 CREATE INDEX IF NOT EXISTS idx_rcost_snap   ON run_cost(snapshot_id, repo);

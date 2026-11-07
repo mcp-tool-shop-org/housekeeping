@@ -177,6 +177,8 @@ hk findings              # findings grouped by severity and code
 hk health                # per-repository health score, worst first
 hk repo <name>           # one repository in full
 hk prs                   # every open pull request by age
+hk branches              # branches by state: merged, moved after merge, no PR
+hk watch                 # open PRs, alerts and branches for a short watch list
 hk versions              # package.json against git tag against npm
 hk actions               # every workflow and its rule flags
 hk cost                  # Actions cost, gross and net side by side

@@ -3,7 +3,19 @@
 All notable changes to this project are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.5.0] - 2026-11-07
+
+### Added
+
+- A branch pass (collector 1.6.0): every branch of every non-archived
+  repository, the pull requests it was the head of, and the repository's
+  "automatically delete head branches" setting, in the `branch` and
+  `repo_branches` tables. A merged branch whose tip moved after the merge is
+  `merged_moved`, not `merged`: those commits cannot be restored from the pull
+  request page. About 1 GraphQL point per repository.
+- `hk branches [repo]`: branches by state.
+- `hk watch [repo ...]` and the `watch` config key: open pull requests, open
+  alerts and branches for a short list of repositories.
 
 ### Fixed
 
@@ -11,6 +23,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   job is gated to public repositories (`if: !github.event.repository.private`,
   or a job it needs is). That job is skipped, so Pages being off refuses
   nothing. A gate joined with `||`, or one it cannot read, still counts.
+- Scoped npm package names are encoded properly when the collector looks them up
+  on the registry (`encodeURIComponent`, not a single slash swap).
+- The landing page and handbook dependencies were updated to clear known
+  advisories (`postcss-selector-parser`, `sharp`, `source-map-js`,
+  `http-cache-semantics`, `smol-toml`).
 
 ## [1.4.0] - 2026-10-01
 

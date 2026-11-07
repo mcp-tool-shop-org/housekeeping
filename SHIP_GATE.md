@@ -1,7 +1,7 @@
 # Ship Gate
 
 > No repo is "done" until every applicable line is checked.
-> Checked per release. This file records the gate for **v1.4.0**.
+> Checked per release. This file records the gate for **v1.5.0**.
 
 **Tags:** `[all]` every repo · `[npm]` `[pypi]` `[vsix]` `[desktop]` `[container]` published artifacts · `[mcp]` MCP servers · `[cli]` CLI tools
 
