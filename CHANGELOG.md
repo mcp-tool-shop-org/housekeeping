@@ -29,6 +29,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   advisories (`postcss-selector-parser`, `sharp`, `source-map-js`,
   `http-cache-semantics`, `smol-toml`).
 
+### Security
+
+- Lockfile refresh for the MCP server's dependencies: @hono/node-server 2.1.6 and hono 4.13.17 (GHSA-rmxm-3fg6-px4f, GHSA-5r4p-p66f-jhc7), body-parser 2.4.0 (GHSA-27r3-jxmh-p828, high), fast-uri 3.1.9 (GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h, GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp), qs 6.17.1 (GHSA-6pq8-jhm2-2vcw). Installs from npm resolve within the same ranges.
+
 ## [1.4.0] - 2026-10-01
 
 ### Added

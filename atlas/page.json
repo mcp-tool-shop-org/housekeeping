@@ -27,32 +27,24 @@
   ],
   "changes": {
     "fileCounts": {
-      "added": 1,
-      "changed": 24,
+      "added": 0,
+      "changed": 2,
       "moved": 0,
-      "parts": 4,
+      "parts": 1,
       "removed": 0
     },
     "items": [
       {
-        "kind": "landing",
-        "sentence": "src/schema.sql is now also read by test/branches.test.mjs.",
-        "subjects": [
-          "src/schema.sql",
-          "test/branches.test.mjs"
-        ]
-      },
-      {
         "kind": "counts",
-        "sentence": "1 file added and 24 changed content, across 4 parts.",
+        "sentence": "Nothing structural changed since 2026-11-07; 2 files changed content.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "f5ce8fe97e7538818de884d45c7ca38ccfe725c2",
-      "generatedAt": "2026-10-15T02:51:49.297Z"
+      "commit": "418f0a992dc58646dbd473d562123757b3e3de38",
+      "generatedAt": "2026-11-07T18:35:28.521Z"
     },
-    "unchanged": false
+    "unchanged": true
   },
   "changesTogether": [
     {
@@ -76,7 +68,7 @@
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "418f0a992dc58646dbd473d562123757b3e3de38",
+  "commit": "b004591ab2033729d50c00c544149b739b308583",
   "defaultBranch": "main",
   "derived": "6 parts, mostly JavaScript (42 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
@@ -245,7 +237,7 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-11-07T18:35:28.521Z",
+  "generatedAt": "2026-11-07T18:38:43.537Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
     "1 write and 29 reads go to a path their caller passes, not to this repository.",
