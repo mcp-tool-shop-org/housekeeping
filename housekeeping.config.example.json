@@ -1,5 +1,6 @@
 {
   "org": "your-org",
   "metaRepos": [".github"],
-  "homeOrgs": ["your-org"]
+  "homeOrgs": ["your-org"],
+  "watch": []
 }

@@ -8,11 +8,16 @@
 //
 //   housekeeping.config.json
 //   { "org": "your-org", "metaRepos": [".github", "design-assets"],
-//     "homeOrgs": ["your-org", "your-other-org"] }
+//     "homeOrgs": ["your-org", "your-other-org"],
+//     "watch": ["repo-a", "repo-b"] }
 //
 // `homeOrgs` names the organizations whose projects count as the org's own.
 // A fork of a project outside them is exempt from the map rule. Unset, it is
 // the swept org alone.
+//
+// `watch` names the repos `hk watch` reports on when it is given none: a short
+// list someone reviews every week. It narrows a view, never the sweep, and
+// changes no finding.
 //
 // No network and no database here, so every branch is unit-testable.
 import { readFileSync } from 'node:fs';
@@ -22,7 +27,7 @@ import { WORK_DIR } from './paths.mjs';
 
 export const CONFIG_PATH = process.env.HK_CONFIG ?? join(WORK_DIR, 'housekeeping.config.json');
 
-const KEYS = ['org', 'metaRepos', 'homeOrgs'];
+const KEYS = ['org', 'metaRepos', 'homeOrgs', 'watch'];
 const invalid = message => userError('CONFIG_INVALID', message,
   'fix housekeeping.config.json; housekeeping.config.example.json shows the shape');
 const DEFAULT_META = ['.github'];
@@ -56,7 +61,11 @@ export function parseConfig(text) {
   if (home !== null && (!Array.isArray(home) || !home.length || home.some(o => typeof o !== 'string' || !o.trim()))) {
     throw invalid('housekeeping config: "homeOrgs" must be a non-empty array of organization names');
   }
-  return { org, metaRepos: [...meta], homeOrgs: home ? [...home] : null };
+  const watch = raw.watch ?? [];
+  if (!Array.isArray(watch) || watch.some(w => typeof w !== 'string' || !w.trim())) {
+    throw invalid('housekeeping config: "watch" must be an array of repo names');
+  }
+  return { org, metaRepos: [...meta], homeOrgs: home ? [...home] : null, watch: [...watch] };
 }
 
 /** Read the config file. A missing file is the defaults; an unreadable or malformed one throws. */
@@ -64,7 +73,7 @@ export function loadConfig(path = CONFIG_PATH) {
   let text;
   try { text = readFileSync(path, 'utf8'); }
   catch (e) {
-    if (e.code === 'ENOENT') return { org: null, metaRepos: [...DEFAULT_META], homeOrgs: null };
+    if (e.code === 'ENOENT') return { org: null, metaRepos: [...DEFAULT_META], homeOrgs: null, watch: [] };
     throw e;
   }
   return parseConfig(text);

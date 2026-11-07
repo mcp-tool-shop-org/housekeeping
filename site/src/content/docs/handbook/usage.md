@@ -30,6 +30,39 @@ hk prs              # every open pull request, oldest first
 hk issues           # every open issue, stalest first
 ```
 
+## Branches
+
+```bash
+hk branches         # per repository: merged, moved after merge, closed, stale
+hk branches <repo>  # every branch of one repository and its state
+```
+
+Each branch is named by its pull requests, first match wins:
+
+| State | Meaning |
+|---|---|
+| `open_pr` | the head of an open pull request |
+| `open_base` | the base of an open pull request, as a stacked one is |
+| `merged` | its pull request merged and the tip is the merged commit, so the pull request page can restore it |
+| `merged_moved` | its pull request merged, then more commits were pushed; those exist only on this branch |
+| `closed` | only closed, unmerged pull requests |
+| `no_pr` | never the head of a pull request |
+
+Only `merged` is safe to delete without asking. These are data, not findings.
+Each repository's "automatically delete head branches" setting is recorded too.
+
+## A watch list
+
+```bash
+hk watch                 # the repositories in "watch" in the config
+hk watch repo-a repo-b   # or name them
+```
+
+For each repository: open pull requests with the longest idle first, open
+Dependabot alerts with their fix versions, and the branches a cleanup would
+touch. A repository whose alerts are switched off says so, rather than showing
+an empty list.
+
 ## Versions
 
 ```bash

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.md">English</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
+  <a href="README.md">English</a> | <a href="README.ja.md">日本語</a> | <a href="README.zh.md">中文</a> | <a href="README.es.md">Español</a> | <a href="README.fr.md">Français</a> | <a href="README.hi.md">हिन्दी</a> | <a href="README.it.md">Italiano</a> | <a href="README.pt-BR.md">Português (BR)</a>
 </p>
 
 <p align="center">
@@ -21,7 +21,10 @@
   <a href="https://mcp-tool-shop-org.github.io/housekeeping/handbook/"><img src="https://img.shields.io/badge/Handbook-read-blue" alt="Handbook" /></a>
 </p>
 
-Una sola ejecución recopila el estado de CI de cada repositorio, los problemas abiertos y las solicitudes de extracción, las versiones, las etiquetas de versión, los archivos de flujo de trabajo, la protección de ramas, las alertas de seguridad, los archivos de bloqueo y la facturación de Actions en SQLite, y luego realiza una auditoría de todo ello en función de las reglas establecidas.
+Una sola ejecución recopila el estado de CI de cada repositorio, los problemas abiertos y las solicitudes de extracción,
+lanzamientos, etiquetas de versión, archivos de flujo de trabajo, protección de ramas, alertas de seguridad,
+archivos de bloqueo y la facturación de Actions en SQLite, y luego realiza una auditoría de todo esto en función de las
+reglas establecidas.
 
 Responde, para toda la organización a la vez:
 
@@ -29,20 +32,27 @@ Responde, para toda la organización a la vez:
 - ¿Cuáles son las solicitudes de extracción que nunca se pueden fusionar, porque una comprobación requerida que no emite nada las está bloqueando?
 - ¿Cuáles son los despliegues que los propios ajustes del repositorio rechazan?
 - ¿Dónde han divergido `package.json`, las etiquetas de Git y el registro de npm?
-- ¿Cuáles son los flujos de trabajo que infringen las reglas de coste de Actions, cuánto costaron y qué trabajos los utilizaron?
-- ¿Qué repositorios contienen avisos que el propio recuento de alertas de GitHub no detecta?
+- ¿Cuáles son los flujos de trabajo que infringen las reglas de costos de Actions, cuánto costaron y qué trabajos los utilizaron?
+- ¿Qué repositorios contienen avisos que el recuento de alertas de GitHub no detecta?
 
 Es un instrumento de auditoría, no un corrector. Lee GitHub y no cambia nada.
 
 ## Un agente para cada repositorio
 
-Una organización con docenas de repositorios no tiene un único lugar donde se almacene su estado. housekeeping es ese lugar, y su servidor MCP, `hk-mcp`, se lo proporciona a un agente de IA. Con él, un agente puede actuar como coordinador para toda la organización:
+Una organización con docenas de repositorios no tiene un único lugar donde se almacene su
+estado. housekeeping es ese lugar, y su servidor MCP, `hk-mcp`, se lo proporciona a un agente de IA. Con él, un agente puede actuar como coordinador para toda la
+organización:
 
-1. **Ejecución.** `hk refresh` realiza una instantánea de cada repositorio.
-2. **Clasificación.** El agente pregunta qué está en rojo, qué está bloqueado y qué ha empeorado, y obtiene respuestas que ya distinguen una rama principal defectuosa de un historial obsoleto, y una solicitud de extracción bloqueada de una solicitud en conflicto.
-3. **Planificación de una ola.** Una consulta `hk_sql` encuentra todos los repositorios con la misma estructura, por lo que una corrección se convierte en una solicitud de extracción por repositorio en lugar de una búsqueda.
-4. **Realización del trabajo.** housekeeping nunca escribe. El agente abre solicitudes de extracción con sus propias herramientas, bajo sus propios permisos y con su revisión.
-5. **Verificación.** Ejecución de nuevo. El hallazgo desaparece o no, y el cambio entre dos instantáneas es una consulta.
+1. **Ejecución.** `hk refresh` toma una instantánea de cada repositorio.
+2. **Clasificación.** El agente pregunta qué está en rojo, qué está bloqueado y qué ha empeorado,
+y obtiene respuestas que ya distinguen una rama principal defectuosa de un historial obsoleto, y
+una solicitud de extracción bloqueada de una solicitud en conflicto.
+3. **Planificación de una ola.** Una consulta de `hk_sql` encuentra todos los repositorios con la misma
+estructura, por lo que una corrección se convierte en una solicitud de extracción por repositorio en lugar de una búsqueda.
+4. **Realización del trabajo.** housekeeping nunca escribe. El agente abre solicitudes de extracción
+con sus propias herramientas, bajo sus propios permisos y con su revisión.
+5. **Verificación.** Ejecución de nuevo. El hallazgo desaparece o no, y el cambio
+entre dos instantáneas es una consulta.
 
 Preguntas a las que un agente responde en una o dos llamadas:
 
@@ -56,8 +66,8 @@ Preguntas a las que un agente responde en una o dos llamadas:
 | Herramienta | Lo que responde |
 |---|---|
 | `hk_summary` | Totales de la ejecución más reciente: repositorios, problemas, solicitudes de extracción, flujos de trabajo, hallazgos. |
-| `hk_findings` | Hallazgos por código, gravedad, categoría o repositorio; recuentos por código cuando no se filtra. El hallazgo de una rama principal en rojo indica el trabajo y el paso que fallaron. |
-| `hk_ci` | Repositorios cuya rama predeterminada está en rojo y los flujos de trabajo que fallaron; también fallan las programaciones, las ramas de solicitud de extracción que fallan y los repositorios sin CI. |
+| `hk_findings` | Hallazgos por código, gravedad, categoría o repositorio; recuentos por código cuando no se filtran. El hallazgo de una rama principal en rojo indica el trabajo y el paso que fallaron. |
+| `hk_ci` | Repositorios cuya rama predeterminada está en rojo y los flujos de trabajo que fallaron; también fallan las programaciones, las ramas de solicitudes de extracción que fallan y los repositorios sin CI. |
 | `hk_repo` | Un repositorio completo: hallazgos, flujos de trabajo, solicitudes de extracción y problemas abiertos. |
 | `hk_backlog` | Solicitudes de extracción o problemas abiertos en toda la organización, del más antiguo al más reciente. |
 | `hk_health` | Una puntuación de estado por repositorio, del peor al mejor. |
@@ -65,7 +75,8 @@ Preguntas a las que un agente responde en una o dos llamadas:
 | `hk_sql` | Una única instrucción de solo lectura `SELECT` o `WITH` contra el almacén. |
 | `hk_schema` | Las tablas y las columnas, para escribir consultas `hk_sql`. |
 
-Cada respuesta proviene de la instantánea más reciente, abierta en modo de solo lectura. Una llamada que falla devuelve un error estructurado, nunca un rastreo de pila.
+Cada respuesta proviene de la instantánea más reciente, abierta en modo de solo lectura. Una llamada que falla
+devuelve un error estructurado, nunca un rastreo de pila.
 
 ### Conéctelo
 
@@ -78,41 +89,58 @@ Cada respuesta proviene de la instantánea más reciente, abierta en modo de sol
 }
 ```
 
-`HK_HOME` es el directorio desde el que se realiza la ejecución. Desde un clon, utilice `"command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"]`. El segundo servidor es [Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas), que responde al mismo agente sobre un repositorio a la vez (véase más abajo). En Windows, inicie un comando instalado globalmente a través de `cmd /c`.
+`HK_HOME` es el directorio desde el que se realiza la ejecución. Desde un clon, utilice
+`"command": "node", "args": ["/path/to/housekeeping/src/mcp.mjs"]`. El segundo
+servidor es [Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas),
+que responde al mismo agente sobre un repositorio a la vez (consulte a continuación). En
+Windows, inicie un comando instalado globalmente a través de `cmd /c`.
 
 ## housekeeping y Atlas
 
-[Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas) (`@dogfood-lab/atlas`) mapea un repositorio: sus partes y sus puertas, lo que significa cada flujo de trabajo con lo que ejecuta, publica y despliega. El mapa se confirma como `atlas/` y se comprueba en CI. housekeeping es la vista de la organización. Ambos están diseñados para funcionar juntos.
+[Atlas](https://github.com/dogfood-lab/testing-os/tree/main/packages/atlas)
+(`@dogfood-lab/atlas`) asigna un repositorio: sus partes y sus puertas, lo que significa
+cada flujo de trabajo con lo que ejecuta, publica y despliega. El mapa se confirma
+como `atlas/` y se comprueba en CI. housekeeping es la vista de la organización. Los dos
+están diseñados para funcionar juntos.
 
-- **Cada mapa, ejecutado.** Una ejecución lee el mapa confirmado de cada repositorio junto con todo lo demás, e informa de qué repositorios no tienen ninguno, qué nunca ejecutan `atlas check` y qué contienen un motor detrás del que el resto de la organización utiliza.
-- **Dónde una ejecución en rojo falló.** Cuando una rama predeterminada está en rojo, el hallazgo indica el trabajo y el paso que fallaron y, a través del mapa, el comando que ese paso ejecuta, por lo que la reparación comienza en el archivo correcto.
-- **Datos de despliegue del mapa.** El entorno en el que un trabajo se despliega se toma del mapa donde lo registra, por lo que ambas herramientas leen un flujo de trabajo de la misma manera.
-- **Advertencias en toda la flota.** Atlas marca un paso del flujo de trabajo que fallará antes de ejecutarse, como una herramienta que necesita una versión más reciente del entorno de ejecución que el trabajo instala. El informe los enumera para todos los repositorios a la vez.
+- **Cada mapa, ejecutado.** Una ejecución lee el mapa confirmado de cada repositorio junto con
+todo lo demás, e informa de qué repositorios no tienen ninguno, qué nunca
+ejecutan `atlas check` y cuáles tienen un motor detrás del que el resto de la
+organización utiliza.
+- **Dónde una ejecución en rojo falló.** Cuando una rama predeterminada está en rojo, el hallazgo indica
+el trabajo y el paso que fallaron y, a través del mapa, el comando que ese paso
+ejecuta, por lo que la reparación comienza en el archivo correcto.
+- **Hechos de despliegue del mapa.** El entorno en el que un trabajo se despliega se toma del
+mapa donde se registra, por lo que ambas herramientas leen un flujo de trabajo de la misma manera.
+- **Advertencias en toda la flota.** Atlas marca un paso del flujo de trabajo que fallará
+antes de ejecutarse, como una herramienta que necesita una versión más reciente del entorno de ejecución que el trabajo
+instala. El informe los enumera para todos los repositorios a la vez.
 
-Un agente con ambos servidores pasa de "estos doce repositorios están bloqueados" (housekeeping) a "este es el flujo de trabajo, el trabajo y los archivos a los que llegará un cambio" (Atlas), sin tener que abrir cada repositorio manualmente.
+Un agente con ambos servidores pasa de "estos doce repositorios están bloqueados"
+(housekeeping) a "este es el flujo de trabajo, el trabajo y los archivos a los que llegará un cambio" (Atlas), sin abrir cada repositorio manualmente.
 
 ## Por qué tiene esta forma
 
 | Capa | Opción | Razón |
 |---|---|---|
-| Transporte | La CLI `gh` | Ya tiene su token. La herramienta nunca almacena ni solicita una credencial. |
-| Recopilación | GitHub GraphQL, paginado | Una consulta devuelve metadatos, problemas abiertos, solicitudes de extracción abiertas, versiones y árboles de archivos para una página de repositorios. Una página que sigue dando tiempo de espera se divide por la mitad y se vuelve a solicitar desde el mismo cursor. |
-| Ejecuciones de Actions | REST | GraphQL no tiene una superficie de Actions. |
-| Las acciones tienen un costo. | API de facturación más duraciones por tarea. | La factura indica qué repositorio; solo las tareas indican qué flujo de trabajo. Los puntos finales `/timing` de GitHub devuelven ceros, por lo que la suma por tarea se reconstruye y luego se concilia con la factura. |
-| Tarifas de los ejecutores. | Se lee de la factura. | Una tarifa facturada puede diferir del precio de lista, y una constante en el código fuente distorsionaría todos los números. |
-| Almacenamiento. | SQLite a través del `node:sqlite` integrado. | No hay un paso de compilación nativo. |
-| Fuente de la verdad. | `data/snapshots/*.json` | Datos sin procesar, comparables y solo para anexar. La base de datos se deriva: `npm run rebuild` la reconstruye sin conexión. |
-| Registro de análisis. | `data/sweeps.jsonl` | Una línea por análisis, incluidos los análisis que fallaron y los análisis que no encontraron nada nuevo. |
+| Transporte | la CLI `gh` | Ya tiene su token. La herramienta nunca almacena ni solicita una credencial. |
+| Recopilación | GitHub GraphQL, por páginas | Una consulta devuelve metadatos, problemas abiertos, solicitudes de extracción abiertas, lanzamientos y árboles de archivos para una página de repositorios. Una página que sigue tardando se divide a la mitad y se vuelve a solicitar desde el mismo cursor. |
+| Ejecuciones de Actions | REST | GraphQL no tiene ninguna superficie de Actions. |
+| Costo de Actions | API de facturación más duraciones por trabajo. | La factura indica el repositorio; solo los trabajos indican el flujo de trabajo. Los puntos finales de GitHub's `/timing` devuelven ceros, por lo que la suma por trabajo se reconstruye y luego se concilia con la factura. |
+| Tarifas de ejecución | Leídas de la factura | Una tarifa facturada puede diferir del precio de lista, y una constante en la fuente distorsionaría todos los números. |
+| Almacenamiento | SQLite a través del `node:sqlite` integrado | No hay un paso de compilación nativo. |
+| Fuente de la verdad | `data/snapshots/*.json` | Bruta, comparable y solo para anexar. La base de datos se deriva: `npm run rebuild` la reconstruye sin conexión. |
+| Registro de análisis | `data/sweeps.jsonl` | Una línea por análisis, incluidos los análisis que fallaron y los análisis que no encontraron nada nuevo. |
 
 Las instantáneas son inmutables y aditivas, por lo que la desviación entre dos fechas es un `JOIN`.
 
 ## Requisitos
 
 - Node.js 22.5 o posterior.
-- La [CLI de GitHub](https://cli.github.com/), con la sesión iniciada (`gh auth status`) como una
+- La CLI [GitHub](https://cli.github.com/), con inicio de sesión (`gh auth status`) como una
 cuenta que puede leer la organización. Para leer la facturación y las alertas de seguridad,
-se necesitan los permisos correspondientes; un análisis sin ellos registrará "no medido" y
-continuará. Nunca registrará un permiso faltante como un resultado válido.
+se necesitan los permisos correspondientes; un análisis sin ellos registra "no medido" y
+continúa. Nunca registra un permiso faltante como un resultado válido.
 - Windows o Linux. Se desarrolla en Windows y sus pruebas se ejecutan en Linux en
 CI. macOS debería funcionar y no se ha probado.
 
@@ -125,9 +153,9 @@ hk refresh your-org                        # collect, load, analyze, write repor
 ```
 
 Para mantener la configuración entre los análisis, coloque un `housekeeping.config.json` en ese
-directorio (consulte Configuración); luego `hk refresh` no necesita ningún argumento.
+directorio (consulte Configuración); luego, `hk refresh` no necesita ningún argumento.
 
-O ejecútelo desde un clon, que mantiene sus datos en el clon:
+O ejecútelo desde una copia, que mantiene sus datos en la copia:
 
 ```bash
 git clone https://github.com/mcp-tool-shop-org/housekeeping.git
@@ -147,6 +175,8 @@ hk findings              # findings grouped by severity and code
 hk health                # per-repository health score, worst first
 hk repo <name>           # one repository in full
 hk prs                   # every open pull request by age
+hk branches              # branches by state: merged, moved after merge, no PR
+hk watch                 # open PRs, alerts and branches for a short watch list
 hk versions              # package.json against git tag against npm
 hk actions               # every workflow and its rule flags
 hk cost                  # Actions cost, gross and net side by side
@@ -154,7 +184,7 @@ hk sql "SELECT ..."      # one read-only statement
 hk help                  # every command and flag
 ```
 
-En un clon sin `npm link`, cada `hk <command>` es `node src/cli.mjs <command>`.
+En una copia sin `npm link`, cada `hk <command>` es `node src/cli.mjs <command>`.
 
 `npm run rebuild` vuelve a derivar la base de datos y el informe a partir de las instantáneas que ya
 existen en el disco, sin acceso a la red.
@@ -162,11 +192,11 @@ existen en el disco, sin acceso a la red.
 Un análisis completo realiza unos pocos cientos de llamadas a la API. No ejecute `refresh` en un bucle.
 
 Los resultados se envían a la salida estándar; el progreso y los errores se envían a la salida de error estándar. Cada
-error imprime un código y una pista. Códigos de salida: 0 (correcto), 1 (error de usuario), 2 (error en tiempo de ejecución), 3 (parcial; el análisis se completó, con omisiones).
+error imprime un código y una pista. Códigos de salida: 0 correcto, 1 error de usuario, 2 error de tiempo de ejecución, 3 parcial (el análisis se completó, con lagunas).
 
 ## Configuración
 
-`housekeeping.config.json`, en el directorio en el que funciona la herramienta de limpieza (consulte a continuación):
+`housekeeping.config.json`, en el directorio donde funciona la herramienta de limpieza (consulte a continuación):
 
 ```json
 {
@@ -175,73 +205,87 @@ error imprime un código y una pista. Códigos de salida: 0 (correcto), 1 (error
 }
 ```
 
-- `org` es la organización que se va a analizar. `hk refresh <org>` lo anula. Si no se especifica ninguno de los dos, un análisis se negará a comenzar.
-- `metaRepos` son los repositorios que contienen los valores predeterminados, los activos o las
-herramientas de la organización, no un producto que se va a distribuir. Están exentos de los hallazgos que solo
+- `org` es la organización que se va a analizar. `hk refresh <org>` lo anula. Si no se especifica ninguno, un análisis se negará a comenzar.
+- `metaRepos` son los repositorios que contienen la configuración predeterminada de la organización, los activos o
+las herramientas, no un producto comercializado. Están exentos de los hallazgos que solo
 tienen sentido para un producto: falta de archivos README, LICENSE y similares, no tener
 flujos de trabajo y no tener versiones.
 
-Un archivo con formato incorrecto es un error, nunca un valor predeterminado silencioso: una clave desconocida, un
-tipo incorrecto o un JSON dañado detienen la ejecución.
+Un archivo con formato incorrecto es un error, nunca un valor predeterminado silencioso: una clave desconocida, un tipo incorrecto o un JSON dañado detienen la ejecución.
 
-Ejecute desde un clon, la herramienta de limpieza mantiene `data/`, `reports/` y el archivo de configuración
-en el clon. Ejecute como un paquete instalado; los mantiene en el directorio desde el que
-lo ejecuta, o en `HK_HOME` cuando se establece.
+Ejecute desde una copia, la herramienta de limpieza mantiene `data/`, `reports/` y el archivo de configuración
+en la copia. Ejecute como un paquete instalado, lo mantiene en el directorio desde el que
+lo ejecuta, o en `HK_HOME` cuando esté configurado.
 
 Entorno: `HK_HOME` (donde residen los datos, los informes y la configuración),
 `HK_CONFIG` (ruta de configuración), `HK_DB` (ruta de la base de datos), `HK_LOG`
 (`silent`, `normal`, `verbose` o `debug`), `HK_COST_REPOS` y
-`HK_COST_BUDGET` (límites del costo por tarea), `GH_PATH` (ruta a `gh`).
+`HK_COST_BUDGET` (límites del costo por trabajo), `GH_PATH` (ruta a `gh`).
 
 ## Mantenga los datos privados
 
-**Lo que escribe un análisis es confidencial. No incluya `data/` o `reports/` en un
+**Lo que escribe un análisis es confidencial. No confirme `data/` o `reports/` en un
 repositorio público.**
 
-Una instantánea registra los nombres y las descripciones de los repositorios privados, todas
-las alertas de seguridad abiertas con el paquete que nombran, los archivos de flujo de trabajo y la facturación de Actions. GitHub oculta deliberadamente las alertas de seguridad de un repositorio público a todos, excepto a sus mantenedores; una instantánea publicada entregaría esa lista.
+Una instantánea registra los nombres y las descripciones de los repositorios privados, cada
+alerta de seguridad abierta con el paquete que menciona, los archivos de flujo de trabajo y la facturación de Actions. GitHub oculta deliberadamente las alertas de seguridad de un repositorio público a
+todos, excepto a sus mantenedores; una instantánea publicada entregaría esa lista.
 
 El `.gitignore` de este repositorio excluye `data/`, `reports/` y
-`housekeeping.config.json`. Para mantener el historial, que es el objetivo de las instantáneas,
-ejecute la herramienta desde un **repositorio privado** de su propiedad y guárdelos allí.
+`housekeeping.config.json`. Para mantener el historial, que es el propósito de las instantáneas,
+ejecute la herramienta desde un repositorio **privado** y confírmelos allí.
 
 ## Hallazgos
 
 Las reglas se encuentran en `src/analyze.mjs`. Cada una cita la regla escrita que aplica,
 por lo que un hallazgo se puede discutir en relación con un estándar y no con el gusto. Las reglas
-que incluye este repositorio se encuentran en [`rules/`](rules/):
+que este repositorio incluye se encuentran en [`rules/`](rules/):
 
-- [`rules/github-actions.md`](rules/github-actions.md): filtros de rutas, ejecutores, tamaño de la matriz, el límite del archivo de flujo de trabajo, concurrencia.
-- [`rules/shipcheck-product-standards.md`](rules/shipcheck-product-standards.md): CI debe pasar, las puertas de envío, las versiones.
+- [`rules/github-actions.md`](rules/github-actions.md): filtros de ruta, ejecutores, tamaño de matriz, límite del archivo de flujo de trabajo, concurrencia.
+- [`rules/shipcheck-product-standards.md`](rules/shipcheck-product-standards.md): CI debe pasar, las puertas de envío, versiones.
 - [`rules/repo-first.md`](rules/repo-first.md): la rama predeterminada.
-- [`rules/atlas-map.md`](rules/atlas-map.md): un mapa comprometido de cada repositorio, verificado en CI.
+- [`rules/atlas-map.md`](rules/atlas-map.md): un mapa confirmado de cada repositorio, verificado en CI.
 
 Son los estándares de una organización. Si los suyos son diferentes, cambie el archivo de reglas
-y la regla al mismo tiempo.
+y la regla juntos.
 
-Las reglas se encargan de mantener separados los elementos que parecen similares, porque combinarlos
-genera ruido:
+Las reglas se aseguran de mantener separados los elementos que parecen similares, porque combinarlos produce ruido:
 
-- **Una rama predeterminada roja no es una rama de solicitud de extracción roja.** Una rama de Dependabot que falla es un elemento pendiente; una ejecución de `push` fallida en la rama predeterminada es un problema. El evento de la ejecución determina cuál es.
-- **El historial no es un problema.** Un flujo de trabajo que se ha movido a un disparador de solo lanzamiento conserva su última falla en la rama predeterminada para siempre. Un flujo de trabajo eliminado conserva sus ejecuciones. Ninguno de los dos es un defecto activo.
-- **Una comprobación requerida que nada puede emitir no es una comprobación que no se haya ejecutado aquí.** Una indica que se elimine el requisito; la otra indica que se corrija el disparador. Las correcciones se contradicen entre sí.
-- **Una solicitud de extracción que el disparador omitió no es una solicitud en conflicto.** GitHub no ejecuta ningún flujo de trabajo de solicitud de extracción en una solicitud de extracción con conflictos, por lo que su comprobación faltante no dice nada sobre el disparador. Esta última necesita una rebase.
-- **Una ejecución fallida no es una ejecución cancelada.** `cancel-in-progress` existe para eliminar las ejecuciones obsoletas, por lo que los minutos cancelados suelen ser la regla de concurrencia en funcionamiento.
-- **El costo bruto no es el costo neto.** GitHub mide los repositorios públicos a precio completo y los descuenta a cero. El costo bruto es la capacidad de cómputo real; el costo neto es el dinero real. Nunca se suman.
-- **Lo que no se mide no está limpio.** Un repositorio que GitHub no está analizando informa cero alertas. Un repositorio al que no llegó el paso de costo no tiene fila de costo. Ambos se informan como desconocidos.
+- **Una rama predeterminada roja no es una rama de solicitud de extracción roja.** Una rama de Dependabot que falla es una tarea pendiente; una ejecución de `push` que falla en la rama predeterminada es
+un problema. El evento de la ejecución decide cuál es.
+- **El historial no es un problema.** Un flujo de trabajo que se mueve a solo versiones mantiene
+su último fallo de la rama predeterminada para siempre. Un flujo de trabajo eliminado mantiene sus ejecuciones.
+Ninguno es un defecto activo.
+- **Una comprobación requerida que nada puede emitir no es una comprobación que no se ejecutó aquí.**
+Una indica que se elimine el requisito; la otra indica que se corrija el desencadenador. Las reparaciones
+se contradicen entre sí.
+- **Una solicitud de extracción que el desencadenador omitió no es una solicitud de extracción con conflictos.** GitHub no ejecuta
+ningún flujo de trabajo de solicitud de extracción en una solicitud de extracción con conflictos, por lo que su comprobación faltante no dice nada sobre el desencadenador. Esa requiere una rebase.
+- **Una ejecución fallida no es una ejecución cancelada.** `cancel-in-progress` existe para matar
+las ejecuciones obsoletas, por lo que los minutos cancelados suelen ser la regla de concurrencia en funcionamiento.
+- **El costo bruto no es el costo neto.** GitHub mide los repositorios públicos a precio completo y los descuenta a cero. El bruto es la computación real; el neto es el dinero real.
+Nunca se suman.
+- **No medido no es limpio.** Un repositorio GitHub no está analizando informes
+y muestra cero alertas. Un repositorio al que no llegó el paso de costos no tiene una fila de costos. Ambos
+se informan como desconocidos.
 
-La gravedad impulsa una puntuación de estado: crítica 40, alta 15, media 6, baja 2, informativa 0, que se deduce de 100. La puntuación clasifica la atención, no la calidad.
+La gravedad impulsa una puntuación de estado: crítico 40, alto 15, medio 6, bajo 2, informativo 0,
+restados de 100. La puntuación clasifica la atención, no la calidad.
 
-El [manual](https://mcp-tool-shop-org.github.io/housekeeping/handbook/) enumera todos los hallazgos, comandos, códigos de error y tablas.
+El [manual](https://mcp-tool-shop-org.github.io/housekeeping/handbook/)
+enumera todos los resultados, comandos, códigos de error y tablas.
 
 ## Seguridad
 
-- **Solo lectura.** El recopilador emite consultas GraphQL y solicitudes REST `GET`. Nunca fusiona, envía, lanza, publica ni edita una configuración.
-- **Sin credenciales.** La autenticación es lo que `gh` ya tiene. Nada se escribe en el disco al respecto.
-- **Sin telemetría.** Los únicos hosts contactados son la API de GitHub, a través de `gh`, y el registro de npm, para buscar versiones y avisos.
+- **Solo lectura.** El recopilador emite GraphQL consultas y solicitudes REST `GET`. Nunca
+fusiona, envía, publica, edita o modifica una configuración.
+- **Sin credenciales.** La autenticación es la que ya tiene `gh`. No se escribe nada
+en el disco al respecto.
+- **Sin telemetría.** Los únicos hosts a los que se contacta son la API GitHub, a través de `gh`,
+y el registro de npm, para buscar versiones y avisos.
 - **Lo que almacena** es la parte sensible: consulte "Mantenga los datos privados".
 
-Informe una vulnerabilidad según lo descrito en [SECURITY.md](SECURITY.md).
+Informe sobre una vulnerabilidad según se describe en [SECURITY.md](SECURITY.md).
 
 ## Pruebas
 
@@ -249,7 +293,10 @@ Informe una vulnerabilidad según lo descrito en [SECURITY.md](SECURITY.md).
 npm test
 ```
 
-Cada regla se prueba en ambas direcciones: la forma que debe activarse y la forma vecina que no debe activarse. Un verificador independiente vuelve a derivar una muestra de los hallazgos de GitHub en vivo a través de su propio transporte y omite, ruidosamente, cuando no hay base de datos o red.
+Cada regla se prueba en ambas direcciones: la forma que debe activarse y la
+forma adyacente que no debe activarse. Un verificador independiente vuelve a obtener una muestra de
+resultados de GitHub en tiempo real a través de su propio transporte y omite, de forma evidente, cuando
+no hay base de datos o no hay red.
 
 ## Licencia
 

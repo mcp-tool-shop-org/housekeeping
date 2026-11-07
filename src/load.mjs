@@ -469,6 +469,38 @@ export function failedStepRows(record, text) {
   return rows;
 }
 
+/**
+ * Classify one repo's branches (schema.sql, table `branch`). Pure.
+ *
+ * Order matters, and each step was a real case on 2026-10-11:
+ * - an open PR beats a merged one: a branch reused for a second PR is live;
+ * - being an open PR's BASE beats being merged: a stacked PR targets it, and
+ *   deleting it would retarget or close that PR;
+ * - "merged" needs the tip to equal the merged head. Four branches had commits
+ *   pushed after their PR merged, which the PR page's restore cannot bring back.
+ */
+export function branchRows(record, { defaultBranch = null, openBases = [] } = {}) {
+  const bases = new Set(openBases);
+  const rows = [];
+  for (const b of record?.branches ?? []) {
+    if (b.name === defaultBranch) continue;
+    const prs = b.prs ?? [];
+    const open = prs.find(p => p.state === 'OPEN');
+    const merged = prs.filter(p => p.state === 'MERGED');
+    const exact = merged.find(p => p.head_oid && p.head_oid === b.oid);
+    let state, pr = null;
+    if (open)                  { state = 'open_pr'; pr = open.number; }
+    else if (bases.has(b.name)) state = 'open_base';
+    else if (exact)            { state = 'merged'; pr = exact.number; }
+    else if (merged.length)    { state = 'merged_moved'; pr = merged[0].number; }
+    else if (prs.length)       { state = 'closed'; pr = prs[0].number; }
+    else                        state = 'no_pr';
+    rows.push({ name: b.name, state, head_oid: b.oid ?? null,
+      committed_at: b.committed_at ?? null, age_days: daysSince(b.committed_at), pr_number: pr });
+  }
+  return rows;
+}
+
 export function isWorkspaceRoot(pkg, rootEntryNames = [], pnpmWorkspaceText) {
   if (pkg?.workspaces) return true;
   const names = new Set(rootEntryNames.map(n => String(n).toLowerCase()));
@@ -544,6 +576,8 @@ function loadSnapshotInner(db, snap) {
     lock: insertInto('lockfile'),
     lockAdv: insertInto('lockfile_advisory'),
     bprot: insertInto('branch_protection'),
+    branch: insertInto('branch'),
+    repoBranches: insertInto('repo_branches'),
     ctx: insertInto('check_context'),
     bill: insertInto('billing_usage'),
     runCost: insertInto('run_cost'),
@@ -790,6 +824,22 @@ function loadSnapshotInner(db, snap) {
         oldest, daysSince(oldest),
         list.filter(a => a.fixed_version).length,
       );
+    }
+  }
+
+  // ---- branches ------------------------------------------------------------
+  // Absent `branches` (an older snapshot) or a repo missing from it (archived,
+  // empty, unreadable) leaves no rows: not measured, never "nothing to clean".
+  if (snap.branches) {
+    for (const r of snap.repos) {
+      const rec = snap.branches.repos?.[r.name];
+      if (!rec) continue;
+      stmts.repoBranches.run(sid, r.name,
+        rec.delete_branch_on_merge === null ? null : bool(rec.delete_branch_on_merge), rec.total ?? null);
+      const openBases = (r.prList?.nodes ?? []).map(p => p.baseRefName).filter(Boolean);
+      for (const b of branchRows(rec, { defaultBranch: r.defaultBranchRef?.name ?? null, openBases })) {
+        stmts.branch.run(sid, r.name, b.name, b.state, b.head_oid, b.committed_at, b.age_days, b.pr_number);
+      }
     }
   }
 

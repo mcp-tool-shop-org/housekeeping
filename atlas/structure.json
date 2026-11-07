@@ -44,7 +44,7 @@
           "path": ".gitignore"
         },
         {
-          "hash": "4c9507bc480dfbef13acbd94f107bec3fdeb94e64ba98175e9ed0a7622404e1e",
+          "hash": "eef38a326af91f5c7b2497cd29d79f80b9d60cde3757eef772dc3bde81497dac",
           "path": "CHANGELOG.md"
         },
         {
@@ -52,35 +52,35 @@
           "path": "LICENSE"
         },
         {
-          "hash": "f177d08f2cc322ef0bb64b6e6762f97411882b3f49dcda329cd19f7d681a0e60",
+          "hash": "f19059d12a7c7af39f597245761512c04d172d0ec921fdbb8f1ffef26b3820de",
           "path": "README.es.md"
         },
         {
-          "hash": "86fb5074834d7869ccfd2ac66fd942df8e689cd37b71fa3a56d3f5f66f7464bf",
+          "hash": "983ee11ed542deac0bfd593fe1e381b1ce9036cc73a45d2dded03f9380d464ff",
           "path": "README.fr.md"
         },
         {
-          "hash": "4649cdd6e80a6b8527ba99f71a4f5f5711898d8cb6d331ae4aff7a13be3da0aa",
+          "hash": "76fc3aa742234b4a4737f671f511b4271f08bbd788fd696a1670b28c8edc48da",
           "path": "README.hi.md"
         },
         {
-          "hash": "8d1c25c4bdb85bb70376a7af132f5630ef1b8cac010da11146dfaef4d11d2ad4",
+          "hash": "62529fef1d59aed8a2a759044138acd3c089cbbe13088e03e45fb374abb79949",
           "path": "README.it.md"
         },
         {
-          "hash": "008297a9fac0b6556c31c1ae39c31ad40ae3eeaf20af1b31c47196a24f7cc9e6",
+          "hash": "a5b1049490f2213fd1d54316b324377027caffaaaa111c7254a3d78c9d9945b9",
           "path": "README.ja.md"
         },
         {
-          "hash": "4dc1ba200e6d7c1a013c03f80945d8db7de7afbd2c92e26ddcf924868db6238d",
+          "hash": "95de9ec79ed1a4b811539890b22e87f4ff378099b37490a5413345b13a86afc2",
           "path": "README.md"
         },
         {
-          "hash": "d7459cf8759eb58047125ef0a2ee30d6c0bf0d8c5836a4e5d5fdd2df0a78d787",
+          "hash": "a3bb8a755c268a07e29336fb8a2de104a0d6fc18dc517b6bfd1d0c20759867e1",
           "path": "README.pt-BR.md"
         },
         {
-          "hash": "049e70ff56a4690ff39688f665ece2613d0a6ff5598751ebea63f7afd8920241",
+          "hash": "42297fbb3744f139ef7baafd13912de746b53754c6dd1488884228f095f41f9d",
           "path": "README.zh.md"
         },
         {
@@ -92,11 +92,11 @@
           "path": "SECURITY.md"
         },
         {
-          "hash": "ae75d635af00959f541aa43e3a96083856715bbb2b3bf9f1fd6fb8b1c043888b",
+          "hash": "7d7c8a3c6babaec88022f57296037814a453e5464a4eb89018f925906ae5a28e",
           "path": "SHIP_GATE.md"
         },
         {
-          "hash": "7014f70214b3c34ab849efacac1b0a849074bf9b6f78925c2c04e0c87787e0d6",
+          "hash": "7be830837934456d373a19897074f5067c4a6a4e41f85d4527c730358a710501",
           "path": "housekeeping.config.example.json"
         },
         {
@@ -104,11 +104,11 @@
           "path": "logo.png"
         },
         {
-          "hash": "a4a9558aebe06e3a4ed11eee66f0a478b97b95b30af8a35ea016bf34582d99ea",
+          "hash": "774377ee7bf9ef307b3b9cb11a9dd422b36545a07a6221b5946fe550ca46a708",
           "path": "package-lock.json"
         },
         {
-          "hash": "acd6a49eec5bcad4f8d16afd083fb4768f6f697a62ff93704b3a65583ca57cb9",
+          "hash": "2a4a6cc489248e109351a020d138351ce51023831e80803007b6932b472574d4",
           "path": "package.json"
         }
       ],
@@ -171,11 +171,11 @@
           "path": "site/astro.config.mjs"
         },
         {
-          "hash": "c87971d509814b9d39cdfd392dc9b9625edbe9b8e6b2cac6fb32701f9d29b6eb",
+          "hash": "f1f780d67e0a8e7e3d8921aaebc60f013c1b8372932838fb52d7f287ffd39919",
           "path": "site/package-lock.json"
         },
         {
-          "hash": "9c39e620ebae2c5718ecd8c6188bd3451409a614ec8f5308dc15d5fd886e5b91",
+          "hash": "3d6a0ba855f8b5fdd67cf410eca7311b73b2cc857a2758f8899d0b4c8e9528d9",
           "path": "site/package.json"
         },
         {
@@ -196,7 +196,7 @@
           "path": "site/src/content/docs/handbook/architecture.md"
         },
         {
-          "hash": "018dded19824adf2ea26da47fce35332a0e7e8f59fcd12291c4ad6df3fdec7e2",
+          "hash": "79e49d5d1468fa1031219b9163aa32b8c2752c1936c4818e631137cf490ccd4c",
           "path": "site/src/content/docs/handbook/configuration.md"
         },
         {
@@ -212,7 +212,7 @@
           "path": "site/src/content/docs/handbook/index.md"
         },
         {
-          "hash": "8c9e293027bbcc3261788717a562cf80d6fca724ecceb606e2dfefc8d7af3711",
+          "hash": "6c4fbdc06d6f2059bfec067cff96139bc20424139dfd74bd6124775d50cce701",
           "path": "site/src/content/docs/handbook/reference.md"
         },
         {
@@ -220,7 +220,7 @@
           "path": "site/src/content/docs/handbook/security.md"
         },
         {
-          "hash": "0257e75e40479e6a519c793dbf07e667581cd3dc61ee3c4ed58a359c2f3b7d90",
+          "hash": "733b39f6fd2d5012ebd2e5dd027e6ce28ce195fc8a449e48c860f568d255873e",
           "path": "site/src/content/docs/handbook/usage.md"
         },
         {
@@ -527,60 +527,65 @@
               "line": 22
             },
             {
+              "in": "watch",
+              "kind": "throw",
+              "line": 166
+            },
+            {
               "in": "repo",
               "kind": "throw",
-              "line": 145
+              "line": 174
             },
             {
               "in": "refresh",
               "kind": "throw",
-              "line": 188
+              "line": 269
             },
             {
               "in": "refresh",
               "kind": "throw",
-              "line": 192
+              "line": 273
             },
             {
               "in": "load",
               "kind": "catch",
-              "line": 221
+              "line": 302
             },
             {
               "in": "load",
               "kind": "throw",
-              "line": 222
+              "line": 303
             },
             {
               "in": "report",
               "kind": "throw",
-              "line": 233
+              "line": 314
             },
             {
               "in": "sql",
               "kind": "catch",
-              "line": 245
+              "line": 326
             },
             {
               "in": "sql",
               "kind": "throw",
-              "line": 245
+              "line": 326
             },
             {
               "in": "main",
               "kind": "throw",
-              "line": 304
+              "line": 387
             },
             {
               "kind": "catch",
-              "line": 310
+              "line": 393
             },
             {
               "kind": "catch",
-              "line": 313
+              "line": 396
             }
           ],
-          "hash": "2f2e999b18e494657bf0e1a902e26418696c5d72c12640c0ad73e8014920e5fa",
+          "hash": "41edd1486ebbd84648129a7c34e233c0657bf559531617adef3ae59fe8701311",
           "importsFiles": [
             "src/analyze.mjs",
             "src/collect.mjs",
@@ -612,21 +617,21 @@
             {
               "calls": [
                 {
-                  "line": 163,
+                  "line": 242,
                   "name": "resolveOrg",
                   "target": {
                     "file": "src/config.mjs"
                   }
                 },
                 {
-                  "line": 164,
+                  "line": 243,
                   "name": "openDb",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 180,
+                  "line": 259,
                   "name": "DRILL_BUDGET",
                   "passed": true,
                   "target": {
@@ -634,63 +639,63 @@
                   }
                 },
                 {
-                  "line": 179,
+                  "line": 258,
                   "name": "preflight",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 196,
+                  "line": 277,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
                   }
                 },
                 {
-                  "line": 198,
+                  "line": 279,
                   "name": "collect",
                   "target": {
                     "file": "src/collect.mjs"
                   }
                 },
                 {
-                  "line": 199,
+                  "line": 280,
                   "name": "loadSnapshot",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 200,
+                  "line": 281,
                   "name": "analyze",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 201,
+                  "line": 282,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
                   }
                 },
                 {
-                  "line": 202,
+                  "line": 283,
                   "name": "writeReport",
                   "target": {
                     "file": "src/report.mjs"
                   }
                 },
                 {
-                  "line": 202,
+                  "line": 283,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
                   }
                 },
                 {
-                  "line": 205,
+                  "line": 286,
                   "name": "sweepGaps",
                   "target": {
                     "file": "src/errors.mjs"
@@ -705,42 +710,42 @@
             {
               "calls": [
                 {
-                  "line": 217,
+                  "line": 298,
                   "name": "openDb",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 218,
+                  "line": 299,
                   "name": "latestSnapshotFile",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 222,
+                  "line": 303,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
                   }
                 },
                 {
-                  "line": 225,
+                  "line": 306,
                   "name": "loadSnapshot",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 226,
+                  "line": 307,
                   "name": "analyze",
                   "target": {
                     "file": "src/analyze.mjs"
                   }
                 },
                 {
-                  "line": 227,
+                  "line": 308,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -755,7 +760,7 @@
             {
               "calls": [
                 {
-                  "line": 231,
+                  "line": 312,
                   "name": "openDb",
                   "target": {
                     "file": "src/load.mjs"
@@ -772,21 +777,21 @@
                 },
                 {
                   "branch": "!Number.isInteger(sid)",
-                  "line": 233,
+                  "line": 314,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
                   }
                 },
                 {
-                  "line": 234,
+                  "line": 315,
                   "name": "writeReport",
                   "target": {
                     "file": "src/report.mjs"
                   }
                 },
                 {
-                  "line": 234,
+                  "line": 315,
                   "name": "info",
                   "target": {
                     "file": "src/log.mjs"
@@ -801,21 +806,21 @@
             {
               "calls": [
                 {
-                  "line": 238,
+                  "line": 319,
                   "name": "readOnlyQuery",
                   "target": {
                     "file": "src/errors.mjs"
                   }
                 },
                 {
-                  "line": 241,
+                  "line": 322,
                   "name": "openDb",
                   "target": {
                     "file": "src/load.mjs"
                   }
                 },
                 {
-                  "line": 242,
+                  "line": 323,
                   "name": "DB_PATH",
                   "passed": true,
                   "target": {
@@ -823,7 +828,7 @@
                   }
                 },
                 {
-                  "line": 245,
+                  "line": 326,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -838,7 +843,7 @@
             {
               "calls": [
                 {
-                  "line": 302,
+                  "line": 385,
                   "name": "levelFromFlags",
                   "target": {
                     "file": "src/log.mjs"
@@ -855,7 +860,7 @@
                       }
                     }
                   ],
-                  "line": 302,
+                  "line": 385,
                   "name": "parseLevel",
                   "target": {
                     "file": "src/log.mjs"
@@ -873,7 +878,7 @@
                       "via": "parseLevel"
                     }
                   ],
-                  "line": 302,
+                  "line": 385,
                   "name": "setLevel",
                   "target": {
                     "file": "src/log.mjs"
@@ -881,7 +886,7 @@
                 },
                 {
                   "branch": "!entry",
-                  "line": 304,
+                  "line": 387,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -902,6 +907,7 @@
             "canonicalJson",
             "collect",
             "collectAtlasMaps",
+            "collectBranches",
             "collectDeploySettings",
             "collectFailedSteps",
             "deployNeeds",
@@ -1001,52 +1007,62 @@
               "line": 811
             },
             {
+              "in": "collectBranches",
+              "kind": "throw",
+              "line": 860
+            },
+            {
+              "in": "collectBranches",
+              "kind": "catch",
+              "line": 877
+            },
+            {
               "in": "readPackageMapCache",
               "kind": "catch",
-              "line": 836
+              "line": 904
             },
             {
               "in": "auditPackageMap",
               "kind": "throw",
-              "line": 845
+              "line": 913
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 859
+              "line": 927
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 889
+              "line": 957
             },
             {
               "in": "collectLockfiles",
               "kind": "catch",
-              "line": 899
+              "line": 967
             },
             {
               "in": "collectBilling",
               "kind": "catch",
-              "line": 933
+              "line": 1001
             },
             {
               "in": "readRunCostCache",
               "kind": "catch",
-              "line": 953
+              "line": 1021
             },
             {
               "in": "collectRunCosts",
               "kind": "catch",
-              "line": 1062
+              "line": 1130
             },
             {
               "in": "sweep",
               "kind": "catch",
-              "line": 1156
+              "line": 1226
             }
           ],
-          "hash": "9aceb36ebb271d36ddf5649e086641b5125597417c14d21b3d708d01eaf48d8d",
+          "hash": "f3ebe90d4fbbb0fc9ed0f7863ad14d5e1263e6fa153a32c29e9eaa6f00497f8e",
           "importsFiles": [
             "src/config.mjs",
             "src/cost.mjs",
@@ -1388,49 +1404,72 @@
             {
               "calls": [
                 {
-                  "line": 855,
+                  "line": 853,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 858,
+                  "line": 120,
+                  "name": "info",
+                  "target": {
+                    "file": "src/log.mjs"
+                  },
+                  "via": "log"
+                }
+              ],
+              "exported": true,
+              "invokedAtTopLevel": false,
+              "isDefaultExport": false,
+              "name": "collectBranches"
+            },
+            {
+              "calls": [
+                {
+                  "line": 923,
+                  "name": "pMap",
+                  "target": {
+                    "file": "src/gh.mjs"
+                  }
+                },
+                {
+                  "line": 926,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 863,
+                  "line": 931,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 870,
+                  "line": 938,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 874,
+                  "line": 942,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 881,
+                  "line": 949,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
                   }
                 },
                 {
-                  "line": 886,
+                  "line": 954,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1453,17 +1492,17 @@
             {
               "calls": [
                 {
-                  "line": 918,
+                  "line": 986,
                   "name": "getUTCFullYear",
                   "target": null
                 },
                 {
-                  "line": 918,
+                  "line": 986,
                   "name": "getUTCMonth",
                   "target": null
                 },
                 {
-                  "line": 920,
+                  "line": 988,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1495,42 +1534,42 @@
                   "via": "log"
                 },
                 {
-                  "line": 980,
+                  "line": 1048,
                   "name": "ratesFromUsage",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 981,
+                  "line": 1049,
                   "name": "withFallback",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1002,
+                  "line": 1070,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1005,
+                  "line": 1073,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
                   }
                 },
                 {
-                  "line": 1037,
+                  "line": 1105,
                   "name": "priceRun",
                   "target": {
                     "file": "src/cost.mjs"
                   }
                 },
                 {
-                  "line": 1050,
+                  "line": 1118,
                   "name": "runnerClass",
                   "target": {
                     "file": "src/cost.mjs"
@@ -1545,7 +1584,7 @@
             {
               "calls": [
                 {
-                  "line": 1089,
+                  "line": 1157,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1665,15 +1704,15 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 855,
+                  "line": 853,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   },
-                  "via": "collectLockfiles"
+                  "via": "collectBranches"
                 },
                 {
-                  "line": 858,
+                  "line": 926,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1681,7 +1720,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 863,
+                  "line": 931,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1689,7 +1728,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 870,
+                  "line": 938,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1697,7 +1736,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 874,
+                  "line": 942,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1705,7 +1744,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 881,
+                  "line": 949,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1713,7 +1752,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 886,
+                  "line": 954,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1729,7 +1768,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 918,
+                  "line": 986,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1744,7 +1783,7 @@
             {
               "calls": [
                 {
-                  "line": 1089,
+                  "line": 1157,
                   "name": "whoami",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1863,15 +1902,15 @@
                   "via": "collectSecurity"
                 },
                 {
-                  "line": 855,
+                  "line": 853,
                   "name": "pMap",
                   "target": {
                     "file": "src/gh.mjs"
                   },
-                  "via": "collectLockfiles"
+                  "via": "collectBranches"
                 },
                 {
-                  "line": 858,
+                  "line": 926,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1879,7 +1918,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 863,
+                  "line": 931,
                   "name": "lockfilePathsFromTree",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1887,7 +1926,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 870,
+                  "line": 938,
                   "name": "rest",
                   "target": {
                     "file": "src/gh.mjs"
@@ -1895,7 +1934,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 874,
+                  "line": 942,
                   "name": "readLockfile",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1903,7 +1942,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 881,
+                  "line": 949,
                   "name": "advisoriesFromBulk",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1911,7 +1950,7 @@
                   "via": "collectLockfiles"
                 },
                 {
-                  "line": 886,
+                  "line": 954,
                   "name": "countBySeverity",
                   "target": {
                     "file": "src/lockfile.mjs"
@@ -1927,7 +1966,7 @@
                   "via": "collectAtlasMaps"
                 },
                 {
-                  "line": 918,
+                  "line": 986,
                   "name": "getUTCFullYear",
                   "target": null,
                   "via": "collectBilling"
@@ -1953,55 +1992,60 @@
             {
               "in": "parseConfig",
               "kind": "catch",
-              "line": 39
+              "line": 44
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 39
+              "line": 44
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 41
+              "line": 46
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 45
+              "line": 50
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 49
+              "line": 54
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 53
+              "line": 58
             },
             {
               "in": "parseConfig",
               "kind": "throw",
-              "line": 57
+              "line": 62
             },
             {
-              "in": "loadConfig",
-              "kind": "catch",
+              "in": "parseConfig",
+              "kind": "throw",
               "line": 66
             },
             {
               "in": "loadConfig",
+              "kind": "catch",
+              "line": 75
+            },
+            {
+              "in": "loadConfig",
               "kind": "throw",
-              "line": 68
+              "line": 77
             },
             {
               "in": "resolveOrg",
               "kind": "throw",
-              "line": 80
+              "line": 89
             }
           ],
-          "hash": "b38255050296878e110dc5c4ad88d410eecf4cf536cda5b5ac3c17e95eae032c",
+          "hash": "0347cda7d36739c64f6d719f951fa31d24aad46a0205ecfdd8b85498793d7f39",
           "importsFiles": [
             "src/errors.mjs",
             "src/paths.mjs"
@@ -2011,7 +2055,7 @@
             {
               "calls": [
                 {
-                  "line": 26,
+                  "line": 31,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2026,7 +2070,7 @@
             {
               "calls": [
                 {
-                  "line": 26,
+                  "line": 31,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2042,7 +2086,7 @@
             {
               "calls": [
                 {
-                  "line": 26,
+                  "line": 31,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2059,7 +2103,7 @@
               "calls": [
                 {
                   "branch": "!org",
-                  "line": 80,
+                  "line": 89,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -2313,6 +2357,7 @@
           "entry": "loadSnapshot",
           "entryRule": 1,
           "exports": [
+            "branchRows",
             "compareSemver",
             "deploySettingsRows",
             "environmentPolicy",
@@ -2354,30 +2399,30 @@
             {
               "in": "loadSnapshot",
               "kind": "catch",
-              "line": 488
+              "line": 520
             },
             {
               "in": "loadSnapshot",
               "kind": "throw",
-              "line": 490
+              "line": 522
             },
             {
               "in": "latestSnapshotFile",
               "kind": "catch",
-              "line": 899
+              "line": 949
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
-              "line": 899
+              "line": 949
             },
             {
               "in": "latestSnapshotFile",
               "kind": "throw",
-              "line": 900
+              "line": 950
             }
           ],
-          "hash": "8b03c1a3daaf7d7e47031ad9a0907ce178b020e6f14d2df3a0a21a4c0b90801b",
+          "hash": "d359bca3cc08072284470a4ac84ab8e434fcfb52b5a0286a5980579ed718c517",
           "importsFiles": [
             "src/collect.mjs",
             "src/cost.mjs",
@@ -2500,18 +2545,18 @@
             {
               "calls": [
                 {
-                  "line": 483,
+                  "line": 515,
                   "name": "exec",
                   "target": null
                 },
                 {
-                  "line": 495,
+                  "line": 527,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 556,
+                  "line": 590,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2591,7 +2636,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 873,
+                  "line": 923,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2599,7 +2644,7 @@
                   "via": "loadSnapshotInner"
                 },
                 {
-                  "line": 486,
+                  "line": 518,
                   "name": "exec",
                   "target": null
                 }
@@ -2612,13 +2657,13 @@
             {
               "calls": [
                 {
-                  "line": 495,
+                  "line": 527,
                   "name": "prepare",
                   "target": null,
                   "via": "ins"
                 },
                 {
-                  "line": 556,
+                  "line": 590,
                   "name": "safeJson",
                   "target": {
                     "file": "src/collect.mjs"
@@ -2697,7 +2742,7 @@
                   "via": "failedStepRows"
                 },
                 {
-                  "line": 873,
+                  "line": 923,
                   "name": "reconcileRepos",
                   "target": {
                     "file": "src/cost.mjs"
@@ -2712,7 +2757,7 @@
             {
               "calls": [
                 {
-                  "line": 896,
+                  "line": 946,
                   "name": "DATA_DIR",
                   "passed": true,
                   "target": {
@@ -2721,7 +2766,7 @@
                 },
                 {
                   "branch": "!files.length",
-                  "line": 900,
+                  "line": 950,
                   "name": "userError",
                   "target": {
                     "file": "src/errors.mjs"
@@ -3041,7 +3086,7 @@
           ]
         },
         {
-          "hash": "02277b5aa14d013a22c3d2129969a508263d797a902c30375a8a50d5c4c656cf",
+          "hash": "faf7ae130577161284334fa5e8e52bdd1702dbcf488f50e1d2138372e0cc9ce6",
           "path": "src/schema.sql"
         },
         {
@@ -3076,7 +3121,7 @@
       "origin": "authored",
       "outsidePlaces": [
         {
-          "reads": 24,
+          "reads": 29,
           "where": [
             "caller"
           ],
@@ -3104,13 +3149,13 @@
           "writes": 1
         }
       ],
-      "outsideReads": 26,
+      "outsideReads": 31,
       "outsideWrites": 2,
       "role": "code",
       "testRunners": [
         "node --test"
       ],
-      "testedBy": 25,
+      "testedBy": 26,
       "unresolvedSites": 0
     },
     {
@@ -3165,6 +3210,15 @@
           "testFramework": "node --test"
         },
         {
+          "hash": "1d3ba93a8aa0b966de9661b6f09ae4779484b49a467a09f6f2b62a5ed285524c",
+          "importsFiles": [
+            "src/collect.mjs",
+            "src/load.mjs"
+          ],
+          "path": "test/branches.test.mjs",
+          "testFramework": "node --test"
+        },
+        {
           "hash": "aa0f4c436e160f81b01cba19982553d86fbc2288990e8fa4632db8b67772467e",
           "importsFiles": [
             "src/analyze.mjs"
@@ -3194,7 +3248,7 @@
           "testFramework": "node --test"
         },
         {
-          "hash": "004abec84b302a1381469baec812b6628a7fc60e14564ffe974019fe8b2306f7",
+          "hash": "871e07b64218bc810fb95b05b01810e1053379175ab8da09fcf74ca1986de145",
           "importOrder": [
             "src/config.mjs",
             "src/load.mjs",
@@ -3489,7 +3543,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 26
+          "files": 27
         },
         {
           "boundary": "src",
@@ -3526,7 +3580,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 26,
+          "files": 27,
           "job": "test",
           "runner": "node --test",
           "step": "3",
@@ -3838,7 +3892,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 26
+          "files": 27
         },
         {
           "boundary": "src",
@@ -3875,7 +3929,7 @@
       "stages": [],
       "tests": [
         {
-          "files": 26,
+          "files": 27,
           "job": "publish",
           "runner": "node --test",
           "step": "5",
@@ -3996,8 +4050,8 @@
   ],
   "engine": "1.24.0",
   "generatedFrom": {
-    "commit": "f5ce8fe97e7538818de884d45c7ca38ccfe725c2",
-    "tracked": 85
+    "commit": "b004591ab2033729d50c00c544149b739b308583",
+    "tracked": 86
   },
   "landings": [
     {
@@ -4256,6 +4310,12 @@
           "fromTests": true
         },
         {
+          "by": "test/branches.test.mjs",
+          "call": "readFileSync",
+          "confidence": "ast",
+          "fromTests": true
+        },
+        {
           "by": "test/ci-failing.test.mjs",
           "call": "readFileSync",
           "confidence": "ast",
@@ -4299,6 +4359,6 @@
   "overlaps": [],
   "submodules": [],
   "symlinks": [],
-  "testFiles": 26,
+  "testFiles": 27,
   "unassigned": []
 }

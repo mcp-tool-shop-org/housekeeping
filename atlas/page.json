@@ -28,7 +28,7 @@
   "changes": {
     "fileCounts": {
       "added": 0,
-      "changed": 1,
+      "changed": 2,
       "moved": 0,
       "parts": 1,
       "removed": 0
@@ -36,13 +36,13 @@
     "items": [
       {
         "kind": "counts",
-        "sentence": "Nothing structural changed since 2026-10-06; 1 file changed content.",
+        "sentence": "Nothing structural changed since 2026-11-07; 2 files changed content.",
         "subjects": []
       }
     ],
     "since": {
-      "commit": "6b96ef31d8dd3e2ab6248cee3e2420b9503e9bd9",
-      "generatedAt": "2026-10-06T17:17:57.892Z"
+      "commit": "418f0a992dc58646dbd473d562123757b3e3de38",
+      "generatedAt": "2026-11-07T18:35:28.521Z"
     },
     "unchanged": true
   },
@@ -68,9 +68,9 @@
     "Window: 180 days; a pair counts from 3 shared commits, since the window holds fewer than 30 qualifying commits."
   ],
   "changesTogetherWithTests": 0,
-  "commit": "f5ce8fe97e7538818de884d45c7ca38ccfe725c2",
+  "commit": "b004591ab2033729d50c00c544149b739b308583",
   "defaultBranch": "main",
-  "derived": "6 parts, mostly JavaScript (41 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
+  "derived": "6 parts, mostly JavaScript (42 files), CSS (2), TypeScript (2) and Astro (1). Work enters through 5 doors; CI and Release each reach 2 parts, and CI is followed because a pull request goes through it. It publishes to npm. It deploys a site to GitHub Pages. People run hk and hk-mcp.",
   "doors": [
     {
       "checks": [],
@@ -85,7 +85,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 26
+          "files": 27
         },
         {
           "boundary": "src",
@@ -119,7 +119,7 @@
         {
           "boundary": "test",
           "depth": 0,
-          "files": 26
+          "files": 27
         },
         {
           "boundary": "src",
@@ -237,10 +237,10 @@
   ],
   "engine": "1.24.0",
   "generated": [],
-  "generatedAt": "2026-10-15T02:51:49.297Z",
+  "generatedAt": "2026-11-07T18:38:43.537Z",
   "limits": [
     "3 writes and 2 reads use paths built at run time and are not named here.",
-    "1 write and 24 reads go to a path their caller passes, not to this repository.",
+    "1 write and 29 reads go to a path their caller passes, not to this repository.",
     "2 reads go to the directory the command is run in (package-lock.json and rules/), not to this repository.",
     "1 write goes to a temporary directory, not to this repository.",
     "6 commands are built at run time and not followed, 1 of them in tests.",
@@ -268,9 +268,9 @@
   "startReason": "This path follows hk (a command people run) from its entry, since CI runs only tests.",
   "summary": "An operational-health warehouse for a GitHub organization: one sweep into SQLite, audited against written rules.",
   "summaryFrom": "person",
-  "testFiles": 26,
+  "testFiles": 27,
   "testedBy": {
-    "src": 25
+    "src": 26
   },
   "unnamedWrites": 3,
   "unread": [],

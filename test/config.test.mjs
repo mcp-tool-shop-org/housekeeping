@@ -17,11 +17,11 @@ import { analyze } from '../src/analyze.mjs';
 
 test('a full config is read as written', () => {
   const c = parseConfig('{ "org": "example-org", "metaRepos": [".github", "design-assets"] }');
-  assert.deepEqual(c, { org: 'example-org', metaRepos: ['.github', 'design-assets'], homeOrgs: null });
+  assert.deepEqual(c, { org: 'example-org', metaRepos: ['.github', 'design-assets'], homeOrgs: null, watch: [] });
 });
 
 test('an empty object is the defaults: no org, only .github exempt', () => {
-  assert.deepEqual(parseConfig('{}'), { org: null, metaRepos: ['.github'], homeOrgs: null });
+  assert.deepEqual(parseConfig('{}'), { org: null, metaRepos: ['.github'], homeOrgs: null, watch: [] });
 });
 
 test('an explicitly empty metaRepos exempts nothing -- that is a choice, not a typo', () => {
@@ -30,14 +30,14 @@ test('an explicitly empty metaRepos exempts nothing -- that is a choice, not a t
 
 test('a missing file is the defaults; it is not an error', () => {
   const dir = mkdtempSync(join(tmpdir(), 'hk-config-'));
-  assert.deepEqual(loadConfig(join(dir, 'absent.json')), { org: null, metaRepos: ['.github'], homeOrgs: null });
+  assert.deepEqual(loadConfig(join(dir, 'absent.json')), { org: null, metaRepos: ['.github'], homeOrgs: null, watch: [] });
 });
 
 test('a file that exists is parsed, not defaulted', () => {
   const dir = mkdtempSync(join(tmpdir(), 'hk-config-'));
   const p = join(dir, 'housekeeping.config.json');
   writeFileSync(p, '{ "org": "example-org" }');
-  assert.deepEqual(loadConfig(p), { org: 'example-org', metaRepos: ['.github'], homeOrgs: null });
+  assert.deepEqual(loadConfig(p), { org: 'example-org', metaRepos: ['.github'], homeOrgs: null, watch: [] });
 });
 
 test('every malformed shape throws rather than falling back', () => {
@@ -50,8 +50,14 @@ test('every malformed shape throws rather than falling back', () => {
     ['{ "org": 7 }',                         /"org" must be/],
     ['{ "metaRepos": ".github" }',           /"metaRepos" must be/],
     ['{ "metaRepos": [".github", 3] }',      /"metaRepos" must be/],
+    ['{ "watch": "repo-a" }',                /"watch" must be/],
+    ['{ "watch": ["repo-a", ""] }',          /"watch" must be/],
   ];
   for (const [text, re] of bad) assert.throws(() => parseConfig(text), re, text);
+});
+
+test('the watch list is read as given', () => {
+  assert.deepEqual(parseConfig('{ "watch": ["repo-a", "repo-b"] }').watch, ['repo-a', 'repo-b']);
 });
 
 test('a malformed file throws through loadConfig too', () => {

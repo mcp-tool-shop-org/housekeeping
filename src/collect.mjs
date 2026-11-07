@@ -14,7 +14,7 @@ import { priceRun, ratesFromUsage, withFallback, runnerClass } from './cost.mjs'
 import { pagesDeployJobs, jobEnvironment } from './workflow-risks.mjs';
 import { DATA_DIR } from './paths.mjs';
 
-export const COLLECTOR_VERSION = '1.5.0';
+export const COLLECTOR_VERSION = '1.6.0';
 
 const REPO_FIELDS = `
   id name description url homepageUrl
@@ -622,7 +622,7 @@ function readAtlasCache() {
  */
 async function atlasFleetVersion(fetchImpl = fetch) {
   try {
-    const res = await fetchImpl(`https://registry.npmjs.org/${ATLAS_PACKAGE.replace('/', '%2f')}`, {
+    const res = await fetchImpl(`https://registry.npmjs.org/${encodeURIComponent(ATLAS_PACKAGE)}`, {
       headers: { accept: 'application/vnd.npm.install-v1+json' }, signal: AbortSignal.timeout(30_000),
     });
     if (!res.ok) return { version: null, source: 'npm dist-tags latest', error: `http_${res.status}` };
@@ -694,7 +694,7 @@ async function collectNpm(repos, concurrency = 12) {
     .filter(x => x.pkg && x.pkg.name && !x.pkg.private);
 
   const results = await pMap(named, async x => {
-    const res = await fetch(`https://registry.npmjs.org/${x.pkg.name.replace('/', '%2f')}`, {
+    const res = await fetch(`https://registry.npmjs.org/${encodeURIComponent(x.pkg.name)}`, {
       headers: { accept: 'application/vnd.npm.install-v1+json' },
     });
     if (res.status === 404) return { repo: x.repo, pkg_name: x.pkg.name, status: 'unpublished' };
@@ -815,6 +815,74 @@ async function collectSecurity(org, repos, concurrency = 10) {
 
   log(`security: ${alerts.length} open alerts, ${Object.values(fixes).filter(v => v === 0).length} repos with auto-fixes off, ${Object.values(scanned).filter(v => v === 0).length} not scanned at all`);
   return { ok: alertsOk, alerts, auto_security_fixes: fixes, vulnerability_alerts: scanned };
+}
+
+// Every branch, the pull requests it was the head of, and whether the repo
+// deletes a head branch when its pull request merges.
+//
+// A merged PR's branch is restorable from the PR page only while its tip is
+// the commit the PR merged; a branch pushed to after its merge carries work
+// that exists nowhere else. So the head commit is kept beside each PR's
+// headRefOid, and the loader tells the two apart.
+//
+// Cost: one GraphQL query per non-archived, non-empty repo, plus one per
+// further 100 branches. Measured 2026-10-11 by rateLimit(dryRun): 1 point per
+// repo at first:100 with five associated PRs per branch (8 repos: 8 points).
+const BRANCH_QUERY = `
+query($owner:String!, $name:String!, $cursor:String) {
+  repository(owner:$owner, name:$name) {
+    deleteBranchOnMerge
+    refs(refPrefix:"refs/heads/", first:100, after:$cursor) {
+      totalCount
+      pageInfo { hasNextPage endCursor }
+      nodes {
+        name
+        target { ... on Commit { oid committedDate } }
+        associatedPullRequests(first:5, orderBy:{field:UPDATED_AT, direction:DESC}) {
+          nodes { number state headRefOid }
+        }
+      }
+    }
+  }
+}`;
+
+export async function collectBranches(org, repos, { query = graphql, concurrency = 6 } = {}) {
+  const out = {};
+  const errors = [];
+  const targets = repos.filter(r => !r.isArchived && !r.isEmpty);
+  await pMap(targets, async r => {
+    const branches = [];
+    let cursor = null, total = 0, deleteOnMerge = null;
+    try {
+      for (;;) {
+        const body = await query(BRANCH_QUERY, { owner: org, name: r.name, cursor });
+        const repo = body.data?.repository;
+        if (!repo) throw new Error('repository not visible');
+        deleteOnMerge = repo.deleteBranchOnMerge ?? null;
+        total = repo.refs?.totalCount ?? 0;
+        for (const b of repo.refs?.nodes ?? []) {
+          branches.push({
+            name: b.name,
+            oid: b.target?.oid ?? null,
+            committed_at: b.target?.committedDate ?? null,
+            prs: (b.associatedPullRequests?.nodes ?? []).map(p => ({
+              number: p.number, state: p.state, head_oid: p.headRefOid ?? null,
+            })),
+          });
+        }
+        cursor = repo.refs?.pageInfo?.hasNextPage ? repo.refs.pageInfo.endCursor : null;
+        if (!cursor) break;
+      }
+      out[r.name] = { delete_branch_on_merge: deleteOnMerge, total, branches };
+    } catch (e) {
+      // A repo that could not be read gets no record at all, never an empty
+      // one: no branches would read as "nothing to clean up".
+      errors.push({ repo: r.name, stage: 'branches', message: String(e.message ?? e).slice(0, 200) });
+    }
+  }, concurrency);
+  const n = Object.values(out).reduce((s, x) => s + x.branches.length, 0);
+  log(`branches: ${n} in ${Object.keys(out).length} repos, ${errors.length} unreadable`);
+  return { ok: errors.length === 0, repos: out, errors };
 }
 
 // ---------------------------------------------------------------------------
@@ -1097,6 +1165,7 @@ async function sweep(org, ctx) {
   ctx.stage = 'deploy_settings'; const deploySettings = await collectDeploySettings(org, repos, workflowFiles);
   ctx.stage = 'npm';            const npm = await collectNpm(repos);
   ctx.stage = 'security';       const security = await collectSecurity(org, repos);
+  ctx.stage = 'branches';       const branches = await collectBranches(org, repos);
   ctx.stage = 'lockfiles';      const lockfiles = await collectLockfiles(org, repos);
   ctx.stage = 'atlas_maps';     const atlasMaps = await collectAtlasMaps(org, repos);
   ctx.stage = 'billing';        const billing = await collectBilling(org);
@@ -1121,13 +1190,14 @@ async function sweep(org, ctx) {
     deploy_settings: { ok: deploySettings.ok, calls: deploySettings.calls, repos: deploySettings.repos },
     npm,
     security,
+    branches: { ok: branches.ok, repos: branches.repos },
     lockfiles,
     // fetched/cached counts are left out: they describe this machine's cache,
     // not the org, and would make two identical observations look different.
     atlas_maps: { ok: atlasMaps.ok, fleet_version: atlasMaps.fleet_version, repos: atlasMaps.repos },
     billing,
     run_costs: runCosts,
-    errors: errors.concat(deploySettings.errors ?? [], runCosts.errors ?? [],
+    errors: errors.concat(deploySettings.errors ?? [], runCosts.errors ?? [], branches.errors,
       failedSteps.runs.filter(x => x.error).map(x => ({ repo: x.repo, stage: 'failed_steps', message: x.error }))),
   };
 

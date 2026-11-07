@@ -9,7 +9,7 @@ import { openDb, loadSnapshot, latestSnapshotFile, DB_PATH } from './load.mjs';
 import { analyze, healthScores, RUN_IS_LIVE_MAINLINE_SIGNAL, HEAD_CHECKS_RED } from './analyze.mjs';
 import { collect, DRILL_BUDGET } from './collect.mjs';
 import { preflight } from './gh.mjs';
-import { resolveOrg } from './config.mjs';
+import { resolveOrg, loadConfig } from './config.mjs';
 import { writeReport } from './report.mjs';
 import { EXIT, HkError, userError, exitCodeFor, formatError, readOnlyQuery, sweepGaps } from './errors.mjs';
 import { info, isDebug, levelFromFlags, parseLevel, setLevel } from './log.mjs';
@@ -141,6 +141,35 @@ const REPORTS = {
            disk_usage_kb kb, days_since_push push_age, open_issues iss, open_prs prs,
            release_count rels, ci_rollup, workflow_count wfs
     FROM repo WHERE snapshot_id=? ORDER BY name`).all(sid), { max: 200 }),
+  // Branches by repo: what a cleanup would delete (merged), what it must not
+  // (merged_moved: commits after the merge), and what has no PR at all.
+  branches: (sid, repo) => {
+    if (!db.prepare('SELECT 1 FROM repo_branches WHERE snapshot_id=? LIMIT 1').get(sid)) {
+      return console.log('no branch data in this snapshot (collector 1.6.0 or later) - run `hk refresh`');
+    }
+    if (repo) {
+      return table(db.prepare(`SELECT name, state, age_days age, pr_number pr, SUBSTR(head_oid,1,7) head
+        FROM branch WHERE snapshot_id=? AND repo=? ORDER BY state, age_days DESC`).all(sid, repo), { max: 500 });
+    }
+    table(db.prepare(`SELECT s.repo, CASE s.delete_on_merge WHEN 1 THEN 'on' WHEN 0 THEN 'off' END auto_delete,
+        s.branch_count branches,
+        SUM(b.state='merged') merged, SUM(b.state='merged_moved') moved,
+        SUM(b.state='closed') closed, SUM(b.state='no_pr' AND b.age_days>=${STALE_BRANCH_DAYS}) no_pr_stale,
+        SUM(b.state IN ('open_pr','open_base')) open
+      FROM repo_branches s LEFT JOIN branch b ON b.snapshot_id=s.snapshot_id AND b.repo=s.repo
+      WHERE s.snapshot_id=? GROUP BY s.repo HAVING s.branch_count > 1
+      ORDER BY merged + moved + closed + no_pr_stale DESC, s.repo`).all(sid), { max: 200 });
+  },
+  watch: (sid, ...names) => {
+    const repos = names.length ? names : loadConfig().watch;
+    if (!repos.length) {
+      throw userError('USAGE', 'no repositories to watch',
+        'name them (hk watch <repo> ...) or set "watch" in housekeeping.config.json');
+    }
+    const s = db.prepare('SELECT taken_at, collector_version FROM snapshot WHERE id=?').get(sid);
+    console.log(`watch: ${repos.join(', ')}\nsnapshot ${sid}, taken ${s.taken_at} (collector ${s.collector_version})`);
+    for (const name of repos) watchRepo(sid, name);
+  },
   repo: (sid, name) => {
     if (!name) throw userError('USAGE', '`hk repo` needs a repository name', 'hk repo <name>');
     table(db.prepare('SELECT * FROM repo WHERE snapshot_id=? AND name=?').all(sid, name));
@@ -154,6 +183,56 @@ const REPORTS = {
 };
 
 function latestOr(sid) { return sid; }
+
+// A branch with no PR and no commit for this long is listed as stale. The
+// number is the Publisher's sweep brief of 2026-10-11, not an org rule.
+const STALE_BRANCH_DAYS = 7;
+
+// One watched repo: open PRs by idle time, open alerts, and the branches a
+// cleanup would touch. Every section says when it was not measured, because
+// an empty list from an unscanned repo reads exactly like a clean one.
+function watchRepo(sid, name) {
+  const r = db.prepare('SELECT is_archived FROM repo WHERE snapshot_id=? AND name=?').get(sid, name);
+  console.log(`\n== ${name}`);
+  if (!r) return console.log('not in this snapshot (misspelt, or not in the org)');
+  if (r.is_archived) console.log('archived');
+
+  const prs = db.prepare(`SELECT number, stale_days idle, age_days age, is_draft draft, mergeable,
+      base_ref base, head_ref head, SUBSTR(title,1,60) title
+    FROM pull_request WHERE snapshot_id=? AND repo=? ORDER BY stale_days DESC, number`).all(sid, name);
+  console.log(`\n-- open PRs (${prs.length}), longest idle first --`);
+  table(prs);
+
+  const sec = db.prepare('SELECT vuln_alerts FROM repo_security WHERE snapshot_id=? AND repo=?').get(sid, name);
+  console.log('\n-- open Dependabot alerts --');
+  if (!sec) console.log('not measured (the security pass did not read this repo)');
+  else if (sec.vuln_alerts === 0) console.log('NOT SCANNED: vulnerability alerts are off, so no alert can appear');
+  else {
+    if (sec.vuln_alerts === null) console.log('(whether alerts are on could not be read)');
+    table(db.prepare(`SELECT number, severity, package, manifest, fixed_version fix, age_days age, ghsa
+      FROM security_alert WHERE snapshot_id=? AND repo=?
+      ORDER BY CASE severity WHEN 'critical' THEN 0 WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END, number`)
+      .all(sid, name));
+  }
+
+  const set = db.prepare('SELECT delete_on_merge, branch_count FROM repo_branches WHERE snapshot_id=? AND repo=?').get(sid, name);
+  console.log('\n-- branches --');
+  if (!set) return console.log('not measured (no branch data for this repo in this snapshot)');
+  const auto = set.delete_on_merge === 1 ? 'on' : set.delete_on_merge === 0 ? 'off' : 'unknown';
+  const rows = db.prepare(`SELECT name, state, age_days age, pr_number pr, SUBSTR(head_oid,1,7) head
+    FROM branch WHERE snapshot_id=? AND repo=? ORDER BY name`).all(sid, name);
+  const of = st => rows.filter(b => b.state === st);
+  const stale = of('no_pr').filter(b => b.age_days >= STALE_BRANCH_DAYS);
+  console.log(`${set.branch_count} branches; auto-delete head branches: ${auto}; ` +
+    `open ${of('open_pr').length + of('open_base').length}, merged ${of('merged').length}, ` +
+    `moved after merge ${of('merged_moved').length}, closed ${of('closed').length}, ` +
+    `no PR ${of('no_pr').length} (${stale.length} idle ${STALE_BRANCH_DAYS}+ days)`);
+  const list = (label, bs) => { if (bs.length) { console.log(`\n${label}:`); table(bs); } };
+  list('merged, tip = merged head (deletable; restorable from the PR page)', of('merged'));
+  list('MOVED after merge (commits exist only here; do not delete unconfirmed)', of('merged_moved'));
+  list('closed without merging', of('closed'));
+  list(`no PR, idle ${STALE_BRANCH_DAYS}+ days`, stale);
+}
 
 // ---- commands ---------------------------------------------------------------
 // One table drives both the dispatch and `hk help`, so the help text cannot
@@ -178,7 +257,9 @@ async function refresh(args) {
   // silently.
   const pre = await preflight({
     rest: 300 + Math.min(DRILL_BUDGET, 900),
-    graphql: 300,
+    // ~195 for the repo pages and workflow files, ~1 per repo for the
+    // branch pass (collector 1.6.0, measured 2026-10-11), with headroom.
+    graphql: 450,
   });
   if (!pre.ok && !force) {
     if (pre.limit === 'secondary') {
@@ -265,6 +346,8 @@ const COMMANDS = {
   versions:         ['',                'package.json against git tag against npm', viaReport('versions')],
   prs:              ['',                'every open pull request by age', viaReport('prs')],
   issues:           ['',                'every open issue by staleness', viaReport('issues')],
+  branches:         ['[repo]',          'branches by state: merged, moved after merge, closed, no PR', viaReport('branches')],
+  watch:            ['[repo ...]',      'open PRs, alerts and branches for the watch list in the config', viaReport('watch')],
   snapshots:        ['',                'the snapshots loaded into the database', () => {
     db = openDb();
     table(db.prepare('SELECT id, taken_at, org, repo_count, duration_ms FROM snapshot ORDER BY id').all());

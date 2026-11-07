@@ -25,6 +25,8 @@ sidebar:
 | `hk versions` | `package.json` against git tag against npm. |
 | `hk prs` | Every open pull request by age. |
 | `hk issues` | Every open issue by staleness. |
+| `hk branches [repo]` | Branches by state: merged, moved after the merge, closed, no pull request. |
+| `hk watch [repo ...]` | Open pull requests, open alerts and branches for the repositories named, or for `watch` in the config. |
 | `hk snapshots` | The snapshots loaded into the database. |
 | `hk sql "<query>"` | One read-only `SELECT` or `WITH` statement. |
 | `hk help` | The command list. |
@@ -134,6 +136,7 @@ or the `hk_schema` tool shows the columns.
 | `run_failed_step` | failed step of a red default-branch run, and the same step as a map names it |
 | `workflow_environment`, `environment`, `deploy_settings` | what a deploy depends on |
 | `branch_protection`, `check_context` | protection rule, observed check name |
+| `branch`, `repo_branches` | branch and its state, auto-delete setting |
 | `package_script`, `package_dep` | npm script, declared dependency |
 | `security_alert`, `repo_security` | open alert, repository security settings |
 | `lockfile`, `lockfile_advisory` | committed lockfile, advisory found in it |
