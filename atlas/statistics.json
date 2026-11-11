@@ -128,7 +128,7 @@
       },
       {
         "commits": 25,
-        "lines": 236,
+        "lines": 240,
         "path": "CHANGELOG.md"
       },
       {
@@ -193,7 +193,7 @@
       },
       {
         "commits": 26,
-        "lines": 338,
+        "lines": 337,
         "path": "atlas/README.md"
       },
       {
@@ -203,12 +203,12 @@
       },
       {
         "commits": 26,
-        "lines": 951,
+        "lines": 937,
         "path": "atlas/page.json"
       },
       {
         "commits": 26,
-        "lines": 3767,
+        "lines": 3860,
         "path": "atlas/statistics.json"
       },
       {
@@ -228,7 +228,7 @@
       },
       {
         "commits": 10,
-        "lines": 1310,
+        "lines": 1360,
         "path": "package-lock.json"
       },
       {
@@ -572,9 +572,9 @@
     "level": "low",
     "reason": "fewer than 30 qualifying commits in the window, and fewer than 25 source files reach 10 revisions"
   },
-  "generatedAt": "2026-11-07T18:38:43.537Z",
+  "generatedAt": "2026-11-11T22:19:19.599Z",
   "generatedFrom": {
-    "commit": "b004591ab2033729d50c00c544149b739b308583"
+    "commit": "1fa6028ace0503951704f2ce38295d191e14e38a"
   },
   "pairs": [
     {
@@ -684,7 +684,7 @@
     }
   ],
   "parameters": {
-    "appliedChangesetLimit": 21.75,
+    "appliedChangesetLimit": 22.75,
     "changeset": 50,
     "changesetFraction": 0.25,
     "cohesionDrop": 0.2,
@@ -693,8 +693,8 @@
     "floor": "fallen",
     "floorHeld": false,
     "floorTrigger": "both",
-    "headDate": "2026-11-07T13:36:33-05:00",
-    "inScopeFiles": 87,
+    "headDate": "2026-11-07T13:41:00-05:00",
+    "inScopeFiles": 91,
     "pinnedStart": null,
     "priorFloor": "fallen",
     "qualifyingCommits": 20,
@@ -702,7 +702,7 @@
     "revisions": 5,
     "shared": 10,
     "sharedFloorUsed": 3,
-    "since": "2026-05-11T18:36:33.000Z",
+    "since": "2026-05-11T18:41:00.000Z",
     "sourceExtensions": [
       ".js",
       ".mjs",
