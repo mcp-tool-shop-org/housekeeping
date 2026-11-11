@@ -48,4 +48,4 @@ jobs:
       # rules/atlas-map.md: the committed map, checked at the fleet pin. The pin
       # moves with ATLAS_PIN in the export and the regenerated map, in one change.
       - name: Atlas check
-        run: npx --yes @dogfood-lab/atlas@1.24.0 check
+        run: npx --yes @dogfood-lab/atlas@1.26.0 check
